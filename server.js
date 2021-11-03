@@ -1,35 +1,21 @@
-const express = require("express");
-const config = require("config");
-const mongoose = require("mongoose");
+const express = require('express');
+const connectDB = require('./config/db');
 
 const app = express();
-const port = process.env.PORT || 8000;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use("/homes", require("./routes/homes"));
-app.use("/guests", require("./routes/users"));
-// app.use("/hosts", require("./routes/hosts"));
-app.use("/bookings", require("./routes/bookings"));
+const cors = require('cors');
+app.use(cors());
 
-app.get("/", (req, res) => {
-    res.send(`
-    <h1> Airbnb Clone </h1>
-    `);
-});
+// connect the database
+connectDB();
 
-// DB Config
-const uri = config.get("mongoURI");
+//init  middleware
+app.use(express.json({ extended: false }));
 
-// Connect to Mongodb
-mongoose
-    .connect(uri, {
-        useNewUrlParser: true,
-        useCreateIndex: true
-    }) // Adding new mongo url parser
-    .then(() => console.log("Database connected!"))
-    .catch(err => console.log(err));
+//Define Routes
+app.use('/api/users', require('./routes/users'));
+app.use('/api/auth', require('./routes/auth'));
 
-app.listen(port, () => {
-    console.log(`Server Started at http://localhost:${port}`);
-});
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
