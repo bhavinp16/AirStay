@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/bhavinp16/AirStay/issues"
   },
-  "homepage": "https://github.com/bhavinp16/AirStay#readme"
+  "homepage": "https://github.com/bhavinp16/AirStay#readme",
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
+  }
 }
