@@ -17,7 +17,10 @@ const UserSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now,
-    }
+    },
+    bookingId: [
+        {type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}
+    ]
 });
 
 module.exports = mongoose.model('User', UserSchema);
