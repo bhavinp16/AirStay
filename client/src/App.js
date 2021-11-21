@@ -19,12 +19,17 @@ function App() {
             {!user ?   // to show content as per login status
               (
                 <>
+                  {/* redirect to login if no user*/}
+                  <Route path="/" element={<Navigate to="/login" />} />
+                  <Route path="/home" element={<Navigate to="/login" />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                 </>
               ) :
               (
                 <>
+                  <Route path="/login" element={<Navigate to="/home" />} />
+                  <Route path="/signup" element={<Navigate to="/home" />} />
                   <Route exact path="/" />
                   <Route path="/home" element={<Home />} />
                   {/* <Route path="/room/:name" component={RoomDetail} /> */}
@@ -32,11 +37,6 @@ function App() {
               )}
           </Routes>
 
-          {!user ?  //to redirect as per login status
-            (<Navigate to="/login" />)
-            :
-            (<Navigate to="/home" />)
-          }
         </div>
 
       </BrowserRouter>
