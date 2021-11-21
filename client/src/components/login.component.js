@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from "react";
 
-function login() {
-    return (
-        <form>
+export default class Login extends Component {
+    render() {
+        return (
+            <form>
                 <center>
                     <h3>Sign In</h3>
                 </center>
@@ -28,7 +29,6 @@ function login() {
                     Forgot <a href="#">password?</a>
                 </p>
             </form>
-    )
+        );
+    }
 }
-
-export default login
