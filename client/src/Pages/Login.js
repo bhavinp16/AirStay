@@ -1,42 +1,82 @@
 import React from 'react';
+import { LockClosedIcon } from '@heroicons/react/solid';
 
 function Login() {
     return (
-        
-        <div className="w-full flex flex-wrap">
-
-            <div className="w-full md:w-1/2 flex flex-col">
-
-                <div className="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                    <a href="#" className="bg-black text-white font-bold text-xl p-4">AirStay</a>
-                </div>
-
-                <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                    <p className="text-center text-3xl">Welcome</p>
-                    <form className="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
-                        <div className="flex flex-col pt-4">
-                            <label for="email" className="text-lg">Email or phone</label>
-                            <input type="email" id="email" placeholder="your@email.com" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
+        <div className="font-sans">
+        <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
+            <div className="relative sm:max-w-sm w-full">
+                <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
+                <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
+                <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+                    <label for="" className="block mt-3 text-sm text-gray-700 text-center font-semibold">
+                        Login
+                    </label>
+                    <form method="#" action="#" className="mt-10">
+                                       
+                        <div>
+                            <input type="email" placeholder="Email" className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"/>
                         </div>
-        
-                        <div className="flex flex-col pt-4">
-                            <label for="password" className="text-lg">Password</label>
-                            <input type="password" id="password" placeholder="Password" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"/>
+            
+                        <div className="mt-7">                
+                            <input type="password" placeholder="Password" className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"/>                           
                         </div>
-        
-                        <input type="submit" value="Log In" className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8"/>
+
+                        <div className="mt-7 flex">
+                            <label for="remember_me" className="inline-flex items-center w-full cursor-pointer">
+                                <input id="remember_me" type="checkbox" className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember"/>
+                                <span className="ml-2 text-sm text-gray-600">
+                                    Remember me
+                                </span>
+                            </label>
+            
+                           <div className="w-full text-right">     
+                                <a className="underline text-sm text-gray-600 hover:text-gray-900" href="#">
+                                    Forgot Password?
+                                </a>                                  
+                           </div>
+                        </div>
+            
+                        <div className="mt-7">
+                            <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                Login
+                            </button>
+                        </div>
+            
+                        <div className="flex mt-7 items-center text-center">
+                            <hr className="border-gray-300 border-1 w-full rounded-md"/>
+                            <label className="block font-medium text-sm text-gray-600 w-full">
+                                Or signin using
+                            </label>
+                            <hr className="border-gray-300 border-1 w-full rounded-md"/>
+                        </div>
+            
+                        <div className="flex mt-7 justify-center w-full">
+                            <button className="mr-5 bg-blue-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                
+                                Facebook
+                            </button>
+            
+                            <button className="bg-red-500 border-none px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                
+                                Google
+                            </button>
+                        </div>
+            
+                         <div className="mt-7">
+                            <div className="flex justify-center items-center">
+                                <label className="mr-2" >New user?</label>
+                                <a href="/signup" className=" text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                    Create an account
+                                </a>
+                            </div>
+                        </div>
                     </form>
-                    <div className="text-center pt-12 pb-12">
-                        <p>Don't have an account? <a href="/signup" className="underline font-semibold">Register here</a></p>
-                    </div>
                 </div>
-
-            </div>
-
-            <div className="w-1/2 shadow-2xl">
-                <img className="object-cover w-full h-screen hidden md:block" src="/images/traveler.jpg"/>
             </div>
         </div>
+        
+    </div>
     )
 }
 
