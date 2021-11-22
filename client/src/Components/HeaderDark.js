@@ -66,7 +66,7 @@ function HeaderDark({ placeholder }) {
             </div>
 
             {/* Middle */}
-            <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm bg-white">
+            <div className="flex items-center md:border-1 rounded-full py-2 md:shadow-sm bg-white">
                 <input
                     value={searchInput}
                     onChange={handleInputChange}
@@ -81,7 +81,7 @@ function HeaderDark({ placeholder }) {
             </div>
 
             {/* Right */}
-            <div className="flex items-center space-x-4 justify-end text-gray-500">
+            <div className="flex items-center space-x-4 justify-end text-gray-200">
                 <p className="hidden md:inline cursor-pointer">Become a host</p>
                 <GlobeAltIcon className="h-6" />
                 <div className="flex items-center space-x-2 border-2 p-2 rounded-full">
@@ -102,14 +102,14 @@ function HeaderDark({ placeholder }) {
                         <DateRange
                             ranges={[selectionRange]}
                             minDate={new Date()}
-                            rangeColors={["#FD5B61"]}
+                            rangeColors={["#60a5fa"]}
                             onChange={handleSelect}
                         />
                     ) : (
                         <DateRangePicker
                             ranges={[selectionRange]}
                             minDate={new Date()}
-                            rangeColors={["#FD5B61"]}
+                            rangeColors={["#60a5fa"]}
                             onChange={handleSelect}
                         />
                     )}

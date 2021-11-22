@@ -36,7 +36,7 @@
     opacity: 0.33;
   }
   .rdrDayToday .rdrDayNumber span:after {
-    background: var(--red);
+    background: var(--blue);
   }
 
   @media (max-width: 36rem) {

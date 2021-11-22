@@ -66,11 +66,11 @@ function Header({ placeholder }) {
       </div>
 
       {/* Middle */}
-      <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm">
+      <div className="flex items-center bg-black bg-opacity-30 border-transparent md:border-2 rounded-full py-2 md:shadow-sm text-gray-200 animate-pulse ">
         <input
           value={searchInput}
           onChange={handleInputChange}
-          className="flex-grow pl-5 bg-transparent outline-none text-sm text-grey-600 placeholder-gray-400"
+          className="flex-grow pl-5 bg-transparent outline-none text-sm placeholder-gray-100"
           type="text"
           placeholder={placeholder || "Start your search"}
         />
@@ -81,10 +81,10 @@ function Header({ placeholder }) {
       </div>
 
       {/* Right */}
-      <div className="flex items-center space-x-4 justify-end text-gray-500">
+      <div className="flex items-center space-x-4 justify-end text-gray-700">
         <p className="hidden md:inline cursor-pointer">Become a host</p>
         <GlobeAltIcon className="h-6" />
-        <div className="flex items-center space-x-2 border-2 p-2 rounded-full">
+        <div className="flex border-transparent bg-black bg-opacity-30 items-center space-x-2 border-2 p-2 rounded-full">
           <MenuIcon className="h-6" />
           <UserCircleIcon className="h-6" />
         </div>
@@ -102,14 +102,14 @@ function Header({ placeholder }) {
             <DateRange
               ranges={[selectionRange]}
               minDate={new Date()}
-              rangeColors={["#FD5B61"]}
+              rangeColors={["#60a5fa"]}
               onChange={handleSelect}
             />
           ) : (
             <DateRangePicker
               ranges={[selectionRange]}
               minDate={new Date()}
-              rangeColors={["#FD5B61"]}
+              rangeColors={["#60a5fa"]}
               onChange={handleSelect}
             />
           )}

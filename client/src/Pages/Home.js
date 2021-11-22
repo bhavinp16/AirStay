@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import Banner from '../Components/Banner'
 import Footer from '../Components/Footer'
@@ -10,10 +10,27 @@ import HeaderDark from '../Components/HeaderDark'
 import { exploreData, cardsData } from '../data'
 
 function Home() {
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (window.scrollY > 10) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+        window.addEventListener("scroll", onScroll);
+
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
     return (
         <div className="">
-            <HeaderDark className="relative" />
-            <div className="bg-black w-full p-3">
+            {
+                !scrolled ? <HeaderDark /> : <Header />
+            }
+            <div className="bg-black w-full p-1 pb-3">
                 <div className="max-w-8xl mx-auto px-8 sm:px-16">
                     <Banner />
                 </div>
