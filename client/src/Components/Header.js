@@ -52,7 +52,7 @@ function Header({ placeholder }) {
   }
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md py-2 px-5 md:px-10">
+    <header className="sticky top-0 z-50 grid grid-cols-3 back drop-filter backdrop-blur-lg bg-opacity-30 shadow-md py-2 px-5 md:px-10">
       {/* Left */}
       <div onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10 cursor-pointer my-auto'>
         <img
@@ -61,6 +61,7 @@ function Header({ placeholder }) {
           objectFit="contain"
           objectPosition="left"
           alt="#"
+          style={{ height: "40px", width: "100px" }}
         />
       </div>
 
@@ -69,12 +70,12 @@ function Header({ placeholder }) {
         <input
           value={searchInput}
           onChange={handleInputChange}
-          className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400"
+          className="flex-grow pl-5 bg-transparent outline-none text-sm text-grey-600 placeholder-gray-400"
           type="text"
           placeholder={placeholder || "Start your search"}
         />
         <SearchIcon
-          className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2"
+          className="hidden md:inline-flex h-8 bg-blue-400 text-white rounded-full p-2 cursor-pointer md:mx-2"
           onClick={search}
         />
       </div>
@@ -91,7 +92,12 @@ function Header({ placeholder }) {
 
       {/* Date picker range */}
       {searchInput && (
-        <div className="flex flex-col col-span-3 mx-auto mt-5">
+        <div className="flex flex-col col-span-3 mx-auto mt-5 bg-white border rounded-xl p-5"
+          style={{
+            position: "absolute",
+            top: "80%",
+            left: "25%",
+          }}>
           {isSmallScreen ? (
             <DateRange
               ranges={[selectionRange]}
@@ -115,14 +121,14 @@ function Header({ placeholder }) {
             <input
               value={numberOfGuests}
               onChange={event => setNumberOfGuests(event.target.value)}
-              className="w-12 pl-2 text-lg outline-none text-red-400"
+              className="w-12 pl-2 text-lg outline-none text-blue-400"
               type="number"
               min={1}
             />
           </div>
           <div className="flex">
             <button onClick={resetInput} className="flex-grow text-gray-500">Cancel</button>
-            <button onClick={search} className="flex-grow text-red-400">Search</button>
+            <button onClick={search} className="flex-grow text-blue-400">Search</button>
           </div>
         </div>
       )}

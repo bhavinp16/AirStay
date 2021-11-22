@@ -5,17 +5,20 @@ import Footer from '../Components/Footer'
 import SmallCard from '../Components/SmallCard'
 import MediumCard from '../Components/MediumCard'
 import LargeCard from '../Components/LargeCard'
+import HeaderDark from '../Components/HeaderDark'
 
 import { exploreData, cardsData } from '../data'
 
 function Home() {
     return (
         <div className="">
-            <Header />
-
+            <HeaderDark className="relative" />
+            <div className="bg-black w-full p-3">
+                <div className="max-w-8xl mx-auto px-8 sm:px-16">
+                    <Banner />
+                </div>
+            </div>
             <main className="max-w-8xl mx-auto px-8 sm:px-16">
-                <Banner />
-
                 <section className="pt-6">
                     <h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
 

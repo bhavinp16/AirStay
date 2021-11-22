@@ -9,7 +9,7 @@ function App() {
 
   const context = useContext(usercontext)
   // const { user } = context;
-  const user = false; // temporary to bypass login page
+  const user = true; // temporary to bypass login page
 
   return (
     <Fragment>

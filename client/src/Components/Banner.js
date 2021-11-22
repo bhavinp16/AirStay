@@ -3,12 +3,14 @@ function Banner() {
         <div className="container">
             <div className="" style={{ position: "relative" }}>
                 <img src="/images/bannermain.jfif" alt="#"
+                    className="img-fluid shadow-inner"
                     style={{
                         padding: "30px",
                         width: '100%',
-                        height: '650px',
-                        border: '1px solid white',
+                        height: '653px',
+                        border: '1px solid black',
                         borderRadius: '60px',
+                        layout: 'crop'
                     }} />
                 {/* place on top of image */}
                 <div className="flex-row" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
