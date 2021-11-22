@@ -56,10 +56,8 @@ function HeaderDark({ placeholder }) {
             {/* Left */}
             <div onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10 cursor-pointer my-auto'>
                 <img
-                    src="Logo1.png"
+                    src="/Logo1.png"
                     layout="fill"
-                    objectFit="contain"
-                    objectPosition="left"
                     alt="#"
                     style={{ height: "40px", width: "100px" }}
                 />

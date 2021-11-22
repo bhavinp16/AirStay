@@ -4,12 +4,13 @@ import usercontext from './Context/User/usercontext';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
+import RoomDetail from './Pages/RoomDetail';
 
 function App() {
 
   const context = useContext(usercontext)
-  // const { user } = context;
-  const user = true; // temporary to bypass login page
+  const { user, setuser } = context;
+  setuser(true) // temporary to bypass login page
 
   return (
     <Fragment>
@@ -33,7 +34,7 @@ function App() {
                   <Route path="/" element={<Navigate to="/home" />} />
                   <Route exact path="/" />
                   <Route path="/home" element={<Home />} />
-                  {/* <Route path="/room/:name" component={RoomDetail} /> */}
+                  <Route path="/room/:id" element={<RoomDetail />} />
                 </>
               )}
           </Routes>
