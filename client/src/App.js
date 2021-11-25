@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import RoomDetail from './Pages/RoomDetail';
 import Search from './Pages/Search';
+import HostRoom from './Pages/HostRoom';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
                   <Route path="/" element={<Navigate to="/home" />} />
                   <Route exact path="/" />
                   <Route path="/home" element={<Home />} />
+                  <Route path="/hostRoom" element={<HostRoom />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
                   <Route path="/search/:location/" element={<Search />} />
                 </>
