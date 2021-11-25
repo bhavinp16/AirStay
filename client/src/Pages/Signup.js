@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+
+const mystyle = {
+	backgroundColor: "#333333",
+	padding: "10px",
+	fontFamily: "Arial",
+	minHeight: "100vh",
+  };
 
 function Signup() {
+	// const [formstate, setformstate] = useState({
+	// 	firstName:  '',
+	// 	lastName: '',
+	// 	email: '',
+	// 	password: '',
+		
+	// })
     return (
-		<div className="container mx-auto">
+		
+		<div className="container mx-auto" style={mystyle}>
 			<div className="flex justify-center px-6 my-12">
 				<div className="w-full xl:w-3/4 lg:w-11/12 flex">
 					<div
@@ -45,6 +60,17 @@ function Signup() {
 									id="email"
 									type="email"
 									placeholder="Email"
+								/>
+							</div>
+							<div className="mb-4">
+								<label className="block mb-2 text-sm font-bold text-gray-700" for="phone">
+									Phone
+								</label>
+								<input
+									className="w-1/2 px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+									id="phone"
+									type="number"
+									placeholder="Phone number"
 								/>
 							</div>
 							<div className="mb-4 md:flex md:justify-between">

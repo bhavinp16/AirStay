@@ -12,7 +12,7 @@ function App() {
 
   const context = useContext(usercontext)
   const { user, setuser } = context;
-  setuser(true) // temporary to bypass login page
+  setuser(false) // temporary to bypass login page
 
   return (
     <Fragment>
