@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import RoomDetail from './Pages/RoomDetail';
+import Search from './Pages/Search';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
                   <Route exact path="/" />
                   <Route path="/home" element={<Home />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
+                  <Route path="/search/:location/" element={<Search />} />
                 </>
               )}
           </Routes>

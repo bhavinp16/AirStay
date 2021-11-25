@@ -54,14 +54,14 @@ function Header({ placeholder }) {
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 back drop-filter backdrop-blur-lg bg-opacity-30 shadow-md py-2 px-5 md:px-10">
       {/* Left */}
-      <div onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10 cursor-pointer my-auto'>
+      <button onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10  cursor-pointer my-auto'>
         <img
           src={'/Logo1.png'}
           layout="fill"
           alt="#"
           style={{ height: "40px", width: "100px" }}
         />
-      </div>
+      </button>
 
       {/* Middle */}
       <div className="flex items-center bg-black bg-opacity-30 border-transparent md:border-2 rounded-full py-2 md:shadow-sm text-gray-200 animate-pulse ">
