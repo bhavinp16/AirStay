@@ -24,7 +24,10 @@ const UserSchema = mongoose.Schema({
         default: Date.now,
     },
     bookingId: [
-        {type: mongoose.Schema.Types.ObjectId, ref: 'Booking'}
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }
+    ],
+    wishlistRoomIds: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Room' }
     ]
 });
 

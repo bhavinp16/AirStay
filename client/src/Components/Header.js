@@ -2,7 +2,7 @@ import { GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon, SearchIcon } from '@
 import { useState } from "react"
 import { DateRange, DateRangePicker } from 'react-date-range';
 import { useMediaQuery } from "@react-hook/media-query";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -59,7 +59,7 @@ function Header({ placeholder }) {
           src={'/Logo1.png'}
           layout="fill"
           alt="#"
-          style={{ height: "40px", width: "100px" }}
+          style={{ height: "40px", width: "100px", marginLeft: "30px" }}
         />
       </button>
 
@@ -78,15 +78,17 @@ function Header({ placeholder }) {
         />
       </div>
 
+
       {/* Right */}
-      <div className="flex items-center space-x-4 justify-end text-gray-700">
-        <p className="hidden md:inline cursor-pointer">Become a host</p>
-        <GlobeAltIcon className="h-6" />
-        <div className="flex border-transparent bg-black bg-opacity-30 items-center space-x-2 border-2 p-2 rounded-full">
-          <MenuIcon className="h-6" />
-          <UserCircleIcon className="h-6" />
+      <div className="flex items-center space-x-4 justify-end text-gray-700 " style={{ marginRight: "30px" }}>
+        <Link to="/hostRoom" className="hidden md:inline cursor-pointer hover:text-gray-300">Become a host</Link>
+        <GlobeAltIcon className="h-6 hover:text-gray-300" />
+        <div className="flex border-gray-700 bg-transparent bg-opacity-30 items-center space-x-2 border-2 p-2 rounded-full hover:text-gray-300 hover:border-gray-300">
+          <MenuIcon className="h-6 hover:text-gray-300" />
+          <UserCircleIcon className="h-6 hover:text-gray-300" />
         </div>
       </div>
+
 
       {/* Date picker range */}
       {searchInput && (

@@ -1,3 +1,16 @@
+
+export const searchResults = [
+  { "id": 1, "img": "/images/results/1.jpg", "location": "Private room in center of London", "title": "Stay at this spacious Edwardian House", "description": "1 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen · Free parking · Washing Machine", "star": 4.73, "price": "3000", "long": -0.0022275, "lat": 51.5421655 },
+  { "id": 2, "img": "/images/results/11.jpg", "location": "Private room in center of London", "title": "Independant luxury studio apartment", "description": "2 guest · 3 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen", "star": 4.3, "price": "4300", "long": -0.095091, "lat": 51.48695 },
+  { "id": 3, "img": "/images/results/14.jpg", "location": "Private room in center of London", "title": "London Studio Apartments", "description": "4 guest · 4 bedroom · 4 bed · 2 bathrooms · Free parking · Washing Machine", "star": 3.8, "price": "3500", "long": -0.135638, "lat": 51.521916 },
+  { "id": 4, "img": "/images/results/4.jpg", "location": "Private room in center of London", "title": "30 mins to Oxford Street, Excel London", "description": "1 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen · Free parking · Washing Machine", "star": 4.1, "price": "5500", "long": -0.069961, "lat": 51.472618 },
+  { "id": 5, "img": "/images/results/1.jpg", "location": "Private room in center of London", "title": "Spacious Peaceful Modern Bedroom", "description": "3 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Free parking · Dry Cleaning", "star": 5.0, "price": "6520", "long": -0.08472, "lat": 51.510794 },
+  { "id": 6, "img": "/images/results/6.jpg", "location": "Private room in center of London", "title": "The Blue Room In London", "description": "2 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Washing Machine", "star": 4.23, "price": "6000", "long": -0.094116, "lat": 51.51401 },
+  { "id": 7, "img": "/images/results/7.jpg", "location": "Private room in center of London", "title": "5 Star Luxury Apartment", "description": "3 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen · Free parking · Washing Machine", "star": 3.85, "price": "9000", "long": -0.109889, "lat": 51.521245 }
+]
+
+
+
 export const discover = {
   title: "Discover things to do",
   items: [

@@ -21,7 +21,7 @@ function Banner() {
                                 behavior: 'smooth'
                             });
                         }}
-                        className="bg-white text-black-500 shadow-md border-transparent border rounded-full px-5 py-2 my-1 transition delay-75 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 ">
+                        className="bg-white text-black-500 shadow-md border-transparent border rounded-full px-5 py-2 my-1 transition delay-75 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 animate-bounce">
                         <p className="animate-pulse text-md ">I'm flexible</p>
                     </button>
                 </div>

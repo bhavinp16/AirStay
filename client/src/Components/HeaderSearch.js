@@ -2,13 +2,13 @@ import { GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon, SearchIcon } from '@
 import { useState } from "react"
 import { DateRange, DateRangePicker } from 'react-date-range';
 import { useMediaQuery } from "@react-hook/media-query";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
-function HeaderSearch({ placeholder }) {
+function HeaderDark({ placeholder }) {
     // STATE FOR REACT
     const [searchInput, setSearchInput] = useState("")
     const [startDate, setStartDate] = useState(new Date())
@@ -52,39 +52,39 @@ function HeaderSearch({ placeholder }) {
     }
 
     return (
-        <header className="sticky top-0 z-50 grid grid-cols-3 back drop-filter backdrop-blur-lg bg-opacity-30  py-2 px-5 md:px-10">
+        <header className="sticky top-0 grid grid-cols-3 bg-black shadow-md py-2 px-5 md:px-10 z-50">
             {/* Left */}
-            <button onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10  cursor-pointer my-auto'>
+            <div onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10 cursor-pointer my-auto'>
                 <img
-                    src={'/Logo1.png'}
+                    src="/logo1dark.png"
                     layout="fill"
                     alt="#"
                     style={{ height: "40px", width: "100px" }}
                 />
-            </button>
+            </div>
 
             {/* Middle */}
-            <div className="flex items-center bg-white shadow-lg border-transparent md:border-2 rounded-full py-2 md:shadow-sm ">
+            <div className="flex items-center bg-gray-900 bg-opacity-30 border-transparent md:border-1 rounded-full py-2 md:shadow-sm">
                 <input
                     value={searchInput}
                     onChange={handleInputChange}
-                    className="flex-grow pl-5 bg-transparent outline-none text-sm placeholder-gray-900"
+                    className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400"
                     type="text"
                     placeholder={placeholder || "Start your search"}
                 />
                 <SearchIcon
-                    className="hidden md:inline-flex h-8 bg-blue-400 text-white rounded-full p-2 cursor-pointer md:mx-2"
+                    className="hidden md:inline-flex h-8 hover:bg-blue-600 bg-blue-400 text-white rounded-full p-2 cursor-pointer md:mx-2"
                     onClick={search}
                 />
             </div>
 
             {/* Right */}
-            <div className="flex items-center space-x-4 justify-end text-gray-700">
-                <p className="hidden md:inline cursor-pointer">Become a host</p>
-                <GlobeAltIcon className="h-6" />
-                <div className="flex border-transparent bg-white bg-opacity-30 items-center space-x-2 border-2 p-2 rounded-full">
-                    <MenuIcon className="h-6" />
-                    <UserCircleIcon className="h-6" />
+            <div className="flex items-center space-x-4 justify-end text-gray-400">
+                <Link to="/hostRoom" className="hidden md:inline cursor-pointer hover:text-white">Become a host</Link>
+                <GlobeAltIcon className="h-6 hover:text-white" />
+                <div className="flex border-gray-400 items-center space-x-2 border-2 p-2 rounded-full hover:text-white">
+                    <MenuIcon className="h-6 hover:text-white" />
+                    <UserCircleIcon className="h-6 hover:text-white" />
                 </div>
             </div>
 
@@ -135,4 +135,4 @@ function HeaderSearch({ placeholder }) {
     )
 }
 
-export default HeaderSearch
+export default HeaderDark

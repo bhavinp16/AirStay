@@ -50,11 +50,11 @@ function Map({ searchResults, hoverLocation }) {
                         <p onClick={() => setSelectedLocation(result)} onMouseOver={() => {
                             setSelectedLocation(result)
                         }} className="cursor-pointer text-2xl ">
-                            <LocationMarkerIcon className="h-6 text-red-500 animate-bounce z-50" />
+                            <LocationMarkerIcon className="h-6 text-red-500 animate-bounce z-20" />
                             {selectedLocation.long === result.long ? (
-                                <p className="text-grey text-sm bg-black text-white rounded-full p-1 px-2 animate-pulse z-50">₹{result.price}</p>
+                                <p className="text-grey text-sm bg-black text-white rounded-full p-1 px-2 animate-pulse z-40">₹{result.price}</p>
                             ) : (
-                                <p className="text-grey text-sm bg-white shadow-md rounded-full p-1 px-2 ">₹{result.price}</p>
+                                <p className="text-grey text-sm bg-white shadow-md rounded-full p-1 px-2 z-10">₹{result.price}</p>
                             )
                             }
 
@@ -68,7 +68,7 @@ function Map({ searchResults, hoverLocation }) {
                             closeOnClick={true}
                             latitude={result.lat}
                             longitude={result.long}
-                            className="border border-white rounded-lg z-50"
+                            className="border border-white rounded-lg z-40"
                         >
                             <div>
                                 {result.title}
