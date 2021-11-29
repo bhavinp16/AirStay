@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 const mystyle = {
-	backgroundColor: "#333333",
+	backgroundColor: '#1a202c',
 	padding: "10px",
 	fontFamily: "Arial",
 	minHeight: "100vh",
-  };
+};
 
 function Signup() {
 	// const [formstate, setformstate] = useState({
@@ -13,16 +13,16 @@ function Signup() {
 	// 	lastName: '',
 	// 	email: '',
 	// 	password: '',
-		
+
 	// })
-    return (
-		
+	return (
+
 		<div className="container mx-auto" style={mystyle}>
 			<div className="flex justify-center px-6 my-12">
-				<div className="w-full xl:w-3/4 lg:w-11/12 flex">
+				<div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-xl">
 					<div
 						className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-            style={{backgroundImage: "url(images/traveler.jpg)"}}
+						style={{ backgroundImage: "url(images/traveler.jpg)" }}
 					></div>
 					<div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
 						<h3 className="pt-4 text-2xl text-center">Create an Account</h3>
@@ -82,7 +82,7 @@ function Signup() {
 										className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="password"
 										type="password"
-										placeholder="******************"
+										placeholder="***********"
 									/>
 								</div>
 								<div className="md:ml-2">
@@ -93,7 +93,7 @@ function Signup() {
 										className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="c_password"
 										type="password"
-										placeholder="******************"
+										placeholder="***********"
 									/>
 								</div>
 							</div>
@@ -120,7 +120,7 @@ function Signup() {
 			</div>
 		</div>
 
-    )
+	)
 }
 
 export default Signup

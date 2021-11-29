@@ -43,7 +43,7 @@ function Home() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         {exploreData?.map(item => (
                             <SmallCard
-                                key={item.img}
+                                key={item.location}
                                 img={item.img}
                                 distance={`${item.distance} hours drive`}
                                 location={item.location}
@@ -57,7 +57,7 @@ function Home() {
                     <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
                         {cardsData?.map(item => (
                             <MediumCard
-                                key={item.img}
+                                key={item.title}
                                 img={item.img}
                                 title={item.title}
                             />

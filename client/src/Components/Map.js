@@ -29,7 +29,6 @@ function Map({ searchResults, hoverLocation }) {
     useEffect(() => {
         if (hoverLocation) {
             setSelectedLocation(hoverLocation)
-            console.log(hoverLocation)
         }
     }, [hoverLocation])
 

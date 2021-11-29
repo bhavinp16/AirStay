@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { useParams, useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import Footer from "../Components/Footer"
 import HeaderSearch from "../Components/HeaderSearch"
@@ -18,10 +18,19 @@ const searchResults = [
 ]
 
 function Search() {
-    let { location, startDate, endDate, numberOfGuests } = useParams();
-    startDate = "05 05 2021"
-    endDate = "06 05 2021"
-    numberOfGuests = "2"
+
+    const locationobj = useLocation();
+    var filtertype, startDate, endDate, numberOfGuests = null;
+    locationobj.state ? { filtertype, startDate, endDate, numberOfGuests } = locationobj.state : filtertype = null;
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [])
+
+    let { location } = useParams();
 
     const [selectedLocation, setselectedLocation] = useState();
 
@@ -48,11 +57,33 @@ function Search() {
                     <h1 className="text-3xl font-semibold mt-2 mb-6">Stays in {location}</h1>
 
                     <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
-                        <p className="button">Cancellation Flexibility</p>
-                        <p className="button">Type of Place</p>
-                        <p className="button">Price</p>
-                        <p className="button">Rooms and Beds</p>
-                        <p className="button">More filters</p>
+                        {filtertype !== null ?
+                            <button className="button bg-black text-white" onClick={(e) => {
+                                e.target.classList.toggle("bg-black");
+                                e.target.classList.toggle("text-white");
+                            }}>{filtertype}</button>
+                            : <></>
+                        }
+                        <button className="button" onClick={(e) => {
+                            e.target.classList.toggle("bg-black");
+                            e.target.classList.toggle("text-white");
+                        }}>Cancellation Flexibility</button>
+                        <button className="button" onClick={(e) => {
+                            e.target.classList.toggle("bg-black");
+                            e.target.classList.toggle("text-white");
+                        }}>Type of Place</button>
+                        <buttonp className="button" onClick={(e) => {
+                            e.target.classList.toggle("bg-black");
+                            e.target.classList.toggle("text-white");
+                        }}>Price</buttonp>
+                        <button className="button" onClick={(e) => {
+                            e.target.classList.toggle("bg-black");
+                            e.target.classList.toggle("text-white");
+                        }}>Rooms and Beds</button>
+                        <button className="button" onClick={(e) => {
+                            e.target.classList.toggle("bg-black");
+                            e.target.classList.toggle("text-white");
+                        }}>More filters</button>
                     </div>
                     <div className="flex flex-col">
                         {searchResults.map(({ img, location, title, description, star, price, total, long, lat }) => (
