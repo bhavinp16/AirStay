@@ -27,7 +27,6 @@ function App() {
                   <Route exact path="/home" element={<Navigate to="/login" />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
-                  <Route path="/room/:id" element={<RoomDetail />} />
                 </>
               ) :
               (
