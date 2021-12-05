@@ -221,7 +221,7 @@ class SearchBox extends React.Component {
             <div className="splash-image-container">
                 <div className="search-box-container">
                     <div className="search-box-header">
-                        <h1>Branch out — book a unique treehouse to stay in.</h1>
+                        <h1>Book your dream destination with us</h1>
                     </div>
                     <form onSubmit={this.handleSearchSubmit}>
                         <span className="search-box-label">
