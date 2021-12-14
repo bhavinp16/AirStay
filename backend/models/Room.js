@@ -9,19 +9,16 @@ const RoomSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    city: {
+    desc: {
         type: String,
         required: true,
     },
-    address: {
-        type: String,
+    capacity: {
+        type: {
+            adult: Number,
+            children: Number,
+        },
         required: true,
-    },
-    reviews: [{
-        type: String,
-    }],
-    rating: {
-        type: mongoose.Types.Decimal128,
     },
     price: {
         type: {
@@ -30,39 +27,54 @@ const RoomSchema = mongoose.Schema({
         },
         required: true,
     },
-    hostId: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Host',
-        required: true,
-    },
-    images: {
-        data: Buffer, 
-        contentType: String
-    },
     availableDates: [{
         type: Date,
         required: true,
     }],
-    capacity: {
-        type: {
-            adult: Number,
-            children: Number,
-        },
-        required: true,
+    houseRules: [{
+        type: String,
+    }],
+    amenties: [{
+        type: String,
+    }],
+    images: {
+        data: Buffer,
+        contentType: String
     },
-    desc: {
+    address: {
         type: String,
         required: true,
     },
-    amenties: [{
-        type: String,  
-    }],
     landmark: {
         type: String,
         required: true,
     },
-    houseRules: [{
+    city: {
         type: String,
-    }]
+        required: true,
+    },
+    state: {
+        type: String,
+        required: true,
+    },
+    coordinates: {
+        type: {
+            Longitude: mongoose.Types.Decimal128,
+            Latitude: mongoose.Types.Decimal128,
+        },
+        required: true,
+    },
+    reviews: [{
+        type: String,
+    }],
+    rating: {
+        type: mongoose.Types.Decimal128,
+    },
+    hostId: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Host',
+        required: true,
+    },
+
 })
 
 module.exports = mongoose.model('Room', RoomSchema);
