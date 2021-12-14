@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 
 const mystyle = {
-	backgroundColor: '#1a202c',
+	backgroundColor: 'black',
 	padding: "10px",
 	fontFamily: "Arial",
 	minHeight: "100vh",
@@ -16,13 +17,12 @@ function Signup() {
 
 	// })
 	return (
-
 		<div className="container mx-auto" style={mystyle}>
 			<div className="flex justify-center px-6 my-12">
 				<div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-xl">
 					<div
 						className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-						style={{ backgroundImage: "url(images/traveler.jpg)" }}
+						style={{ backgroundImage: "url(images/live/3.jpg)" }}
 					></div>
 					<div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
 						<h3 className="pt-4 text-2xl text-center">Create an Account</h3>
@@ -99,7 +99,7 @@ function Signup() {
 							</div>
 							<div className="mb-6 text-center">
 								<button
-									className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+									className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-black focus:outline-none focus:shadow-outline"
 									type="button"
 								>
 									Register Account
@@ -107,12 +107,12 @@ function Signup() {
 							</div>
 							<hr className="mb-6 border-t" />
 							<div className="text-center">
-								<a
-									className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-									href="/login"
+								<Link
+									className="inline-block text-sm text-gray-400 align-baseline hover:text-gray-900"
+									to="/login"
 								>
 									Already have an account? Login!
-								</a>
+								</Link>
 							</div>
 						</form>
 					</div>

@@ -14,7 +14,7 @@ function Home() {
 
     useEffect(() => {
         const onScroll = () => {
-            if (window.scrollY > 10) {
+            if (window.scrollY > 80) {
                 setScrolled(true);
             } else {
                 setScrolled(false);

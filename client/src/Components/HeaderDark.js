@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import Dropdown from './Dropdown';
 
 
 function HeaderDark({ placeholder }) {
@@ -82,10 +83,7 @@ function HeaderDark({ placeholder }) {
             <div className="flex items-center space-x-4 justify-end text-gray-400" style={{ marginRight: "30px" }}>
                 <Link to="/hostRoom" className="hidden md:inline cursor-pointer hover:text-white">Become a host</Link>
                 <GlobeAltIcon className="h-6 hover:text-white" />
-                <div className="flex border-gray-400 items-center space-x-2 border-2 p-2 rounded-full hover:text-white">
-                    <MenuIcon className="h-6 hover:text-white" />
-                    <UserCircleIcon className="h-6 hover:text-white" />
-                </div>
+                <Dropdown />
             </div>
 
             {/* Date picker range */}

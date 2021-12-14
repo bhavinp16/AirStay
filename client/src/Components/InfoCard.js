@@ -20,7 +20,7 @@ function InfoCard({ roomId, img, location, title, description, star, price, tota
                             win.focus();
                         }
                     }}>{location}</div>
-                    <HeartIcon className="h-7 cursor-pointer z-50" onClick={(e) => { e.target.classList.toggle("text-red-500") }} />
+                    <HeartIcon className="h-7 cursor-pointer z-40" onClick={(e) => { e.target.classList.toggle("text-red-500") }} />
                 </div>
                 <h4 onClick={() => {
                     const win = window.open(`/room/${roomId}`, `Room ${roomId}`);

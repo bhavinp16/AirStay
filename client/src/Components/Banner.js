@@ -12,7 +12,7 @@ function Banner() {
                     }} />
                 {/* place on top of image */}
                 <div className="flex-row" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                    <p className="text-white font-sans text-4xl font-semibold">Not sure where to go? Perfect.</p>
+                    <p className="text-white font-sans text-4xl font-semibold animate-pulse">Not sure where to go? Perfect.</p>
                     <br />
                     <button
                         onClick={() => {

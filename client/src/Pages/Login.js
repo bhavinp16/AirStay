@@ -1,10 +1,10 @@
 import React from 'react';
-// import { LockClosedIcon } from '@heroicons/react/solid';
+import { Link } from "react-router-dom"
 
 function Login() {
     return (
         <div className="font-sans">
-            <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-900 ">
+            <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-black ">
                 <div className="relative sm:max-w-sm w-full">
                     <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
                     <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
@@ -31,9 +31,9 @@ function Login() {
                                 </label>
 
                                 <div className="w-full text-right">
-                                    <a className="underline text-sm text-gray-600 hover:text-gray-900" href="/#">
+                                    <Link className="underline text-sm text-gray-600 hover:text-gray-900" to="/#">
                                         Forgot Password?
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
 
@@ -65,10 +65,10 @@ function Login() {
 
                             <div className="mt-7">
                                 <div className="flex justify-center items-center">
-                                    <label className="mr-2" >New user?</label>
-                                    <a href="/signup" className=" text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                    <label className="mr-2 text-gray-600" >New user?</label>
+                                    <Link to="/signup" className=" text-gray-500 hover:text-gray-900 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
                                         Create an account
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </form>

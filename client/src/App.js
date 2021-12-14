@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import usercontext from './Context/User/usercontext';
 import Home from './Pages/Home';
@@ -7,12 +7,16 @@ import Signup from './Pages/Signup';
 import RoomDetail from './Pages/RoomDetail';
 import Search from './Pages/Search';
 import HostRoom from './Pages/HostRoom';
+import Wishlist from './Pages/Wishlist';
 
 function App() {
 
   const context = useContext(usercontext)
-  const { user, setuser } = context;
-  setuser(true) // temporary to bypass login page
+  let { user, setuser } = context;
+
+  useEffect(() => {
+    setuser("Bhavin");
+  }, [setuser])
 
   return (
     <Fragment>
@@ -39,6 +43,7 @@ function App() {
                   <Route path="/hostRoom" element={<HostRoom />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
                   <Route path="/search/:location/" element={<Search />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
                 </>
               )}
           </Routes>

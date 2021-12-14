@@ -3,6 +3,7 @@ import { useState } from "react"
 import { DateRange, DateRangePicker } from 'react-date-range';
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link, useNavigate } from "react-router-dom"
+import Dropdown from "./Dropdown"
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -83,10 +84,7 @@ function Header({ placeholder }) {
       <div className="flex items-center space-x-4 justify-end text-gray-700 " style={{ marginRight: "30px" }}>
         <Link to="/hostRoom" className="hidden md:inline cursor-pointer hover:text-gray-300">Become a host</Link>
         <GlobeAltIcon className="h-6 hover:text-gray-300" />
-        <div className="flex border-gray-700 bg-transparent bg-opacity-30 items-center space-x-2 border-2 p-2 rounded-full hover:text-gray-300 hover:border-gray-300">
-          <MenuIcon className="h-6 hover:text-gray-300" />
-          <UserCircleIcon className="h-6 hover:text-gray-300" />
-        </div>
+        <Dropdown />
       </div>
 
 
