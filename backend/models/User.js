@@ -23,7 +23,7 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    bookingId: [
+    bookingIds: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }
     ],
     wishlistRoomIds: [

@@ -1,4 +1,4 @@
-import { GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon, SearchIcon } from '@heroicons/react/solid'
+import { GlobeAltIcon, UsersIcon, SearchIcon } from '@heroicons/react/solid'
 import { useState } from "react"
 import { DateRange, DateRangePicker } from 'react-date-range';
 import { useMediaQuery } from "@react-hook/media-query";

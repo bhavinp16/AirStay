@@ -12,11 +12,15 @@ import Wishlist from './Pages/Wishlist';
 function App() {
 
   const context = useContext(usercontext)
-  let { user, setuser } = context;
+  const { user, setuser } = context;
 
   useEffect(() => {
-    setuser("Bhavin");
-  }, [setuser])
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setuser(foundUser);
+    }
+  }, [setuser]);
 
   return (
     <Fragment>
@@ -29,6 +33,8 @@ function App() {
                   {/* redirect to login if no user*/}
                   <Route exact path="/" element={<Navigate to="/login" />} />
                   <Route exact path="/home" element={<Navigate to="/login" />} />
+                  <Route path="/search/:city" element={<Navigate to="/login" />} />
+                  <Route path="/wishlist" element={<Navigate to="/login" />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                 </>

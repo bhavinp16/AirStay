@@ -66,6 +66,7 @@ export default function Dropdown() {
                         <Menu.Item>
                             {({ active }) => (
                                 <button onClick={() => {
+                                    localStorage.clear();
                                     setuser(null);
                                 }}
                                     type="submit"

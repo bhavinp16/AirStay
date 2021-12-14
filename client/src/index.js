@@ -10,7 +10,7 @@ import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ToastProvider placement="top-center">
+    <ToastProvider placement="top-right">
       <UserState >
         <App />
       </UserState>

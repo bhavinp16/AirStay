@@ -1,7 +1,77 @@
-import React from 'react';
-import { Link } from "react-router-dom"
+import React, { useState, useContext } from 'react';
+import { Link } from "react-router-dom";
+import usercontext from '../Context/User/usercontext';
+import axios from 'axios';
+import setAuthToken from '../utils/setAuthToken';
+import { useToasts } from 'react-toast-notifications';
+import NProgress from 'nprogress';
+import '../styles/nprogress.css';
+
 
 function Login() {
+
+    const { addToast } = useToasts();
+
+    const context = useContext(usercontext);
+    const { setuser } = context;
+
+    const initialState = {
+        email: '',
+        password: ''
+    }
+
+    const [formdata, setformdata] = useState(initialState);
+
+    const handleChange = (e) => {
+        setformdata({
+            ...formdata,
+            [e.target.name]: e.target.value.trim(),
+        })
+    }
+
+    const loadUser = async () => {
+        setAuthToken(localStorage.token);
+        try {
+            const res = await axios.get('http://localhost:3000/api/auth/');
+            addToast("Logged In Successfully", { appearance: 'success', autoDismiss: true });
+            localStorage.user = JSON.stringify(res.data);
+            console.log("Logged In");
+            NProgress.done();
+            setuser(res.data);
+        }
+        catch (err) {
+            console.log(err);
+            NProgress.done();
+            addToast({ err }, { appearance: 'error', autoDismiss: true });
+        }
+    }
+
+    const logind = async (e) => {
+        e.preventDefault();
+        if (formdata.email === "" | formdata.password === "") {
+            addToast("All Field Are Required!", { appearance: 'error', autoDismiss: true });
+            return;
+        }
+        NProgress.start();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        try {
+            const res = await axios.post("http://localhost:3000/api/auth/", JSON.stringify(formdata), config);
+            localStorage.setItem('token', res.data.token);
+            loadUser();
+        } catch (err) {
+            console.log(err);
+            NProgress.done();
+            addToast("Invalid Credentials", { appearance: 'error', autoDismiss: true });
+        }
+    }
+
+
+
     return (
         <div className="font-sans">
             <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-black ">
@@ -15,11 +85,13 @@ function Login() {
                         <form method="#" action="#" className="mt-10">
 
                             <div>
-                                <input type="email" placeholder="Email" className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
+                                <input type="email" placeholder="Enter Email" className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+                                    name="email" onChange={handleChange} />
                             </div>
 
                             <div className="mt-7">
-                                <input type="password" placeholder="Password" className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0" />
+                                <input type="password" placeholder="Enter Password" className="mt-1 block w-full p-3 border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
+                                    name="password" onChange={handleChange} />
                             </div>
 
                             <div className="mt-7 flex">
@@ -38,7 +110,8 @@ function Login() {
                             </div>
 
                             <div className="mt-7">
-                                <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                                    onClick={logind} type="submit">
                                     Login
                                 </button>
                             </div>
