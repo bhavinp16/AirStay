@@ -1,10 +1,12 @@
 import React from 'react'
 import Header from '../Components/Header'
 import DatePicker from '../Components/DatePicker'
-import SearchBox from '../Components/SearchBox'
-
+import SearchBox from '../Components/Roomdetail/SearchBox'
 import '../styles/SearchBox.css'
+import Roombanner from '../Components/Roomdetail/Roombanner'
 
+import { roomdetailImages, roomdetailReviews } from '../data'
+import Reviews from '../Components/Roomdetail/Reviews'
 
 function RoomDetail() {
     return (
@@ -20,56 +22,8 @@ function RoomDetail() {
                             4.71 (120 reviews) · Lonavala, Maharashtra, India
                         </div>
                         <br />
-                        <div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <img src="/images/roomdetails/lonavala.jpg" alt="#"
-                                    className="img-fluid shadow-inner"
-                                    style={{
-                                        width: '100%',
-                                        height: '440px',
-                                        borderTopLeftRadius:"40px",
-                                        borderBottomLeftRadius:"40px"
-                                    }} />
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <img src="/images/roomdetails/lonavala.jpg" alt="#"
-                                        className="img-fluid shadow-inner"
-                                        style={{
-                                            width: '100%',
-                                            height: '220px',
-                                        }} />
-                                    </div>
-                                    <div>
-                                        <img src="/images/roomdetails/lonavala.jpg" alt="#"
-                                        className="img-fluid shadow-inner"
-                                        style={{
-                                            width: '100%',
-                                            height: '220px',
-                                            borderTopRightRadius:"40px",
-                                        }} />
-                                    </div>
-                                    <div>
-                                        <img src="/images/roomdetails/lonavala.jpg" alt="#"
-                                        className="img-fluid shadow-inner"
-                                        style={{
-                                            width: '100%',
-                                            height: '220px',
-                                        }} />
-                                    </div>
-                                    <div>
-                                        <img src="/images/roomdetails/lonavala.jpg" alt="#"
-                                        className="img-fluid shadow-inner"
-                                        style={{
-                                            width: '100%',
-                                            height: '220px',
-                                            borderBottomRightRadius:"40px",
-                                        }} />
-                                    </div>
-                                </div>
-                                
-                            </div>
+                        <div >
+                            <Roombanner img={roomdetailImages} />
                         </div>
                     </div>
                     <div>
@@ -178,58 +132,14 @@ function RoomDetail() {
                     <div>
                         <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Reviews</h3>
                         <div class="grid grid-cols-2 gap-4">
-                            <div >
-                                <div className="flex flex-col justify-center mt-7">
-                                    <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white" style={{width:"90%",height:"300px"}}>
-                                        <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3" style={{width:"100%"}}>
-                                            <h3 className="font-black text-gray-800 md:text-3xl text-xl">Mugdha</h3>
-                                            November 2021
-                                            <p className="md:text-lg text-gray-500 text-base">We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors..
-    The Villa is nicely designed.. especially loved the tall windows in the living room.</p>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div className="flex flex-col justify-center mt-7">
-                                    <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white" style={{width:"90%",height:"300px"}}>
-                                        <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3" style={{width:"100%"}}>
-                                            <h3 className="font-black text-gray-800 md:text-3xl text-xl">Mugdha</h3>
-                                            November 2021
-                                            <p className="md:text-lg text-gray-500 text-base">We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors..
-    The Villa is nicely designed.. especially loved the tall windows in the living room.</p>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div className="flex flex-col justify-center mt-7">
-                                    <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white" style={{width:"90%",height:"300px"}}>
-                                        <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3" style={{width:"100%"}}>
-                                            <h3 className="font-black text-gray-800 md:text-3xl text-xl">Mugdha</h3>
-                                            November 2021
-                                            <p className="md:text-lg text-gray-500 text-base">We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors..
-    The Villa is nicely designed.. especially loved the tall windows in the living room.</p>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div className="flex flex-col justify-center mt-7">
-                                    <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white" style={{width:"90%",height:"300px"}}>
-                                        <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3" style={{width:"100%"}}>
-                                            <h3 className="font-black text-gray-800 md:text-3xl text-xl">Mugdha</h3>
-                                            November 2021
-                                            <p className="md:text-lg text-gray-500 text-base">We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors..
-    The Villa is nicely designed.. especially loved the tall windows in the living room.</p>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        {roomdetailReviews?.map(item => (
+                            <Reviews
+                                name={item.name}
+                                date={item.date}
+                                desc={item.desc}
+                            />
+                        ))}
+                            
                         </div>
                     </div>
                     <br />

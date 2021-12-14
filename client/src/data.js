@@ -9,7 +9,7 @@ export const searchResults = [
   { "id": 7, "img": "/images/results/7.jpg", "location": "Private room in center of London", "title": "5 Star Luxury Apartment", "description": "3 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen · Free parking · Washing Machine", "star": 3.85, "price": "9000", "long": -0.109889, "lat": 51.521245 }
 ]
 
-
+ 
 
 export const discover = {
   title: "Discover things to do",
@@ -72,3 +72,14 @@ export const resultImages = [
   ["16.jpg", "17.jpg"],
   ["18.jpg", "14.jpg", "20.jpg"],
 ];
+
+export const roomdetailImages = [
+  ["/images/roomdetails/lonavala.jpg" ]
+]
+
+export const roomdetailReviews = [
+  {name:"Hari" ,date:"11 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
+  {name:"Vishal" ,date:"12 November", desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
+  {name:"Bhavin" ,date:"13 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
+  {name:"Piyush" ,date:"14 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."}
+]
