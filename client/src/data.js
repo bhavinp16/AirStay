@@ -83,3 +83,38 @@ export const roomdetailReviews = [
   {name:"Bhavin" ,date:"13 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
   {name:"Piyush" ,date:"14 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."}
 ]
+
+export const roomdetailFeatures = [
+  {title:"Entire home" ,desc:"You will have the villa to yourself." },
+  {title:"Entire home" ,desc:"You will have the villa to yourself." },
+  {title:"Entire home" ,desc:"You will have the villa to yourself." },
+  {title:"Entire home" ,desc:"You will have the villa to yourself." },
+  {title:"Entire home" ,desc:"You will have the villa to yourself." },
+]
+
+
+export const roomdetailAmenities = [
+  ["Kitchen" ],
+  ["2BHK" ],
+  ["World class Interior" ],
+  ["Kitchen" ],
+  ["2BHK" ],
+  ["World class Interior" ],
+  ["Kitchen" ],
+  ["2BHK" ],
+  ["World class Interior" ]
+]
+
+export const roomdetailDesc = {
+  hotelname:"Lonavala Villas - The Serenity Villa - 3BHK",
+  rating: "4.71 (120 reviews)",
+  adrs: "Lonavala, Maharashtra, India",
+  owner: "Vishal",
+  rooms: "3 bedrooms · 3 beds · 3 bathrooms",
+  guests: "12",
+  joindate: "July 2017",
+  abouthost: "I am a Chartered Accountant by qualification - was always interested in Hospitality as an Industry. I along with a few friends, started a hospitality firm in the name and style - SEVEN SANDS VILLE wherein we tried to understand the basic needs and expectations when a guest reserves a Villa. We focused on guest experience by concentrating on the core operations and recruiting the operations team from"
+}
+
+
+

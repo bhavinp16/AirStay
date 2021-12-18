@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
- 
+
 function Roombanner({ img }) {
     return (
         <div class="grid grid-cols-2 gap-4">
