@@ -153,9 +153,23 @@ function HostRoom() {
           <PinCoordinates />
 
         </section>
-        <section>
+        <div className="flex mt-7 justify-center w-full">
+          <button
+            className="mr-5 mb-5 w-64 bg-green-400 border-2 px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+            type='button'
+            // onClick={addroomsubmit}
+          >
+            Add Room
+          </button>
 
-        </section>
+          <button
+            className="ml-5 mb-5 w-64 bg-blue-500 border-2 px-4 py-2 rounded-xl cursor-pointer text-white shadow-xl hover:shadow-inner transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+            type='button'
+          // onClick={}
+          >
+            Reset
+          </button>
+        </div>
       </div>
     </>
   )
