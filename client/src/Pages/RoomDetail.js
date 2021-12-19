@@ -75,7 +75,7 @@ function RoomDetail() {
 
                             </div>
                             <div className="mt-7">
-                                <SearchBox />
+                                <SearchBox basePrice={100} />
                             </div>
                         </div>
 
@@ -104,7 +104,7 @@ function RoomDetail() {
                         }}
                     />
                     <div>
-                        <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Where you’ll be</h3>
+                        <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Where you will be</h3>
                         MAP
 
                     </div>
