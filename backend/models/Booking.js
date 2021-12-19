@@ -7,7 +7,9 @@ const BookingSchema = mongoose.Schema({
         type: {
             price: mongoose.Types.Decimal128,
             duration: String,
-            dates: [mongoose.Types.Date],
+            dates: [{
+                type: Date,
+            }],
             guests: {
                 type: {
                     adult: Number,
