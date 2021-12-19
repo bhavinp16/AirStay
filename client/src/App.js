@@ -34,6 +34,7 @@ function App() {
                   {/* redirect to login if no user*/}
                   <Route exact path="/" element={<Navigate to="/login" />} />
                   <Route exact path="/home" element={<Navigate to="/login" />} />
+                  <Route exact path="/hostRoom" element={<Navigate to="/login" />} />
                   <Route path="/search/:city" element={<Navigate to="/login" />} />
                   <Route path="/wishlist" element={<Navigate to="/login" />} />
                   <Route path="/login" element={<Login />} />

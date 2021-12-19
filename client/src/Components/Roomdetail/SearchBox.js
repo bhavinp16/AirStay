@@ -4,7 +4,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 // import { Redirect } from 'react-router-dom';
-const reactDates = require('react-dates/initialize');
+// const reactDates = require('react-dates/initialize');
 
 class SearchBox extends React.Component {
     constructor(props) {

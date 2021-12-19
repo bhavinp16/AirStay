@@ -6,6 +6,7 @@ import setAuthToken from '../utils/setAuthToken';
 import NProgress from 'nprogress';
 import '../styles/nprogress.css';
 import { useToasts } from 'react-toast-notifications';
+import '../styles/titlestyle.css';
 
 const mystyle = {
 	backgroundColor: 'black',

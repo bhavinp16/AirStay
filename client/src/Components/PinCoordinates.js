@@ -6,7 +6,7 @@ import '../styles/map.css'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
-function PinCoordinates() {
+function PinCoordinates({ sendData }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -14,6 +14,10 @@ function PinCoordinates() {
 
     // marker coords
     const [coordinates, setCoordinates] = useState({});
+
+    useEffect(() => {
+        sendData(coordinates);
+    }, [coordinates, sendData]);
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -55,7 +59,7 @@ function PinCoordinates() {
     });
 
     return (
-        <div className="container">
+        <div className="container" style={{"width": '1150px'}}>
             <div ref={mapContainer} className="map-container relative">
                 <div className="sidebar absolute">
                     Longitude: {coordinates.long} | Latitude: {coordinates.lat}

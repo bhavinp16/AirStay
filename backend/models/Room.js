@@ -31,12 +31,12 @@ const RoomSchema = mongoose.Schema({
         type: Date,
         required: true,
     }],
-    houseRules: [{
+    houseRules: {
         type: String,
-    }],
-    amenties: [{
+    },
+    amenties: {
         type: String,
-    }],
+    },
     images: {
         data: Buffer,
         contentType: String
