@@ -113,7 +113,9 @@ export const roomdetailDesc = {
   rooms: "3 bedrooms · 3 beds · 3 bathrooms",
   guests: "12",
   joindate: "July 2017",
-  abouthost: "I am a Chartered Accountant by qualification - was always interested in Hospitality as an Industry. I along with a few friends, started a hospitality firm in the name and style - SEVEN SANDS VILLE wherein we tried to understand the basic needs and expectations when a guest reserves a Villa. We focused on guest experience by concentrating on the core operations and recruiting the operations team from"
+  abouthost: "I am a Chartered Accountant by qualification - was always interested in Hospitality as an Industry. I along with a few friends, started a hospitality firm in the name and style - SEVEN SANDS VILLE wherein we tried to understand the basic needs and expectations when a guest reserves a Villa. We focused on guest experience by concentrating on the core operations and recruiting the operations team from",
+  hostphone: "+91 8209762541",
+  hostemail: "abc@gmail.com"
 }
 
 

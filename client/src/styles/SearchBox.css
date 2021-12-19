@@ -5,6 +5,7 @@
     height: 500px;
     background-size: cover;
     position: relative;
+    
 }
 
 .search-box-container {
@@ -20,6 +21,7 @@
     padding: 35px;
     border-radius: 4px;
     z-index: 10;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .search-box-header h1 {
@@ -80,7 +82,7 @@
 }
 
 .search-box-submit-btn {
-    background-color: #FF5A5F;
+    background-color: #316B83;
     color: white;
     text-align: center;
     height: 50px;

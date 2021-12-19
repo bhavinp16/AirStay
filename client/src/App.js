@@ -8,6 +8,7 @@ import RoomDetail from './Pages/RoomDetail';
 import Search from './Pages/Search';
 import HostRoom from './Pages/HostRoom';
 import Wishlist from './Pages/Wishlist';
+import MyBooking from './Pages/MyBooking';
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
-                  
+                  <Route path="/mybooking" element={<MyBooking />} />
                 </>
               ) :
               (
