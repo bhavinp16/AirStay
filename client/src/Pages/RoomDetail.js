@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../Components/Header'
-import DatePicker from '../Components/DatePicker'
+// import DatePicker from '../Components/DatePicker'
 import SearchBox from '../Components/Roomdetail/SearchBox'
 import '../styles/SearchBox.css'
 import Roombanner from '../Components/Roomdetail/Roombanner'

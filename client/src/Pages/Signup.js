@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import usercontext from '../Context/User/usercontext';
 import axios from 'axios';
@@ -6,8 +6,6 @@ import setAuthToken from '../utils/setAuthToken';
 import NProgress from 'nprogress';
 import '../styles/nprogress.css';
 import { useToasts } from 'react-toast-notifications';
-import Header from '../Components/Header';
-import HeaderDark from '../Components/HeaderDark';
 
 const mystyle = {
 	backgroundColor: 'black',
@@ -17,21 +15,6 @@ const mystyle = {
 };
 
 function Signup() {
-	const [scrolled, setScrolled] = useState(false)
-
-	useEffect(() => {
-		const onScroll = () => {
-			if (window.scrollY > 80) {
-				setScrolled(true);
-			} else {
-				setScrolled(false);
-			}
-		};
-		window.addEventListener("scroll", onScroll);
-
-		return () => window.removeEventListener("scroll", onScroll);
-	}, []);
-
 	const { addToast } = useToasts();
 
 	const context = useContext(usercontext);
@@ -110,9 +93,6 @@ function Signup() {
 
 	return (
 		<>
-			{
-				!scrolled ? <HeaderDark /> : <Header />
-			}
 			<div className="container mx-auto" style={mystyle}>
 				<div className="flex justify-center px-6 my-12">
 					<div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-xl">

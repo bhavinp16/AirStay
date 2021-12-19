@@ -23,7 +23,7 @@ router.get('/:city', auth, async (req, res) => {
 // @route   GET api/room/:id
 // @desc    Get room detail by roomid
 // @access  Private
-router.get('/:id', auth, async (req, res) => {
+router.get('/roomDetail/:id', auth, async (req, res) => {
     try {
         const room = await Room.findById(req.params.id);
         res.json(room);

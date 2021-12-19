@@ -1,6 +1,5 @@
-import React, {useState, useEffect } from 'react'
+import React from 'react'
 import PinCoordinates from '../Components/PinCoordinates'
-import Header from '../Components/Header';
 import HeaderDark from '../Components/HeaderDark';
 
 const mystyle = {
@@ -8,26 +7,10 @@ const mystyle = {
 };
 
 function HostRoom() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 80) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <>
-      {
-        !scrolled ? <HeaderDark /> : <Header />
-      }
+      <HeaderDark />
       <div style={mystyle}>
         <center>
           <h1 className="text-3xl text-white font-bold p-4 ">Host A Room</h1>

@@ -6,6 +6,10 @@ import HeaderSearch from "../Components/HeaderSearch"
 import InfoCard from "../Components/InfoCard";
 import Map from "../Components/Map";
 import { searchResults } from "../data";
+import NProgress from 'nprogress';
+import '../styles/nprogress.css'
+
+import axios from 'axios';
 
 function Search() {
 
@@ -27,6 +31,30 @@ function Search() {
     const formattedStartDate = format(new Date(startDate), "dd MMMM yy")
     const formattedEndDate = format(new Date(endDate), "dd MMMM yy")
     const range = `${formattedStartDate} - ${formattedEndDate}`
+
+
+    useEffect(() => {
+        const getRoomsByCity = async () => {
+            NProgress.start();
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            try {
+                const SearchResults = await axios.get(`http://localhost:3000/api/room/${location}`, config);
+                NProgress.done();
+
+                console.log(SearchResults);
+
+            } catch (err) {
+                console.log(err);
+                NProgress.done();
+            }
+        }
+
+        getRoomsByCity();
+    }, [location])
 
     return (
         <div className="h-screen">
