@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import usercontext from '../Context/User/usercontext';
 import axios from 'axios';
@@ -6,6 +6,8 @@ import setAuthToken from '../utils/setAuthToken';
 import NProgress from 'nprogress';
 import '../styles/nprogress.css';
 import { useToasts } from 'react-toast-notifications';
+import Header from '../Components/Header';
+import HeaderDark from '../Components/HeaderDark';
 
 const mystyle = {
 	backgroundColor: 'black',
@@ -15,6 +17,20 @@ const mystyle = {
 };
 
 function Signup() {
+	const [scrolled, setScrolled] = useState(false)
+
+	useEffect(() => {
+		const onScroll = () => {
+			if (window.scrollY > 80) {
+				setScrolled(true);
+			} else {
+				setScrolled(false);
+			}
+		};
+		window.addEventListener("scroll", onScroll);
+
+		return () => window.removeEventListener("scroll", onScroll);
+	}, []);
 
 	const { addToast } = useToasts();
 
@@ -93,108 +109,113 @@ function Signup() {
 	}
 
 	return (
-		<div className="container mx-auto" style={mystyle}>
-			<div className="flex justify-center px-6 my-12">
-				<div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-xl">
-					<div
-						className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-						style={{ backgroundImage: "url(images/live/3.jpg)" }}
-					></div>
-					<div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-						<h3 className="pt-4 text-2xl text-center">Create an Account</h3>
-						<form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-							<div className="mb-4 md:flex md:justify-between">
-								<div className="mb-4 md:mr-2 md:mb-0 w-1/2">
-									<label className="block mb-2 text-sm font-bold text-gray-700" for="Name">
-										Name
-									</label>
-									<input
-										className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-										id="Name"
-										type="text"
-										placeholder="Enter Name"
-										name="name"
-										onChange={handlechange}
-									/>
+		<>
+			{
+				!scrolled ? <HeaderDark /> : <Header />
+			}
+			<div className="container mx-auto" style={mystyle}>
+				<div className="flex justify-center px-6 my-12">
+					<div className="w-full xl:w-3/4 lg:w-11/12 flex shadow-xl">
+						<div
+							className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+							style={{ backgroundImage: "url(images/live/3.jpg)" }}
+						></div>
+						<div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
+							<h3 className="pt-4 text-2xl text-center">Create an Account</h3>
+							<form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+								<div className="mb-4 md:flex md:justify-between">
+									<div className="mb-4 md:mr-2 md:mb-0 w-1/2">
+										<label className="block mb-2 text-sm font-bold text-gray-700" for="Name">
+											Name
+										</label>
+										<input
+											className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+											id="Name"
+											type="text"
+											placeholder="Enter Name"
+											name="name"
+											onChange={handlechange}
+										/>
+									</div>
 								</div>
-							</div>
-							<div className="mb-4">
-								<label className="block mb-2 text-sm font-bold text-gray-700" for="email">
-									Email
-								</label>
-								<input
-									className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-									id="email"
-									type="email"
-									placeholder="Enter Email"
-									name="email"
-									onChange={handlechange}
-								/>
-							</div>
-							<div className="mb-4">
-								<label className="block mb-2 text-sm font-bold text-gray-700" for="phone">
-									Phone
-								</label>
-								<input
-									className="w-1/2 px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-									id="phone"
-									type="number"
-									placeholder="Enter Phone number"
-									name="phone"
-									onChange={handlechange}
-								/>
-							</div>
-							<div className="mb-4 md:flex md:justify-between">
-								<div className="mb-4 md:mr-2 md:mb-0">
-									<label className="block mb-2 text-sm font-bold text-gray-700" for="password">
-										Password
+								<div className="mb-4">
+									<label className="block mb-2 text-sm font-bold text-gray-700" for="email">
+										Email
 									</label>
 									<input
 										className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-										id="password"
-										type="password"
-										placeholder="Enter Password"
-										name="password"
+										id="email"
+										type="email"
+										placeholder="Enter Email"
+										name="email"
 										onChange={handlechange}
 									/>
 								</div>
-								<div className="md:ml-2">
-									<label className="block mb-2 text-sm font-bold text-gray-700" for="c_password">
-										Confirm Password
+								<div className="mb-4">
+									<label className="block mb-2 text-sm font-bold text-gray-700" for="phone">
+										Phone
 									</label>
 									<input
-										className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-										id="c_password"
-										type="password"
-										placeholder="Confirm Password"
-										name="password"
+										className="w-1/2 px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+										id="phone"
+										type="number"
+										placeholder="Enter Phone number"
+										name="phone"
 										onChange={handlechange}
 									/>
 								</div>
-							</div>
-							<div className="mb-6 text-center">
-								<button
-									className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-black focus:outline-none focus:shadow-outline"
-									type="button"
-									onClick={signupsubmit}
-								>
-									Register Account
-								</button>
-							</div>
-							<hr className="mb-6 border-t" />
-							<div className="text-center">
-								<Link
-									className="inline-block text-sm text-gray-400 align-baseline hover:text-gray-900"
-									to="/login"
-								>
-									Already have an account? Login!
-								</Link>
-							</div>
-						</form>
+								<div className="mb-4 md:flex md:justify-between">
+									<div className="mb-4 md:mr-2 md:mb-0">
+										<label className="block mb-2 text-sm font-bold text-gray-700" for="password">
+											Password
+										</label>
+										<input
+											className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+											id="password"
+											type="password"
+											placeholder="Enter Password"
+											name="password"
+											onChange={handlechange}
+										/>
+									</div>
+									<div className="md:ml-2">
+										<label className="block mb-2 text-sm font-bold text-gray-700" for="c_password">
+											Confirm Password
+										</label>
+										<input
+											className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+											id="c_password"
+											type="password"
+											placeholder="Confirm Password"
+											name="password"
+											onChange={handlechange}
+										/>
+									</div>
+								</div>
+								<div className="mb-6 text-center">
+									<button
+										className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-black focus:outline-none focus:shadow-outline"
+										type="button"
+										onClick={signupsubmit}
+									>
+										Register Account
+									</button>
+								</div>
+								<hr className="mb-6 border-t" />
+								<div className="text-center">
+									<Link
+										className="inline-block text-sm text-gray-400 align-baseline hover:text-gray-900"
+										to="/login"
+									>
+										Already have an account? Login!
+									</Link>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 
 	)
 }

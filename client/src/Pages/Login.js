@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import usercontext from '../Context/User/usercontext';
 import axios from 'axios';
@@ -6,9 +6,25 @@ import setAuthToken from '../utils/setAuthToken';
 import { useToasts } from 'react-toast-notifications';
 import NProgress from 'nprogress';
 import '../styles/nprogress.css';
+import Header from '../Components/Header';
+import HeaderDark from '../Components/HeaderDark';
 
 
 function Login() {
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (window.scrollY > 80) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+        window.addEventListener("scroll", onScroll);
+
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     const { addToast } = useToasts();
 
@@ -73,6 +89,10 @@ function Login() {
 
 
     return (
+        <>
+        {
+            !scrolled ? <HeaderDark /> : <Header />
+        }
         <div className="font-sans">
             <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-black ">
                 <div className="relative sm:max-w-sm w-full">
@@ -150,6 +170,7 @@ function Login() {
             </div>
 
         </div>
+        </>
     )
 }
 
