@@ -9,7 +9,7 @@ const RoomSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    desc: {
+    description: {
         type: String,
         required: true,
     },
@@ -71,7 +71,7 @@ const RoomSchema = mongoose.Schema({
         type: mongoose.Types.Decimal128,
     },
     hostId: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Host',
+        type: mongoose.Schema.Types.ObjectId, ref: 'User',
         required: true,
     },
 

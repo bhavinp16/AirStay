@@ -104,7 +104,7 @@ function Signup() {
 						<h3 className="pt-4 text-2xl text-center">Create an Account</h3>
 						<form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
 							<div className="mb-4 md:flex md:justify-between">
-								<div className="mb-4 md:mr-2 md:mb-0">
+								<div className="mb-4 md:mr-2 md:mb-0 w-1/2">
 									<label className="block mb-2 text-sm font-bold text-gray-700" for="Name">
 										Name
 									</label>
