@@ -9,7 +9,7 @@ export const searchResults = [
   { "id": 7, "img": "/images/results/7.jpg", "location": "Private room in center of London", "title": "5 Star Luxury Apartment", "description": "3 guest · 1 bedroom · 1 bed · 1.5 shared bthrooms · Wifi · Kitchen · Free parking · Washing Machine", "star": 3.85, "price": "9000", "long": -0.109889, "lat": 51.521245 }
 ]
 
- 
+
 
 export const discover = {
   title: "Discover things to do",
@@ -53,6 +53,7 @@ export const cardsData = [
 ]
 
 export const exploreData = [
+  { location: "Mumbai", distance: 1, img: "/images/explore/8.jpg" },
   { location: "Bengaluru", distance: 3, img: "/images/explore/1.jpg" },
   { location: "Puducherry", distance: 3, img: "/images/explore/2.jpg" },
   { location: "Kodaikannal", distance: 3.5, img: "/images/explore/3.jpg" },
@@ -60,7 +61,6 @@ export const exploreData = [
   { location: "Chennai", distance: 4.5, img: "/images/explore/5.jpg" },
   { location: "Kochi", distance: 6, img: "/images/explore/6.jpg" },
   { location: "Ooty", distance: 3.5, img: "/images/explore/7.jpg" },
-  { location: "Trivandrum", distance: 7.5, img: "/images/explore/8.jpg" },
 ];
 
 export const resultImages = [
@@ -74,39 +74,39 @@ export const resultImages = [
 ];
 
 export const roomdetailImages = [
-  ["/images/roomdetails/lonavala.jpg" ]
+  ["/images/roomdetails/lonavala.jpg"]
 ]
 
 export const roomdetailReviews = [
-  {name:"Hari" ,date:"11 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
-  {name:"Vishal" ,date:"12 November", desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
-  {name:"Bhavin" ,date:"13 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."},
-  {name:"Piyush" ,date:"14 November" ,desc:"We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room."}
+  { name: "Hari", date: "11 November", desc: "We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room." },
+  { name: "Vishal", date: "12 November", desc: "We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room." },
+  { name: "Bhavin", date: "13 November", desc: "We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room." },
+  { name: "Piyush", date: "14 November", desc: "We really enjoyed our stay in the serenity villa.. all of us loved the property, the outdoor games as well the carrom, indoors.The Villa is nicely designed.. especially loved the tall windows in the living room." }
 ]
 
 export const roomdetailFeatures = [
-  {title:"Entire home" ,desc:"You will have the villa to yourself." },
-  {title:"Entire home" ,desc:"You will have the villa to yourself." },
-  {title:"Entire home" ,desc:"You will have the villa to yourself." },
-  {title:"Entire home" ,desc:"You will have the villa to yourself." },
-  {title:"Entire home" ,desc:"You will have the villa to yourself." },
+  { title: "Entire home", desc: "You will have the villa to yourself." },
+  { title: "Entire home", desc: "You will have the villa to yourself." },
+  { title: "Entire home", desc: "You will have the villa to yourself." },
+  { title: "Entire home", desc: "You will have the villa to yourself." },
+  { title: "Entire home", desc: "You will have the villa to yourself." },
 ]
 
 
 export const roomdetailAmenities = [
-  ["Kitchen" ],
-  ["2BHK" ],
-  ["World class Interior" ],
-  ["Kitchen" ],
-  ["2BHK" ],
-  ["World class Interior" ],
-  ["Kitchen" ],
-  ["2BHK" ],
-  ["World class Interior" ]
+  ["Kitchen"],
+  ["2BHK"],
+  ["World class Interior"],
+  ["Kitchen"],
+  ["2BHK"],
+  ["World class Interior"],
+  ["Kitchen"],
+  ["2BHK"],
+  ["World class Interior"]
 ]
 
 export const roomdetailDesc = {
-  hotelname:"Lonavala Villas - The Serenity Villa - 3BHK",
+  hotelname: "Lonavala Villas - The Serenity Villa - 3BHK",
   rating: "4.71 (120 reviews)",
   adrs: "Lonavala, Maharashtra, India",
   owner: "Vishal",

@@ -40,7 +40,6 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
-                  <Route path="/mybooking" element={<MyBooking />} />
                 </>
               ) :
               (
@@ -54,6 +53,7 @@ function App() {
                   <Route path="/room/:id" element={<RoomDetail />} />
                   <Route path="/search/:location/" element={<Search />} />
                   <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/mybooking" element={<MyBooking />} />
                 </>
               )}
           </Routes>

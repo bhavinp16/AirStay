@@ -5,7 +5,7 @@ const BookingSchema = mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     billingDetails: {
         type: {
-            price: mongoose.Types.Decimal128,
+            price: Number,
             duration: String,
             dates: [{
                 type: Date,

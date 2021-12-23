@@ -5,7 +5,6 @@ import Footer from "../Components/Footer"
 import HeaderSearch from "../Components/HeaderSearch"
 import InfoCard from "../Components/InfoCard";
 import Map from "../Components/Map";
-import { searchResults } from "../data";
 import NProgress from 'nprogress';
 import '../styles/nprogress.css'
 
@@ -32,20 +31,23 @@ function Search() {
     const formattedEndDate = format(new Date(endDate), "dd MMMM yy")
     const range = `${formattedStartDate} - ${formattedEndDate}`
 
+    const [SearchResults, setSearchResults] = useState([]);
+
 
     useEffect(() => {
         const getRoomsByCity = async () => {
             NProgress.start();
             const config = {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.getItem('token')
                 }
             };
             try {
-                const SearchResults = await axios.get(`http://localhost:3000/api/room/${location}`, config);
+                const ssearchResults = await axios.get(`http://localhost:3000/api/room/${location.toLowerCase()}`, config);
                 NProgress.done();
-
-                console.log(SearchResults);
+                setSearchResults(ssearchResults.data);
+                console.log(ssearchResults.data);
 
             } catch (err) {
                 console.log(err);
@@ -104,22 +106,32 @@ function Search() {
                         }}>More filters</button>
                     </div>
                     <div className="flex flex-col">
-                        {searchResults.map(({ id, img, location, title, description, star, price, total, long, lat }) => (
-                            <div onMouseEnter={() => setselectedLocation({ long, lat })}>
-                                <InfoCard
-                                    key={id}
-                                    roomId={id}
-                                    img={img}
-                                    location={location}
-                                    title={title}
-                                    description={description}
-                                    star={star}
-                                    price={price}
-                                    total={parseFloat(price) * numberOfGuests}
-                                />
-                            </div>
-
-                        ))}
+                        {
+                            SearchResults.length > 0
+                                ?
+                                SearchResults.map(({ _id, images, address, title, description, rating, price, coordinates }) => (
+                                    <div onMouseEnter={() => setselectedLocation({
+                                        coordinates: {
+                                            Longitude: coordinates.Longitude,
+                                            Latitude: coordinates.Latitude
+                                        }
+                                    })}>
+                                        <InfoCard
+                                            key={_id}
+                                            roomId={_id}
+                                            img={"/images/results/14.jpg"}
+                                            location={address}
+                                            title={title}
+                                            description={description}
+                                            star={rating}
+                                            price={price.adult}
+                                            total={parseFloat(price.adult) * numberOfGuests}
+                                        />
+                                    </div>
+                                ))
+                                :
+                                <p className='text-2xl font-semibold mt-2 mb-6'>No Rooms Found</p>
+                        }
                     </div>
 
                 </section>
@@ -128,13 +140,12 @@ function Search() {
                     height: "700px",
                     overflow: "scroll",
                 }}>
-                    <Map searchResults={searchResults} hoverLocation={selectedLocation} />
-
+                    <Map searchResults={SearchResults} hoverLocation={selectedLocation} />
                 </section>
             </main>
 
             <Footer />
-        </div>
+        </div >
     )
 }
 

@@ -7,13 +7,9 @@ function Map({ searchResults, hoverLocation }) {
     // for the pop-up marker, passing the object
     const [selectedLocation, setSelectedLocation] = useState({})
 
-    // Transform the search result into latitude and longitude for geolib
-    // { latitude: 52.4, longitude: 12.54}
-
-    // Center of the searched results using geoLib
     const coordinates = searchResults.map(result => ({
-        longitude: result.long,
-        latitude: result.lat
+        longitude: result.coordinates.Longitude,
+        latitude: result.coordinates.Latitude
     }))
 
     const center = getCenter(coordinates)
@@ -23,8 +19,16 @@ function Map({ searchResults, hoverLocation }) {
         height: "100%",
         latitude: center.latitude,
         longitude: center.longitude,
-        zoom: 11
+        zoom: 14
     })
+
+    useEffect(() => {
+        setViewport({
+            ...viewport,
+            latitude: center.latitude,
+            longitude: center.longitude
+        })
+    }, [searchResults])
 
     useEffect(() => {
         if (hoverLocation) {
@@ -33,55 +37,68 @@ function Map({ searchResults, hoverLocation }) {
     }, [hoverLocation])
 
     return (
-        <ReactMapGL
-            mapStyle="mapbox://styles/mapbox/streets-v11"
-            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
-            {...viewport}
-            onViewportChange={(nextViewport) => setViewport(nextViewport)}
-        >
-            {searchResults.map(result => (
-                <div key={result.long}>
-                    <Marker
-                        longitude={result.long}
-                        latitude={result.lat}
-                        offsetLeft={0}
-                        offsetTop={0}
-                    >
-                        <p onClick={() => setSelectedLocation(result)} onMouseOver={() => {
-                            setSelectedLocation(result)
-                        }} className="cursor-pointer text-2xl ">
-                            <LocationMarkerIcon className="h-6 text-red-500 animate-bounce z-20" />
-                            {selectedLocation.long === result.long ? (
-                                <p className="text-grey text-sm bg-black text-white rounded-full p-1 px-2 animate-pulse z-40">₹{result.price}</p>
-                            ) : (
-                                <p className="text-grey text-sm bg-white shadow-md rounded-full p-1 px-2 z-10">₹{result.price}</p>
-                            )
+        <>
+            {
+                searchResults.length > 0
+                    ?
+                    (
+                        <ReactMapGL ReactMapGL
+                            mapStyle="mapbox://styles/mapbox/streets-v11"
+                            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
+                            {...viewport}
+                            onViewportChange={(nextViewport) => setViewport(nextViewport)
                             }
-
-                        </p>
-                    </Marker>
-
-                    {/* Popup to be shown once we click on the marker */}
-                    {selectedLocation.long === result.long ? (
-                        <Popup
-                            onClose={() => setSelectedLocation({})}
-                            closeOnClick={true}
-                            latitude={result.lat}
-                            longitude={result.long}
-                            className="border border-white rounded-lg z-40"
                         >
-                            <div>
-                                {result.title}
-                                <br />
-                                ₹{result.price} /night
-                            </div>
-                        </Popup>
-                    ) : (
-                        false
-                    )}
-                </div>
-            ))}
-        </ReactMapGL>
+                            {
+                                searchResults.map(result => (
+                                    <div key={result.coordinates.Longitude}>
+                                        <Marker
+                                            longitude={result.coordinates.Longitude}
+                                            latitude={result.coordinates.Latitude}
+                                            offsetLeft={0}
+                                            offsetTop={0}
+                                        >
+                                            <p onClick={() => setSelectedLocation(result)} onMouseOver={() => {
+                                                setSelectedLocation(result)
+                                            }} className="cursor-pointer text-2xl ">
+                                                <LocationMarkerIcon className="h-6 text-red-500 animate-bounce z-20" />
+                                                {selectedLocation?.coordinates?.Longitude === result.coordinates.Longitude ? (
+                                                    <p className="text-grey text-sm bg-black text-white rounded-full p-1 px-2 animate-pulse z-40">₹{result.price.adult}</p>
+                                                ) : (
+                                                    <p className="text-grey text-sm bg-white shadow-md rounded-full p-1 px-2 z-10">₹{result.price.adult}</p>
+                                                )
+                                                }
+
+                                            </p>
+                                        </Marker>
+
+                                        {/* Popup to be shown once we click on the marker */}
+                                        {selectedLocation?.coordinates?.Longitude === result.coordinates.Longitude ? (
+                                            <Popup
+                                                onClose={() => setSelectedLocation({})}
+                                                closeOnClick={true}
+                                                latitude={result.coordinates.Latitude}
+                                                longitude={result.coordinates.Longitude}
+                                                className="border border-white rounded-lg z-40"
+                                            >
+                                                <div>
+                                                    {result.title}
+                                                    <br />
+                                                    ₹{result.price.adult} /night
+                                                </div>
+                                            </Popup>
+                                        ) : (
+                                            false
+                                        )}
+                                    </div>
+                                ))
+                            }
+                        </ReactMapGL >
+                    )
+                    :
+                    <></>
+            }
+        </>
     )
 }
 

@@ -22,8 +22,8 @@ const RoomSchema = mongoose.Schema({
     },
     price: {
         type: {
-            adult: mongoose.Types.Decimal128,
-            children: mongoose.Types.Decimal128,
+            adult: Number,
+            children: Number,
         },
         required: true,
     },
@@ -59,8 +59,8 @@ const RoomSchema = mongoose.Schema({
     },
     coordinates: {
         type: {
-            Longitude: mongoose.Types.Decimal128,
-            Latitude: mongoose.Types.Decimal128,
+            Longitude: Number,
+            Latitude: Number,
         },
         required: true,
     },
@@ -68,7 +68,7 @@ const RoomSchema = mongoose.Schema({
         type: String,
     }],
     rating: {
-        type: mongoose.Types.Decimal128,
+        type: Number,
     },
     hostId: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User',

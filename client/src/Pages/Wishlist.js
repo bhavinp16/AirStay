@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HeaderDark from '../Components/HeaderDark'
 import InfoCard from '../Components/InfoCard'
 import { searchResults } from '../data'
 
 function Wishlist() {
+
+    useEffect(() => {
+    })
+
     return (
         <div>
             <HeaderDark />

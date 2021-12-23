@@ -41,7 +41,7 @@ router.get('/wishlist', auth, async (req, res) => {
     const user = req.user;
     const roomIds = user.wishlistRoomIds;
     try {
-        const rooms = await Room.find({ _id: { $in: roomIds } });
+        const rooms = await Room.find({ id: { $in: roomIds } });
         res.json(rooms);
     } catch (err) {
         console.error(err.message);
@@ -78,6 +78,7 @@ router.post(
         check('coordinates', 'Coordinates are required please relocate the pin').exists(),
         check('address', 'Address is required').exists(),
         check('price', 'Price is required').exists(),
+        check('rating', 'Rating is required').exists(),
     ],
     async (req, res) => {
 
@@ -86,9 +87,12 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const hostId = req.user._id; //From auth middleware decoded from token 
+        const hostId = req.user.id; //From auth middleware decoded from token 
 
-        const { title, roomType, description, capacity, price, availableDates, houseRules, amenties, images, address, landmark, city, state, coordinates } = req.body;
+        const { title, roomType, description, capacity, price, availableDates, houseRules, amenties, images, address, landmark, city, state, coordinates, rating } = req.body;
+
+        city = city.toLowerCase();
+        state = state.toLowerCase();
 
         try {
             const newRoom = new Room({
@@ -106,13 +110,14 @@ router.post(
                 landmark,
                 city,
                 state,
-                coordinates
+                coordinates,
+                rating
             });
 
             const room = await newRoom.save();
             res.json(room);
 
-        } catch {
+        } catch (err) {
             console.error(err.message);
             res.status(500).send('Server Error!');
         }
@@ -135,7 +140,7 @@ router.post('/wishlist', auth, async (req, res) => {
             return res.status(404).json({ msg: 'Room not found' });
         }
 
-        await User.findByIdAndUpdate(user._id, { $push: { wishlistRoomIds: room.id } });
+        await User.findByIdAndUpdate(user.id, { $push: { wishlistRoomIds: room.id } });
 
         res.json(rooms);
     } catch (err) {
@@ -155,7 +160,7 @@ router.delete('/wishlist', auth, async (req, res) => {
             return res.status(404).json({ msg: 'Room not found' });
         }
 
-        await User.findByIdAndUpdate(user._id, { $pull: { wishlistRoomIds: room.id } });
+        await User.findByIdAndUpdate(user.id, { $pull: { wishlistRoomIds: room.id } });
 
         res.json(rooms);
     } catch (err) {

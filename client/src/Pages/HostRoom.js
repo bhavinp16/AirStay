@@ -89,21 +89,29 @@ function HostRoom() {
 	// On form submit
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formDetails);
 
-		// const config = {
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// };
-		// try {
-		// 	const res = await axios.post('http://localhost:3000/api/rooms/', JSON.stringify(formDetails), config);
-		// 	console.log(res);
-		// 	addToast("Room Added Successfully", { appearance: 'success', autoDismiss: true });
-		// } catch (err) {
-		// 	console.log(err);
-		// 	addToast("Failed To Add Room", { appearance: 'error', autoDismiss: true });
-		// }
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				'x-auth-token': localStorage.getItem('token'),
+			},
+		};
+		try {
+			const res = await axios.post('http://localhost:3000/api/room/', JSON.stringify(formDetails), config);
+			console.log(res);
+			addToast("Room Added Successfully", { appearance: 'success', autoDismiss: true });
+
+			setformDetails(initialState);
+			setdates({
+				startDate: null,
+				endDate: null,
+			});
+			window.scrollTo(0, 0);
+
+		} catch (err) {
+			console.log(err);
+			addToast("Failed To Add Room", { appearance: 'error', autoDismiss: true });
+		}
 	};
 
 	// to pass data from child to parent component in passing coordinates

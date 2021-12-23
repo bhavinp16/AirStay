@@ -22,7 +22,7 @@ router.get('/:id', auth, [
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const userId = req.user._id;
+    const userId = req.user.id;
     const roomId = req.params.id;
 
     const { billingDetails } = req.body;
@@ -37,7 +37,7 @@ router.get('/:id', auth, [
         await booking.save();
 
         // add the bookingid to user's bookings array
-        await User.findByIdAndUpdate(userId, { $push: { bookings: booking._id } });
+        await User.findByIdAndUpdate(userId, { $push: { bookings: booking.id } });
 
         // updated rooms availableDates
         await Room.findByIdAndUpdate(roomId, { $pullAll: { availableDates: billingDetails.dates } });
@@ -59,7 +59,7 @@ router.get('/', auth, async (req, res) => {
     const user = req.user;
     const bookingsIds = user.bookingIds;
     try {
-        const bookings = await Booking.find({ _id: { $in: bookingsIds } });
+        const bookings = await Booking.find({ id: { $in: bookingsIds } });
         res.json(bookings);
 
     } catch (err) {
