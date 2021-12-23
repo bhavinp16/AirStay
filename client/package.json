@@ -11,6 +11,7 @@
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
 		"axios": "^0.24.0",
+		"concurrently": "^6.5.1",
 		"date-fns": "^2.26.0",
 		"feather-icons": "^4.28.0",
 		"geolib": "^3.3.3",
@@ -26,7 +27,7 @@
 		"tailwind-scrollbar-hide": "^1.1.5"
 	},
 	"scripts": {
-		"start": "craco start",
+		"start": "concurrently -n 'client,server' -c 'blue,green' \"craco start\" \"cd ../backend && nodemon server\" ",
 		"build": "craco build",
 		"test": "craco test",
 		"eject": "react-scripts eject"
