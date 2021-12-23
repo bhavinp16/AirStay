@@ -15,15 +15,20 @@ class SearchBox extends React.Component {
             kidsCount: 0,
             petsCount: 0,
             parentsCount: 0,
+            adultsCount: 0,
             startDate: null,
             endDate: null,
+            totaldays: 0,
             focusedInput: null,
             guestsInputBorderFocused: false,
             redirectToSearchIdx: false,
             incrementkids: 100,
             incrementold: 150,
             incrementpets: 200,
-            price: 500
+            incrementadults: 300,
+            incrementday: 600,
+            price: 0,
+            dateprice: 0
         };
 
         this.inputNode = React.createRef();
@@ -69,6 +74,41 @@ class SearchBox extends React.Component {
         };
     }
 
+    handleDateUpdate(startdate,enddate) {
+        var sd = JSON.stringify(startdate);
+        var ed = JSON.stringify(enddate);
+        sd = sd.substring(1, 11);
+        ed = ed.substring(1, 11);
+        var days = Math.floor((Date.parse(ed) - Date.parse(sd)) / 86400000);
+        days = days + 1;
+        this.state.totaldays = days;
+        console.log(days);
+        if(enddate!=null && startdate!=null){
+            if ((this.state.dateprice == (this.state.incrementday * this.state.totaldays)) || (this.state.dateprice == 0)){
+                console.log("11")
+                this.state.dateprice = this.state.incrementday * this.state.totaldays
+                this.setState({
+                    // totaldays: days,
+                    // dateprice: this.state.incrementday * this.state.totaldays,
+                    price: this.state.price + this.state.dateprice,
+                    // console.log(this.state[type2],this.state.price)
+                })
+                console.log(this.state.price,this.state.dateprice, this.state.totaldays)
+            }
+            else{
+                console.log("22")
+                this.setState({
+                    // totaldays: days,
+                    price: this.state.price - this.state.dateprice + (this.state.incrementday * this.state.totaldays),
+                    // dateprice: this.state.incrementday * this.state.totaldays, 
+                    // console.log(this.state[type2],this.state.price)
+                })
+                this.state.dateprice = this.state.incrementday * this.state.totaldays
+            }
+        }
+        
+    }
+
     handleSearchSubmit(e) {
         e.preventDefault();
         let startDate = null;
@@ -100,9 +140,11 @@ class SearchBox extends React.Component {
     increaseCount(type, type2) {
         // e.stopPropagation();
         let newVal = this.state[type] + 1;
+        // console.log(this.state.startDate,this.state.endDate);
         this.setState({
             [type]: newVal,
             price: this.state.price + this.state[type2]
+            
             // console.log(this.state[type2],this.state.price)
         })
         // console.log("Increase");
@@ -111,6 +153,7 @@ class SearchBox extends React.Component {
     decreaseCount(type, type2) {
         // e.stopPropagation();
         let newVal = this.state[type] - 1;
+        
         if (this.state[type] > 0) {
             this.setState({
                 [type]: newVal,
@@ -141,12 +184,14 @@ class SearchBox extends React.Component {
         let kidsMinusSignColorClass = (this.state.kidsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
         let petsMinusSignColorClass = (this.state.petsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
         let parentsMinusSignColorClass = (this.state.parentsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
+        let adultsMinusSignColorClass = (this.state.adultsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
 
         // Create Guests input string
         let guestsInputContent = [
             this.makeSingleGuestsInputString("kid", "kidsCount"),
             this.makeSingleGuestsInputString("pet", "petsCount"),
-            this.makeSingleGuestsInputString("parent", "parentsCount")
+            this.makeSingleGuestsInputString("parent", "parentsCount"),
+            this.makeSingleGuestsInputString("adult", "adultsCount")
         ].filter(type => type).join(", ");
 
         // Conditional for the Guests input chevron
@@ -165,17 +210,36 @@ class SearchBox extends React.Component {
                 startDate={this.state.startDate}
                 startDateId="mm/dd/yyyy"
                 endDate={this.state.endDate}
+                dateFormat="DD/MM/YYYY"
                 endDateId="mm/dd/yyyy"
-                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, ()=>{this.handleDateUpdate(this.state.startDate,this.state.endDate)})}
                 focusedInput={this.state.focusedInput}
                 onFocusChange={focusedInput => this.setState({ focusedInput })}
                 numberOfMonths={1}
+                // onChange={this.handleDateUpdate()}
             />
         )
 
         const dropdownMenu = (
             <div className="search-box-dropdown-container">
                 <ul>
+                    <li>
+                        <div className="search-box-dropdown-label">
+                            <div>Adults</div>
+                            <div>The matured ones</div>
+                        </div>
+                        <div className="search-box-counter-container">
+                            <div
+                                className={`${adultsMinusSignColorClass}`}
+                                onClick={() => this.decreaseCount("adultsCount", "incrementadults")}>–</div>
+                            <div className="search-box-dropdown-counter-num">{this.state.adultsCount}+</div>
+                            <div
+                                className="search-box-plus-circle"
+                                onClick={() => {
+                                    this.increaseCount("adultsCount", "incrementadults");
+                                }} >+</div>
+                        </div>
+                    </li>
                     <li>
                         <div className="search-box-dropdown-label">
                             <div>Kids</div>
