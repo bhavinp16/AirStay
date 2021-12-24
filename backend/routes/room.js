@@ -46,7 +46,7 @@ router.get('/wishlist', auth, async (req, res) => {
     const user = req.user;
     const roomIds = user.wishlistRoomIds;
     try {
-        const rooms = await Room.find({ id: { $in: roomIds } });
+        const rooms = await Room.find({ _id: { $in: roomIds } });
         res.json(rooms);
     } catch (err) {
         console.error(err.message);
