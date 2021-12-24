@@ -37,10 +37,9 @@ const RoomSchema = mongoose.Schema({
     amenties: {
         type: String,
     },
-    images: {
-        data: Buffer,
-        contentType: String
-    },
+    images: [{
+        type: String,
+    }],
     address: {
         type: String,
         required: true,

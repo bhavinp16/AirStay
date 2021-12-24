@@ -45,6 +45,12 @@ function HostRoom() {
 
 	const [formDetails, setformDetails] = useState(initialState);
 
+	const handleFileChange = (e) => {
+		e.preventDefault();
+		const files = e.target.files;
+		setformDetails({ ...formDetails, images: files });
+	}
+
 	const handleChange = (e) => {
 		setformDetails({
 			...formDetails,
@@ -90,15 +96,41 @@ function HostRoom() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const formData = new FormData();
+		formData.append('title', formDetails.title);
+		formData.append('roomType', formDetails.roomType);
+		formData.append('description', formDetails.description);
+		formData.append('capacityAdult', formDetails.capacity.adult);
+		formData.append('capacityChildren', formDetails.capacity.children);
+		formData.append('priceAdult', formDetails.price.adult);
+		formData.append('priceChildren', formDetails.price.children);
+		formData.append('houseRules', formDetails.houseRules);
+		formData.append('amenties', formDetails.amenties);
+		formData.append('address', formDetails.address);
+		formData.append('landmark', formDetails.landmark);
+		formData.append('city', formDetails.city);
+		formData.append('state', formDetails.state);
+		formData.append('coordinatesLong', formDetails.coordinates.Longitude);
+		formData.append('coordinatesLat', formDetails.coordinates.Latitude);
+		formData.append('rating', formDetails.rating);
+
+		for (let i = 0; i < formDetails.availableDates.length; i++) {
+			formData.append('availableDates', formDetails.availableDates[i]);
+		}
+
+		for (let i = 0; i < formDetails.images.length; i++) {
+			formData.append('image', formDetails.images[i]);
+		}
+
 		const config = {
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'multipart/form-data',
 				'x-auth-token': localStorage.getItem('token'),
 			},
 		};
 		try {
-			const res = await axios.post('http://localhost:3000/api/room/', JSON.stringify(formDetails), config);
-			console.log(res);
+			await axios.post('http://localhost:3000/api/room/', formData, config);
+
 			addToast("Room Added Successfully", { appearance: 'success', autoDismiss: true });
 
 			setformDetails(initialState);
@@ -113,6 +145,7 @@ function HostRoom() {
 			addToast("Failed To Add Room", { appearance: 'error', autoDismiss: true });
 		}
 	};
+
 
 	// to pass data from child to parent component in passing coordinates
 	const getData = useCallback(
@@ -302,7 +335,9 @@ function HostRoom() {
 										<label className="block tracking-wide text-white text-s font-bold mb-2" htmlFor="grid-amenties">
 											Add photos
 										</label>
-										<input className="block h-12 w-full text-sm text-gray-900 border-gray-300 rounded-lg cursor-pointer bg-gray-100 dark:text-gray-400 border-2 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="user_avatar" type="file" multiple />
+										<input className="block h-12 w-full text-sm text-gray-900 border-gray-300 rounded-lg cursor-pointer bg-gray-100 dark:text-gray-400 border-2 focus:outline-none focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="user_avatar" type="file" multiple
+											name='images' onChange={handleFileChange}
+										/>
 										<div className="mt-1 text-sm text-gray-400 dark:text-black-300" id="user_avatar_help">Upload photos that describe your room</div>
 									</div>
 								</div>

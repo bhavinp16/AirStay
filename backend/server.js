@@ -3,11 +3,16 @@ const connectDB = require('./config/db');
 
 const app = express();
 
+const bodyParser = require('body-parser');
+
 // connect the database
 connectDB();
 
 //init  middleware
 app.use(express.json({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 //Define Routes
 app.use('/api/users', require('./routes/users'));

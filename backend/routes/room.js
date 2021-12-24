@@ -1,8 +1,13 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-const { check, validationResult } = require('express-validator');
+const { body, check, validationResult } = require('express-validator');
 const Room = require('../models/Room');
 const User = require('../models/User');
+
+const cloudinary = require('../config/cloudinary');
+const upload = require('../uploads/multer');
+const fs = require('fs');
+
 
 const router = express.Router();
 
@@ -65,68 +70,6 @@ router.get('/curratedlist', auth, async (req, res) => {
 
 
 
-///////////////////////////////////// TO DO Images upload ///////////////////////////////////
-// @route   POST api/room
-// @desc    Create A Room
-// @access  Private
-router.post(
-    '/',
-    auth,
-    [
-        check('city', 'City is required').exists(),
-        check('title', 'Please include a title').exists(),
-        check('coordinates', 'Coordinates are required please relocate the pin').exists(),
-        check('address', 'Address is required').exists(),
-        check('price', 'Price is required').exists(),
-        check('rating', 'Rating is required').exists(),
-    ],
-    async (req, res) => {
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        const hostId = req.user.id; //From auth middleware decoded from token 
-
-        const { title, roomType, description, capacity, price, availableDates, houseRules, amenties, images, address, landmark, city, state, coordinates, rating } = req.body;
-
-        city = city.toLowerCase();
-        state = state.toLowerCase();
-
-        try {
-            const newRoom = new Room({
-                hostId,
-                title,
-                roomType,
-                description,
-                capacity,
-                price,
-                availableDates,
-                houseRules,
-                amenties,
-                images,
-                address,
-                landmark,
-                city,
-                state,
-                coordinates,
-                rating
-            });
-
-            const room = await newRoom.save();
-            res.json(room);
-
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send('Server Error!');
-        }
-    }
-);
-
-
-
-
 // WISHLIST
 
 // @route   POST api/room/wishlist
@@ -170,6 +113,90 @@ router.delete('/wishlist', auth, async (req, res) => {
 });
 
 
+// @route   POST api/room
+// @desc    Create A Room
+// @access  Private
+router.post(
+    '/',
+    auth,
+    upload.array('image'),
+    async (req, res) => {
 
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const hostId = req.user.id; //From auth middleware decoded from token 
+
+        const uploader = async (path) => await cloudinary.uploads(path, "AirStay");
+        const urls = [];
+        const files = req.files;
+        for (const file of files) {
+            const { path } = file;
+            const newPath = await uploader(path);
+            urls.push(newPath);
+            fs.unlinkSync(path);
+        }
+
+
+        let { title, roomType, description, capacityAdult,
+            capacityChildren,
+            priceAdult,
+            priceChildren, availableDates, houseRules, amenties, address, landmark, city, state, coordinatesLong, coordinatesLat, rating } = req.body;
+
+        city = city.toLowerCase();
+        state = state.toLowerCase();
+
+        let images = [];
+        for (const url of urls) {
+            images.push(url.url);
+        }
+
+        const capacity = {
+            adult: parseInt(capacityAdult),
+            children: parseInt(capacityChildren)
+        }
+        const price = {
+            adult: parseFloat(priceAdult),
+            children: parseFloat(priceChildren)
+        }
+
+        const coordinates = {
+            Longitude: parseFloat(coordinatesLong),
+            Latitude: parseFloat(coordinatesLat)
+        }
+
+
+        try {
+            const newRoom = new Room({
+                hostId,
+                title,
+                roomType,
+                description,
+                capacity,
+                price,
+                availableDates,
+                houseRules,
+                amenties,
+                images,
+                address,
+                landmark,
+                city,
+                state,
+                coordinates,
+                rating
+            });
+
+
+            const room = await newRoom.save();
+            res.json(room);
+
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error!');
+        }
+    }
+);
 
 module.exports = router;
