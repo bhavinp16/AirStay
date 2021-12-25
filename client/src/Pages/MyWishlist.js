@@ -4,8 +4,7 @@ import InfoCard from '../Components/InfoCard'
 import NProgress from 'nprogress';
 import axios from 'axios';
 
-
-function Wishlist() {
+function MyWishlist() {
 
     const [SearchResults, setSearchResults] = useState([])
 
@@ -64,4 +63,4 @@ function Wishlist() {
     )
 }
 
-export default Wishlist
+export default MyWishlist

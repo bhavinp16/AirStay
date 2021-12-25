@@ -7,7 +7,7 @@ import Signup from './Pages/Signup';
 import RoomDetail from './Pages/RoomDetail';
 import Search from './Pages/Search';
 import HostRoom from './Pages/HostRoom';
-import Wishlist from './Pages/Wishlist';
+import MyWishlist from './Pages/MyWishlist';
 import MyBooking from './Pages/MyBooking';
 import CurratedList from './Pages/CurratedList';
 
@@ -38,6 +38,8 @@ function App() {
                   <Route exact path="/hostRoom" element={<Navigate to="/login" />} />
                   <Route path="/search/:city" element={<Navigate to="/login" />} />
                   <Route path="/wishlist" element={<Navigate to="/login" />} />
+                  <Route path="/mybookings" element={<Navigate to="/login" />} />
+                  <Route path="/curratedList" element={<Navigate to="/login" />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
@@ -53,7 +55,7 @@ function App() {
                   <Route path="/hostRoom" element={<HostRoom />} />
                   <Route path="/room/:id" element={<RoomDetail />} />
                   <Route path="/search/:location/" element={<Search />} />
-                  <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/wishlist" element={<MyWishlist />} />
                   <Route path="/mybookings" element={<MyBooking />} />
                   <Route path="/curratedList" element={<CurratedList />} />
                 </>

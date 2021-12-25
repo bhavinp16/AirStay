@@ -48,7 +48,6 @@ router.get('/wishlist', auth, async (req, res) => {
         const roomIds = user.wishlistRoomIds;
 
         const rooms = await Room.find({ _id: { $in: roomIds } });
-        console.log(rooms);
         res.json(rooms);
     } catch (err) {
         console.error(err.message);
@@ -81,34 +80,36 @@ router.get('/curratedlist', auth, async (req, res) => {
 router.post('/wishlist', auth, async (req, res) => {
     const user = req.user;
     try {
-        const room = await Room.findById(req.body.roomId);
+        const { roomId } = req.body;
+        const room = await Room.findById(roomId);
         if (!room) {
             return res.status(404).json({ msg: 'Room not found' });
         }
 
         await User.findByIdAndUpdate(user.id, { $push: { wishlistRoomIds: room.id } });
 
-        res.json(rooms);
+        res.status(200).json({ msg: 'Room added to wishlist' });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error!!');
     }
 });
 
-// @route   DELETE api/room/wishlist
+// @route   PUT api/room/wishlist
 // @desc    Remove room from users wishlist
 // @access  Private
-router.delete('/wishlist', auth, async (req, res) => {
+router.put('/wishlist', auth, async (req, res) => {
     const user = req.user;
     try {
-        const room = await Room.findById(req.body.roomId);
+        const { roomId } = req.body;
+        const room = await Room.findById(roomId);
         if (!room) {
             return res.status(404).json({ msg: 'Room not found' });
         }
 
         await User.findByIdAndUpdate(user.id, { $pull: { wishlistRoomIds: room.id } });
 
-        res.json(rooms);
+        res.status(200).json({ msg: 'Room removed from wishlist' });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error!!');

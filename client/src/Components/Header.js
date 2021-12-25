@@ -37,7 +37,7 @@ function Header({ placeholder }) {
                   startDate: startDate.toISOString(),
                   endDate: endDate.toISOString(),
                   numberOfGuests,
-                  filtertype: "City"
+                  filtertype: "Number Of Guests"
               }
           })
       } else {
