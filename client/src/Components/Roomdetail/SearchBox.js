@@ -2,7 +2,6 @@ import React from 'react';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
-import { useToasts } from 'react-toast-notifications';
 import NProgress from 'nprogress';
 import SearchToast from './SearchToast';
 import axios from 'axios';
@@ -33,7 +32,7 @@ class SearchBox extends React.Component {
             roomid: this.props.roomid,
 
         };
-    
+
         this.inputNode = React.createRef();
         this.dropdownNode = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -47,7 +46,9 @@ class SearchBox extends React.Component {
     // componentWillMount() {
     //     document.addEventListener('mousedown', this.handleClick, false)
     // }
-    
+
+
+
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick, false)
     }
@@ -68,7 +69,7 @@ class SearchBox extends React.Component {
         }
     }
 
-    handleDateUpdate(startdate,enddate) {
+    handleDateUpdate(startdate, enddate) {
         var sd = JSON.stringify(startdate);
         var ed = JSON.stringify(enddate);
         sd = sd.substring(1, 11);
@@ -77,8 +78,8 @@ class SearchBox extends React.Component {
         days = days + 1;
         this.state.totaldays = days;
         console.log(days);
-        if(enddate!=null && startdate!=null){
-            if ((this.state.dateprice == (this.state.incrementday * this.state.totaldays)) || (this.state.dateprice == 0)){
+        if (enddate != null && startdate != null) {
+            if ((this.state.dateprice === (this.state.incrementday * this.state.totaldays)) || (this.state.dateprice === 0)) {
                 console.log("11")
                 this.state.dateprice = this.state.incrementday * this.state.totaldays
                 this.setState({
@@ -86,9 +87,9 @@ class SearchBox extends React.Component {
                     // dateprice: this.state.incrementday * this.state.totaldays,
                     price: this.state.price + this.state.dateprice,
                 })
-                console.log(this.state.price,this.state.dateprice, this.state.totaldays)
+                console.log(this.state.price, this.state.dateprice, this.state.totaldays)
             }
-            else{
+            else {
                 console.log("22")
                 this.setState({
                     // totaldays: days,
@@ -98,19 +99,19 @@ class SearchBox extends React.Component {
                 this.state.dateprice = this.state.incrementday * this.state.totaldays
             }
         }
-        
+
     }
 
-    calculateDateArray(startDate, endDate){
-		let dateArray = [];
-		let currentDate = moment(startDate);
-		let end = moment(endDate);
-		while (currentDate <= end) {
-			dateArray.push(currentDate.format('YYYY-MM-DD'));
-			currentDate = currentDate.add(1, 'days');
-		}
-		return dateArray;
-	};
+    calculateDateArray(startDate, endDate) {
+        let dateArray = [];
+        let currentDate = moment(startDate);
+        let end = moment(endDate);
+        while (currentDate <= end) {
+            dateArray.push(currentDate.format('YYYY-MM-DD'));
+            currentDate = currentDate.add(1, 'days');
+        }
+        return dateArray;
+    };
 
     async handleSearchSubmit(e) {
         e.preventDefault();
@@ -122,44 +123,46 @@ class SearchBox extends React.Component {
         }
 
         var formdata = {
-            billingDetails:{
+            billingDetails: {
                 price: this.state.price,
                 duration: this.state.totaldays,
                 date: this.calculateDateArray(startDate, endDate),
                 adult: this.state.adultsCount,
-                children:this.state.kidsCount
+                children: this.state.kidsCount
             }
         }
-        console.log(formdata)
         NProgress.start();
 
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
                 'x-auth-token': localStorage.getItem('token'),
-			}
-		};
+            }
+        };
 
-		try {
-            if(formdata.price == 0 || (formdata.adult == 0 && formdata.children== 0) || formdata.date == "null null" || formdata.duration == 0){
+        try {
+            if (formdata.price === 0 || (formdata.adult === 0 && formdata.children === 0) || formdata.date === "null null" || formdata.duration === 0) {
                 // SearchToast("Empty Field Present", 'error')
                 console.log("empty")
                 alert("Empty Field Found")
                 // addToast("Empty Field Present", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
             }
             const res = await axios.post(`http://localhost:3000/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
+            if (res.status === 200) {
+                alert("Booking Successful");
+            }
             // localStorage.setItem('token', res.data.token);
-			NProgress.done();
+            NProgress.done();
             // addToast("Booking Successful", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
-		
+
         } catch (err) {
-			console.log(err);
+            console.log(err);
             alert("Booking Failed")
-			NProgress.done();
+            NProgress.done();
             // SearchToast("Booking Failed", 'error')
             console.log("errr")
             // addToast("Booking Failed", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
-		}
+        }
         // this.props.fetchTreehouseSearchResults(this.state.searchTerm, startDate, endDate);
         this.setState({ redirectToSearchIdx: true })
     }
@@ -192,7 +195,7 @@ class SearchBox extends React.Component {
     decreaseCount(type, type2) {
         // e.stopPropagation();
         let newVal = this.state[type] - 1;
-        
+
         if (this.state[type] > 0) {
             this.setState({
                 [type]: newVal,
@@ -246,7 +249,7 @@ class SearchBox extends React.Component {
                 endDate={this.state.endDate}
                 dateFormat="DD/MM/YYYY"
                 endDateId="mm/dd/yyyy"
-                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, ()=>{this.handleDateUpdate(this.state.startDate,this.state.endDate)})}
+                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, () => { this.handleDateUpdate(this.state.startDate, this.state.endDate) })}
                 focusedInput={this.state.focusedInput}
                 onFocusChange={focusedInput => this.setState({ focusedInput })}
                 numberOfMonths={1}
@@ -299,12 +302,12 @@ class SearchBox extends React.Component {
         return (
             <div className="splash-image-container">
                 <div className="search-box-container">
-                    <div className="search-box-header" style={{ paddingBottom: "4%",}}>
+                    <div className="search-box-header" style={{ paddingBottom: "4%", }}>
                         <h1>Book your dream destination with us
-                            <span style={{float:"right"}}>
-                            Price :  {this.state.price}
+                            <span style={{ float: "right" }}>
+                                Price :  {this.state.price}
                             </span>
-                            
+
                         </h1>
                     </div>
                     <form onSubmit={this.handleSearchSubmit}>
@@ -319,7 +322,7 @@ class SearchBox extends React.Component {
                         <div className="check_-inputs-container">
                             {dateRangePicker}
                         </div>
-                        <div style={{ paddingBottom: "6%",}}></div>
+                        <div style={{ paddingBottom: "6%", }}></div>
                         <span className="search-box-label">
                             GUESTS
                         </span>
@@ -344,7 +347,7 @@ class SearchBox extends React.Component {
                         <div
                             ref={this.dropdownNode}
                         >{dropdownComponent}</div>
-                        <div style={{ paddingBottom: "6%",}}></div>
+                        <div style={{ paddingBottom: "6%", }}></div>
                         <input
                             className="search-box-submit-btn"
                             type="submit"

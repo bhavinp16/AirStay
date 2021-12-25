@@ -2,6 +2,8 @@ const express = require('express');
 const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const Booking = require('../models/Booking');
+const User = require('../models/User');
+const Room = require('../models/Room');
 
 const router = express.Router();
 
@@ -9,13 +11,7 @@ const router = express.Router();
 // @route   POST api/booking/:id
 // @desc    Create a booking
 // @access  Private
-router.get('/:id', auth, [
-    check('billingDetails.price', 'Price is required').not().isEmpty(),
-    check('billingDetails.duration', 'Duration is required').not().isEmpty(),
-    check('billingDetails.dates', 'Date is required').not().isEmpty(),
-    check('billingDetails.guests.adult', 'Adult is required').not().isEmpty(),
-    check('billingDetails.guests.children', 'Children is required').not().isEmpty(),
-], async (req, res) => {
+router.post('/:id', auth, async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -26,13 +22,23 @@ router.get('/:id', auth, [
     const roomId = req.params.id;
 
     const { billingDetails } = req.body;
-    console.log(billingDetails)
+
+    // convert billingDetails.dates to Date type
+    const dates = billingDetails.date.map(date => new Date(date));
 
     try {
         const booking = new Booking({
             userId: userId,
             roomId: roomId,
-            billingDetails: billingDetails,
+            billingDetails: {
+                price: billingDetails.price,
+                duration: billingDetails.duration,
+                dates: dates,
+                guests: {
+                    adult: billingDetails.adult,
+                    children: billingDetails.children,
+                }
+            },
         });
 
         await booking.save();
@@ -43,7 +49,10 @@ router.get('/:id', auth, [
         // updated rooms availableDates
         await Room.findByIdAndUpdate(roomId, { $pullAll: { availableDates: billingDetails.dates } });
 
-        res.json(booking);
+        res.status(200).json({
+            message: 'Room booked successfully',
+            booking: booking
+        });
 
     } catch (err) {
         console.error(err.message);
