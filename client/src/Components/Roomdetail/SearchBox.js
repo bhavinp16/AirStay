@@ -2,9 +2,15 @@ import React from 'react';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
+import { useToasts } from 'react-toast-notifications';
+import NProgress from 'nprogress';
+import SearchToast from './SearchToast';
+import axios from 'axios';
+import moment from 'moment';
+
+
 // import { Redirect } from 'react-router-dom';
 // const reactDates = require('react-dates/initialize');
-
 class SearchBox extends React.Component {
     constructor(props) {
         super(props);
@@ -23,9 +29,11 @@ class SearchBox extends React.Component {
             incrementadults: this.props.adultPrice,
             incrementday: 600,
             price: 0,
-            dateprice: 0
-        };
+            dateprice: 0,
+            roomid: this.props.roomid,
 
+        };
+    
         this.inputNode = React.createRef();
         this.dropdownNode = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -39,7 +47,7 @@ class SearchBox extends React.Component {
     // componentWillMount() {
     //     document.addEventListener('mousedown', this.handleClick, false)
     // }
-
+    
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick, false)
     }
@@ -93,7 +101,18 @@ class SearchBox extends React.Component {
         
     }
 
-    handleSearchSubmit(e) {
+    calculateDateArray(startDate, endDate){
+		let dateArray = [];
+		let currentDate = moment(startDate);
+		let end = moment(endDate);
+		while (currentDate <= end) {
+			dateArray.push(currentDate.format('YYYY-MM-DD'));
+			currentDate = currentDate.add(1, 'days');
+		}
+		return dateArray;
+	};
+
+    async handleSearchSubmit(e) {
         e.preventDefault();
         let startDate = null;
         let endDate = null;
@@ -101,7 +120,47 @@ class SearchBox extends React.Component {
             startDate = this.state.startDate.format('YYYY/MM/DD');
             endDate = this.state.endDate.format('YYYY/MM/DD');
         }
-        this.props.fetchTreehouseSearchResults(this.state.searchTerm, startDate, endDate);
+
+        var formdata = {
+            billingDetails:{
+                price: this.state.price,
+                duration: this.state.totaldays,
+                date: this.calculateDateArray(startDate, endDate),
+                adult: this.state.adultsCount,
+                children:this.state.kidsCount
+            }
+        }
+        console.log(formdata)
+        NProgress.start();
+
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+                'x-auth-token': localStorage.getItem('token'),
+			}
+		};
+
+		try {
+            if(formdata.price == 0 || (formdata.adult == 0 && formdata.children== 0) || formdata.date == "null null" || formdata.duration == 0){
+                // SearchToast("Empty Field Present", 'error')
+                console.log("empty")
+                alert("Empty Field Found")
+                // addToast("Empty Field Present", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
+            }
+            const res = await axios.post(`http://localhost:3000/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
+            // localStorage.setItem('token', res.data.token);
+			NProgress.done();
+            // addToast("Booking Successful", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
+		
+        } catch (err) {
+			console.log(err);
+            alert("Booking Failed")
+			NProgress.done();
+            // SearchToast("Booking Failed", 'error')
+            console.log("errr")
+            // addToast("Booking Failed", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
+		}
+        // this.props.fetchTreehouseSearchResults(this.state.searchTerm, startDate, endDate);
         this.setState({ redirectToSearchIdx: true })
     }
 

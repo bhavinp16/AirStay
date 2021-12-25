@@ -50,6 +50,7 @@ function RoomDetail() {
                 const RroomDetails = await axios.get(`http://localhost:3000/api/room/roomDetail/${id}`, config);
                 setSearchResults(RroomDetails.data);
                 console.log(RroomDetails.data);
+
                 setAmenitiesResults(RroomDetails.data.amenties.split(','))
                 setHouseRulesResults(RroomDetails.data.houseRules.split(','))
 
@@ -134,7 +135,7 @@ function RoomDetail() {
 
                                 </div>
                                 <div className="mt-7">
-                                    <SearchBox basePrice={100} adultPrice={SearchResults.price.adult} childPrice={SearchResults.price.children} />
+                                    <SearchBox basePrice={100} adultPrice={200} childPrice={300} id={SearchResults._id}/>
                                 </div>
                             </div>
 

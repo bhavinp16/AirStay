@@ -26,6 +26,7 @@ router.get('/:id', auth, [
     const roomId = req.params.id;
 
     const { billingDetails } = req.body;
+    console.log(billingDetails)
 
     try {
         const booking = new Booking({
