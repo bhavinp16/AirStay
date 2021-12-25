@@ -1,55 +1,44 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import HeaderDark from '../Components/HeaderDark'
 import BookingCard from '../Components/BookingCard'
-import { searchResults } from '../data'
+import NProgress from 'nprogress';
+import axios from 'axios';
+
 
 function MyBooking() {
-    let myDate = new Date();
-    let date = myDate.getDate();
-    let month = myDate.getMonth() + 1;
-    let year = myDate.getFullYear();
-    const bookings = [
-        {
-            roomId: '101',
-            userId: 'Tiger',
-            billingDetails: {
+    const [SearchResults, setSearchResults] = useState([])
 
-                price: 2300,
-                duration: '6',
-                dates: [`${date}/${month}/${year}`, `${date+6}/${month}/${year}`],
-                guests: {
-                    adult: 2,
-                    children: 1,
+    useEffect(() => {
+        const getBookings = async () => {
+            NProgress.start();
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.getItem('token')
                 }
-
-            },
-        },
-        {
-            roomId: '102',
-            userId: 'Ramesh',
-            billingDetails: {
-
-                price: 5470,
-                duration: '3',
-                dates: [`${date}/${month}/${year}`, `${date+3}/${month}/${year}`],
-                guests: {
-                    adult: 3,
-                    children: 2,
-                }
-
-            },
+            };
+            try {
+                const ssearchResults = await axios.get(`http://localhost:3000/api/booking`, config);
+                NProgress.done();
+                setSearchResults(ssearchResults.data);
+            } catch (err) {
+                console.log(err);
+                NProgress.done();
+            }
         }
-    ]
+
+        getBookings();
+    }, [])
     return (
         <div>
             <HeaderDark />
             <div className="flex flex-row justify-center align-center" style={{ "height": "660px" }}>
                 <p className="flex flex-col justify-start mt-10 items-center text-3xl font-serif px-8 py-7"> My Bookings </p>
-                <div className="flex flex-col m-2 p-5 overflow-scroll scrollbar-hide">
-                    {bookings.map(({ roomId, userId, billingDetails }) => (
+                <div className="flex flex-col m-2  overflow-scroll scrollbar-hide">
+                    {SearchResults.map(({ _id, roomId, billingDetails }) => (
                         <BookingCard
+                            bookingId={_id}
                             roomId={roomId}
-                            userId={userId}
                             billingDetails={billingDetails}
                         />
 
