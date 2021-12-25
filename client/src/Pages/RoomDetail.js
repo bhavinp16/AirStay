@@ -134,7 +134,7 @@ function RoomDetail() {
 
                                 </div>
                                 <div className="mt-7">
-                                    <SearchBox basePrice={100} />
+                                    <SearchBox basePrice={100} adultPrice={SearchResults.price.adult} childPrice={SearchResults.price.children} />
                                 </div>
                             </div>
 

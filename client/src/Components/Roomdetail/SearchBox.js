@@ -1,5 +1,4 @@
 import React from 'react';
-
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
@@ -13,8 +12,6 @@ class SearchBox extends React.Component {
             dropdownOpen: false,
             searchTerm: "",
             kidsCount: 0,
-            petsCount: 0,
-            parentsCount: 0,
             adultsCount: 0,
             startDate: null,
             endDate: null,
@@ -22,10 +19,8 @@ class SearchBox extends React.Component {
             focusedInput: null,
             guestsInputBorderFocused: false,
             redirectToSearchIdx: false,
-            incrementkids: 100,
-            incrementold: 150,
-            incrementpets: 200,
-            incrementadults: 300,
+            incrementkids: this.props.childPrice,
+            incrementadults: this.props.adultPrice,
             incrementday: 600,
             price: 0,
             dateprice: 0
@@ -36,7 +31,6 @@ class SearchBox extends React.Component {
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.increaseCount = this.increaseCount.bind(this);
         this.decreaseCount = this.decreaseCount.bind(this);
-        this.handleSearchUpdate = this.handleSearchUpdate.bind(this);
         this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.makeSingleGuestsInputString = this.makeSingleGuestsInputString.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -66,14 +60,6 @@ class SearchBox extends React.Component {
         }
     }
 
-    handleSearchUpdate() {
-        return (e) => {
-            this.setState({
-                searchTerm: e.currentTarget.value
-            });
-        };
-    }
-
     handleDateUpdate(startdate,enddate) {
         var sd = JSON.stringify(startdate);
         var ed = JSON.stringify(enddate);
@@ -91,7 +77,6 @@ class SearchBox extends React.Component {
                     // totaldays: days,
                     // dateprice: this.state.incrementday * this.state.totaldays,
                     price: this.state.price + this.state.dateprice,
-                    // console.log(this.state[type2],this.state.price)
                 })
                 console.log(this.state.price,this.state.dateprice, this.state.totaldays)
             }
@@ -100,8 +85,7 @@ class SearchBox extends React.Component {
                 this.setState({
                     // totaldays: days,
                     price: this.state.price - this.state.dateprice + (this.state.incrementday * this.state.totaldays),
-                    // dateprice: this.state.incrementday * this.state.totaldays, 
-                    // console.log(this.state[type2],this.state.price)
+                    // dateprice: this.state.incrementday * this.state.totaldays,
                 })
                 this.state.dateprice = this.state.incrementday * this.state.totaldays
             }
@@ -140,14 +124,10 @@ class SearchBox extends React.Component {
     increaseCount(type, type2) {
         // e.stopPropagation();
         let newVal = this.state[type] + 1;
-        // console.log(this.state.startDate,this.state.endDate);
         this.setState({
             [type]: newVal,
             price: this.state.price + this.state[type2]
-            
-            // console.log(this.state[type2],this.state.price)
         })
-        // console.log("Increase");
     }
 
     decreaseCount(type, type2) {
@@ -158,7 +138,6 @@ class SearchBox extends React.Component {
             this.setState({
                 [type]: newVal,
                 price: this.state.price - this.state[type2]
-                // console.log(this.state[type2],this.state.price)
             })
         }
     }
@@ -182,15 +161,11 @@ class SearchBox extends React.Component {
 
         // Conditional to toggle color of minus sign on Guests dropdown
         let kidsMinusSignColorClass = (this.state.kidsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
-        let petsMinusSignColorClass = (this.state.petsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
-        let parentsMinusSignColorClass = (this.state.parentsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
         let adultsMinusSignColorClass = (this.state.adultsCount === 0) ? "search-box-minus-circle" : "search-box-plus-circle";
 
         // Create Guests input string
         let guestsInputContent = [
             this.makeSingleGuestsInputString("kid", "kidsCount"),
-            this.makeSingleGuestsInputString("pet", "petsCount"),
-            this.makeSingleGuestsInputString("parent", "parentsCount"),
             this.makeSingleGuestsInputString("adult", "adultsCount")
         ].filter(type => type).join(", ");
 
@@ -216,7 +191,6 @@ class SearchBox extends React.Component {
                 focusedInput={this.state.focusedInput}
                 onFocusChange={focusedInput => this.setState({ focusedInput })}
                 numberOfMonths={1}
-                // onChange={this.handleDateUpdate()}
             />
         )
 
@@ -257,36 +231,6 @@ class SearchBox extends React.Component {
                                 }} >+</div>
                         </div>
                     </li>
-                    <li>
-                        <div className="search-box-dropdown-label">
-                            <div>Pets</div>
-                            <div>Dogs, capybaras, etc.</div>
-                        </div>
-                        <div className="search-box-counter-container">
-                            <div
-                                className={`${petsMinusSignColorClass}`}
-                                onClick={() => this.decreaseCount("petsCount", "incrementpets")}>–</div>
-                            <div className="search-box-dropdown-counter-num">{this.state.petsCount}+</div>
-                            <div
-                                className="search-box-plus-circle"
-                                onClick={() => this.increaseCount("petsCount", "incrementpets")} >+</div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="search-box-dropdown-label">
-                            <div>Parents</div>
-                            <div>Old people</div>
-                        </div>
-                        <div className="search-box-counter-container">
-                            <div
-                                className={`${parentsMinusSignColorClass}`}
-                                onClick={() => this.decreaseCount("parentsCount", "incrementold")}>–</div>
-                            <div className="search-box-dropdown-counter-num">{this.state.parentsCount}+</div>
-                            <div
-                                className="search-box-plus-circle"
-                                onClick={() => this.increaseCount("parentsCount", "incrementold")}>+</div>
-                        </div>
-                    </li>
                 </ul>
             </div>
         )
@@ -296,7 +240,7 @@ class SearchBox extends React.Component {
         return (
             <div className="splash-image-container">
                 <div className="search-box-container">
-                    <div className="search-box-header">
+                    <div className="search-box-header" style={{ paddingBottom: "4%",}}>
                         <h1>Book your dream destination with us
                             <span style={{float:"right"}}>
                             Price :  {this.state.price}
@@ -304,17 +248,7 @@ class SearchBox extends React.Component {
                             
                         </h1>
                     </div>
-
                     <form onSubmit={this.handleSearchSubmit}>
-                        <span className="search-box-label">
-                            WHERE
-                        </span>
-                        <input
-                            className="search-box-input"
-                            type="text"
-                            placeholder="Anywhere"
-                            onChange={this.handleSearchUpdate()}
-                            value={this.state.searchTerm} />
                         <div className="check_-labels-container">
                             <span className="search-box-label checkin-label">
                                 CHECK-IN
@@ -326,7 +260,7 @@ class SearchBox extends React.Component {
                         <div className="check_-inputs-container">
                             {dateRangePicker}
                         </div>
-
+                        <div style={{ paddingBottom: "6%",}}></div>
                         <span className="search-box-label">
                             GUESTS
                         </span>
@@ -351,11 +285,11 @@ class SearchBox extends React.Component {
                         <div
                             ref={this.dropdownNode}
                         >{dropdownComponent}</div>
-
+                        <div style={{ paddingBottom: "6%",}}></div>
                         <input
                             className="search-box-submit-btn"
                             type="submit"
-                            value="Search" />
+                            value="Book Now" />
                     </form>
                 </div>
             </div >
