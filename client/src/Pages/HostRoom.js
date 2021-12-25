@@ -5,6 +5,7 @@ import moment from 'moment';
 import '../styles/titlestyle.css';
 import axios from 'axios';
 import { useToasts } from 'react-toast-notifications';
+import NProgress from 'nprogress';
 
 const mystyle = {
 	// background: " linear-gradient(315deg, #2d3436 0%, #000000 74%)",
@@ -28,7 +29,6 @@ function HostRoom() {
 			adult: 0,
 			children: 0,
 		},
-		availableDates: [],
 		houseRules: '',
 		amenties: '',
 		images: [],
@@ -36,14 +36,17 @@ function HostRoom() {
 		landmark: '',
 		city: '',
 		state: '',
-		coordinates: {
-			Longitude: null,
-			Latitude: null,
-		},
 		rating: 4, //default rating
 	};
 
 	const [formDetails, setformDetails] = useState(initialState);
+
+	const [availableDates, setavailableDates] = useState([]);
+
+	const [coordinates, setcoordinates] = useState({
+		Longitude: null,
+		Latitude: null,
+	});
 
 	const handleFileChange = (e) => {
 		e.preventDefault();
@@ -78,10 +81,7 @@ function HostRoom() {
 	useEffect(() => {
 		if (dates.startDate && dates.endDate) {
 			const datearray = calculateDateArray(dates.startDate, dates.endDate);
-			setformDetails({
-				...formDetails,
-				availableDates: datearray,
-			});
+			setavailableDates(datearray);
 		}
 	}, [dates])
 
@@ -110,12 +110,12 @@ function HostRoom() {
 		formData.append('landmark', formDetails.landmark);
 		formData.append('city', formDetails.city);
 		formData.append('state', formDetails.state);
-		formData.append('coordinatesLong', formDetails.coordinates.Longitude);
-		formData.append('coordinatesLat', formDetails.coordinates.Latitude);
+		formData.append('coordinatesLong', coordinates.Longitude);
+		formData.append('coordinatesLat', coordinates.Latitude);
 		formData.append('rating', formDetails.rating);
 
-		for (let i = 0; i < formDetails.availableDates.length; i++) {
-			formData.append('availableDates', formDetails.availableDates[i]);
+		for (let i = 0; i < availableDates.length; i++) {
+			formData.append('availableDates', availableDates[i]);
 		}
 
 		for (let i = 0; i < formDetails.images.length; i++) {
@@ -129,16 +129,22 @@ function HostRoom() {
 			},
 		};
 		try {
+			NProgress.start()
 			await axios.post('http://localhost:3000/api/room/', formData, config);
 
 			addToast("Room Added Successfully", { appearance: 'success', autoDismiss: true });
 
 			setformDetails(initialState);
 			setdates({
-				startDate: null,
-				endDate: null,
+				startDate: moment(new Date()).format("YYYY-MM-DD"),
+				endDate: moment(new Date()).add(1, 'days').format("YYYY-MM-DD"),
 			});
-			window.scrollTo(0, 0);
+
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+			NProgress.done()
 
 		} catch (err) {
 			console.log(err);
@@ -150,12 +156,9 @@ function HostRoom() {
 	// to pass data from child to parent component in passing coordinates
 	const getData = useCallback(
 		(val) => {
-			setformDetails({
-				...formDetails,
-				coordinates: {
-					Longitude: val.long,
-					Latitude: val.lat,
-				},
+			setcoordinates({
+				Longitude: val.long,
+				Latitude: val.lat,
 			})
 		},
 		[],

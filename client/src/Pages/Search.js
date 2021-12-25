@@ -16,7 +16,6 @@ function Search() {
     var filtertype, startDate, endDate, numberOfGuests = null;
 
     locationobj.state ? { filtertype, startDate, endDate, numberOfGuests } = locationobj.state : filtertype = null;
-    console.log(filtertype, startDate, endDate, numberOfGuests);
 
     useEffect(() => {
         window.scrollTo({
@@ -49,7 +48,6 @@ function Search() {
                 const ssearchResults = await axios.get(`http://localhost:3000/api/room/city/${location.toLowerCase()}`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
-                console.log(ssearchResults.data);
             } catch (err) {
                 console.log(err);
                 NProgress.done();
