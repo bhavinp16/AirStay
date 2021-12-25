@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function LargeCard({ img, title, description, buttonText }) {
     return (
         <section className="relative py-16 cursor-pointer">
@@ -18,7 +20,10 @@ function LargeCard({ img, title, description, buttonText }) {
                 <h3 className="text-4xl mb-3 w-64">{title}</h3>
                 <p>{description}</p>
 
-                <button className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg mt-5">{buttonText}</button>
+                <div className="mt-5">
+                    <Link to="/curratedList" className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg ">{buttonText}</Link>
+                </div>
+
             </div>
         </section>
     )

@@ -32,7 +32,7 @@ function Login() {
         setAuthToken(localStorage.token);
         try {
             const res = await axios.get('http://localhost:3000/api/auth/');
-            addToast("Logged In Successfully", { appearance: 'success', autoDismiss: true });
+            addToast("Logged In Successfully", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
             localStorage.user = JSON.stringify(res.data);
             console.log("Logged In");
             NProgress.done();
@@ -41,14 +41,14 @@ function Login() {
         catch (err) {
             console.log(err);
             NProgress.done();
-            addToast({ err }, { appearance: 'error', autoDismiss: true });
+            addToast({ err }, { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
         }
     }
 
     const logind = async (e) => {
         e.preventDefault();
         if (formdata.email === "" | formdata.password === "") {
-            addToast("All Field Are Required!", { appearance: 'error', autoDismiss: true });
+            addToast("All Field Are Required!", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
             return;
         }
         NProgress.start();
@@ -65,7 +65,7 @@ function Login() {
         } catch (err) {
             console.log(err);
             NProgress.done();
-            addToast("Invalid Credentials", { appearance: 'error', autoDismiss: true });
+            addToast("Invalid Credentials", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
         }
     }
 

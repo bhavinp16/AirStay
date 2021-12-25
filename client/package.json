@@ -28,6 +28,7 @@
 	},
 	"scripts": {
 		"start": "concurrently -n 'client,server' -c 'blue,green' \"craco start\" \"cd ../backend && nodemon server\" ",
+		"dev": "craco start",
 		"build": "craco build",
 		"test": "craco test",
 		"eject": "react-scripts eject"

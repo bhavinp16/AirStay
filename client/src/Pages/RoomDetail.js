@@ -61,7 +61,7 @@ function RoomDetail() {
         }
 
         getRoomsByCity();
-    })
+    }, [id]);
 
 
 

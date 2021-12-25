@@ -14,7 +14,7 @@ const router = express.Router();
 // @route   GET api/room/:city
 // @desc    Get rooms list by city
 // @access  Private
-router.get('/:city', auth, async (req, res) => {
+router.get('/city/:city', auth, async (req, res) => {
     try {
         const rooms = await Room.find({ city: req.params.city });
         res.json(rooms);
@@ -43,9 +43,10 @@ router.get('/roomDetail/:id', auth, async (req, res) => {
 // @desc    Get rooms list in users wishlist
 // @access  Private
 router.get('/wishlist', auth, async (req, res) => {
-    const user = req.user;
-    const roomIds = user.wishlistRoomIds;
     try {
+        const user = await User.findById(req.user.id);
+        const roomIds = user.wishlistRoomIds;
+
         const rooms = await Room.find({ _id: { $in: roomIds } });
         console.log(rooms);
         res.json(rooms);
@@ -61,7 +62,8 @@ router.get('/wishlist', auth, async (req, res) => {
 // @access  Private
 router.get('/curratedlist', auth, async (req, res) => {
     try {
-        const rooms = await Room.find().sort({ rating: -1 }).limit(10);
+        // find rooms with rating greater than 4
+        const rooms = await Room.find({ rating: { $gte: 4 } }).sort({ rating: -1 }).limit(10);
         res.json(rooms);
     } catch (err) {
         console.error(err.message);

@@ -5,12 +5,12 @@ import NProgress from 'nprogress';
 import axios from 'axios';
 
 
-function Wishlist() {
+function CurratedList() {
 
     const [SearchResults, setSearchResults] = useState([])
 
     useEffect(() => {
-        const getRoomsForWishlist = async () => {
+        const getRoomsForCurratedlist = async () => {
             NProgress.start();
             const config = {
                 headers: {
@@ -19,7 +19,7 @@ function Wishlist() {
                 }
             };
             try {
-                const ssearchResults = await axios.get(`http://localhost:3000/api/room/wishlist`, config);
+                const ssearchResults = await axios.get(`http://localhost:3000/api/room/curratedlist`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
             } catch (err) {
@@ -28,14 +28,14 @@ function Wishlist() {
             }
         }
 
-        getRoomsForWishlist();
+        getRoomsForCurratedlist();
     }, [])
 
     return (
         <div>
             <HeaderDark />
             <div className="flex flex-row justify-center align-center" style={{ "height": "660px" }}>
-                <p className="flex flex-col justify-start mt-10 items-center text-3xl font-serif px-8 py-7"> My Wishlist </p>
+                <p className="flex flex-col justify-start mt-10 items-center text-3xl font-serif px-8 py-7"> Currated List By AirStay </p>
                 <div className="flex flex-col m-2 p-5 overflow-scroll scrollbar-hide">
                     {
                         SearchResults.length > 0
@@ -45,7 +45,7 @@ function Wishlist() {
                                     <InfoCard
                                         key={_id}
                                         roomId={_id}
-                                        img={"/images/results/14.jpg"}
+                                        img={images[0]}
                                         location={address}
                                         title={title}
                                         description={description}
@@ -64,4 +64,4 @@ function Wishlist() {
     )
 }
 
-export default Wishlist
+export default CurratedList;

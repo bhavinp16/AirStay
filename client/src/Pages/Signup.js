@@ -44,19 +44,19 @@ function Signup() {
 			NProgress.done();
 			console.log("Signed In");
 			setuser(res.data);
-			addToast("Signed In Successfully", { appearance: 'success', autoDismiss: true });
+			addToast("Signed In Successfully", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
 			localStorage.user = JSON.stringify(res.data);
 		} catch (err) {
 			console.log(err);
 			NProgress.done();
-			addToast({ err }, { appearance: 'error', autoDismiss: true });
+			addToast({ err }, { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 		}
 	}
 
 	const signupsubmit = async (e) => {
 		e.preventDefault();
 		if (formdata.email === "" | formdata.password === "" | formdata.name === "") {
-			addToast("All Field Are Required!", { appearance: 'error', autoDismiss: true });
+			addToast("All Field Are Required!", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			return;
 		}
 		NProgress.start();
@@ -70,24 +70,24 @@ function Signup() {
 		try {
 			const res = await axios.post("http://localhost:3000/api/users", JSON.stringify(formdata), config);
 			if (res.status === 400) {
-				addToast("User Already Exists", { appearance: 'error', autoDismiss: true });
+				addToast("User Already Exists", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			} if (res.status === 500) {
-				addToast("Server Error", { appearance: 'error', autoDismiss: true });
+				addToast("Server Error", { appearance: 'error', autoDismiss: true,	autoDismissTimeout: 1500 });
 			}
 			localStorage.setItem('token', res.data.token);
-			addToast("User Created", { appearance: 'success', autoDismiss: true });
+			addToast("User Created", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
 			loadUser();
 		} catch (err) {
 			console.log(err);
 			NProgress.done();
 			if (formdata.password.length < 6) {
-				addToast("Weak Password Password!", { appearance: 'error', autoDismiss: true });
+				addToast("Weak Password Password!", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			}
 			else if (formdata.phone.length < 10 || formdata.phone.length > 12) {
-				addToast("Invalid Phone Number!", { appearance: 'error', autoDismiss: true });
+				addToast("Invalid Phone Number!", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			}
 			else {
-				addToast("User Already Exists!", { appearance: 'error', autoDismiss: true });
+				addToast("User Already Exists!", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			}
 		}
 	}

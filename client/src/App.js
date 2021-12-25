@@ -9,6 +9,7 @@ import Search from './Pages/Search';
 import HostRoom from './Pages/HostRoom';
 import Wishlist from './Pages/Wishlist';
 import MyBooking from './Pages/MyBooking';
+import CurratedList from './Pages/CurratedList';
 
 function App() {
 
@@ -53,7 +54,8 @@ function App() {
                   <Route path="/room/:id" element={<RoomDetail />} />
                   <Route path="/search/:location/" element={<Search />} />
                   <Route path="/wishlist" element={<Wishlist />} />
-                  <Route path="/mybooking" element={<MyBooking />} />
+                  <Route path="/mybookings" element={<MyBooking />} />
+                  <Route path="/curratedList" element={<CurratedList />} />
                 </>
               )}
           </Routes>

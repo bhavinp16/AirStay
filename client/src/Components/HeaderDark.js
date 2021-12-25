@@ -3,6 +3,7 @@ import { useState } from "react"
 import { DateRange, DateRangePicker } from 'react-date-range';
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link, useNavigate } from "react-router-dom"
+import { useToasts } from 'react-toast-notifications';
 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -13,7 +14,7 @@ function HeaderDark({ placeholder }) {
     // STATE FOR REACT
     const [searchInput, setSearchInput] = useState("")
     const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date()) //need to fix to tomorrow's date
+    const [endDate, setEndDate] = useState(new Date())
     const [numberOfGuests, setNumberOfGuests] = useState(1);
 
     const navigate = useNavigate()
@@ -27,15 +28,25 @@ function HeaderDark({ placeholder }) {
         setSearchInput("");
     }
 
+    const { addToast } = useToasts();
+
     const search = () => {
-        navigate({
-            replace: true,
-            pathname: "/search",
-            location: searchInput,
-            startDate: startDate.toISOString(),
-            endDate: endDate.toISOString(),
-            numberOfGuests,
-        })
+        if (searchInput.length > 0) {
+            navigate(`/search/${searchInput}`, {
+                state: {
+                    startDate: startDate.toISOString(),
+                    endDate: endDate.toISOString(),
+                    numberOfGuests,
+                    filtertype: "City"
+                }
+            })
+        } else {
+            addToast("Please enter a city name", {
+                appearance: 'info',
+                autoDismiss: true,
+                autoDismissTimeout: 1000,
+            });
+        }
     }
 
     const selectionRange = {
@@ -71,7 +82,8 @@ function HeaderDark({ placeholder }) {
                     onChange={handleInputChange}
                     className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-200 placeholder-gray-400"
                     type="text"
-                    placeholder={placeholder || "Start your search"}
+                    placeholder={placeholder || "Start your search name a city"}
+
                 />
                 <SearchIcon
                     className="hidden md:inline-flex h-8 hover:bg-blue-600 bg-blue-400 text-white rounded-full p-2 cursor-pointer md:mx-2"

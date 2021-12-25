@@ -19,7 +19,7 @@ function Map({ searchResults, hoverLocation }) {
         height: "100%",
         latitude: center.latitude,
         longitude: center.longitude,
-        zoom: 14
+        zoom: 11
     })
 
     useEffect(() => {

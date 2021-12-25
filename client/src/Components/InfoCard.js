@@ -10,7 +10,11 @@ function InfoCard({ roomId, img, location, title, description, star, price, tota
                     win.focus();
                 }
             }} className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
-                <img className="rounded-2xl" layout="fill" objectFit="cover" src={img} alt="#" />
+                <img className="rounded-2xl" style={{
+                    height: "220px",
+                    width: "720px",
+                    objectFit: "cover"
+                }} layout="fill" src={img} alt="#" />
             </div>
             <div className="flex flex-col flex-grow pl-5">
                 <div className="flex justify-between">

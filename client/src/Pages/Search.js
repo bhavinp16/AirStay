@@ -14,7 +14,9 @@ function Search() {
 
     const locationobj = useLocation();
     var filtertype, startDate, endDate, numberOfGuests = null;
+
     locationobj.state ? { filtertype, startDate, endDate, numberOfGuests } = locationobj.state : filtertype = null;
+    console.log(filtertype, startDate, endDate, numberOfGuests);
 
     useEffect(() => {
         window.scrollTo({
@@ -44,11 +46,10 @@ function Search() {
                 }
             };
             try {
-                const ssearchResults = await axios.get(`http://localhost:3000/api/room/${location.toLowerCase()}`, config);
+                const ssearchResults = await axios.get(`http://localhost:3000/api/room/city/${location.toLowerCase()}`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
                 console.log(ssearchResults.data);
-
             } catch (err) {
                 console.log(err);
                 NProgress.done();
@@ -84,10 +85,10 @@ function Search() {
                             }}>{filtertype}</button>
                             : <></>
                         }
-                        <button className="button" onClick={(e) => {
+                        <button className="button bg-black text-white" onClick={(e) => {
                             e.target.classList.toggle("bg-black");
                             e.target.classList.toggle("text-white");
-                        }}>Cancellation Flexibility</button>
+                        }}>City</button>
                         <button className="button" onClick={(e) => {
                             e.target.classList.toggle("bg-black");
                             e.target.classList.toggle("text-white");
@@ -119,7 +120,7 @@ function Search() {
                                         <InfoCard
                                             key={_id}
                                             roomId={_id}
-                                            img={"/images/results/14.jpg"}
+                                            img={images[0]}
                                             location={address}
                                             title={title}
                                             description={description}
