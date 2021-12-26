@@ -30,6 +30,8 @@ class SearchBox extends React.Component {
             price: 0,
             dateprice: 0,
             roomid: this.props.roomid,
+            capacityadults: this.props.capacity.adults,
+            capacityadults: this.props.capacity.children,
 
         };
 

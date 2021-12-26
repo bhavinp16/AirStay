@@ -12,13 +12,15 @@ import Features from '../Components/Roomdetail/Features'
 import NProgress from 'nprogress';
 import axios from 'axios';
 import { useParams, useLocation } from "react-router-dom";
-
+import Footer from '../Components/Footer'
+import Map from '../Components/Map';
 
 function RoomDetail() {
 
     const [scrolled, setScrolled] = useState(false)
     const [showpopup, setshowpopup] = useState(false)
     const locationobj = useLocation();
+    const [selectedLocation, setselectedLocation] = useState();
     const [SearchResults, setSearchResults] = useState([]);
     const [AmenitiesResults, setAmenitiesResults] = useState();
     const [HouseRulesResults, setHouseRulesResults] = useState();
@@ -53,7 +55,12 @@ function RoomDetail() {
 
                 setAmenitiesResults(RroomDetails.data.amenties.split(','))
                 setHouseRulesResults(RroomDetails.data.houseRules.split(','))
-
+                // setselectedLocation({
+                //     coordinates: {
+                //         Longitude: RroomDetails.data.coordinates.Longitude,
+                //         Latitude: RroomDetails.data.coordinates.Latitude
+                //     }
+                // })
 
             } catch (err) {
                 console.log(err);
@@ -68,7 +75,7 @@ function RoomDetail() {
 
     return (
 
-        <div style={{ backgroundColor: "whitesmoke" }}>
+        <div >
             {
                 !scrolled ? <HeaderDark /> : <Header />
             }
@@ -88,7 +95,7 @@ function RoomDetail() {
                             </div>
                             <br />
                             <div >
-                                <Roombanner img={roomdetailImages} />
+                                <Roombanner img={SearchResults.images} />
                             </div>
                         </div>
                         <div>
@@ -110,63 +117,25 @@ function RoomDetail() {
                         />
                         <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">What this place offers</h3>
                         <div class="grid grid-cols-2 gap-4">
-
-                            {AmenitiesResults?.map(item => (
-                                <Features
-                                    desc={item}
-                                />
-                            ))}
-                        </div>
-                        <br />
-                        <div className="mt-7 pl-5">
-                            <div class="grid grid-cols-2 gap-4 mt-7">
-                                <div className="mt-7">
-                                    <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">House Rules</h3>
-                                    <div className="mt-7">
-                                        <div class="grid grid-cols-1">
-                                            {HouseRulesResults?.map(item => (
-                                                <div className="flex flex-col justify-center p-2">
-                                                    <p className="p-3 pl-5 md:text-lg text-gray-500 text-base">{item}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-
+                            <div className="mt-4" style={{ paddingLeft:"10%" }}>
+                                <h4 className="font-black text-gray-800 md:text-3xl mt-7" style={{ fontSize:"150%", fontWeight:"700" }}>Amenities</h4>
+                                {AmenitiesResults?.map(item => (
+                                    <div className="flex flex-col justify-center">
+                                        <p className="p-3 pl-5 md:text-lg text-black-500 text-base">{item}</p>
                                     </div>
-
-                                </div>
-                                <div className="mt-7">
-                                    <SearchBox basePrice={100} adultPrice={200} childPrice={300} id={SearchResults._id}/>
-                                </div>
-                            </div>
-
-                        </div>
-                        <br />
-                        <div>
-                            <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Reviews</h3>
-                            <div class="grid grid-cols-2 gap-4">
-                                {roomdetailReviews?.map(item => (
-                                    <Reviews
-                                        name={item.name}
-                                        date={item.date}
-                                        desc={item.desc}
-                                    />
                                 ))}
-
                             </div>
-                        </div>
-                        <br />
-                        <br />
-                        <hr
-                            style={{
-                                color: '#E0E0E0',
-                                backgroundColor: '#E0E0E0',
-                                height: 3
-                            }}
-                        />
-                        <div>
-                            <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Where you will be</h3>
-                            MAP
+                            <div className="mt-4" style={{ paddingLeft:"10%"}}>
+                                <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize:"150%", fontWeight:"700" }}>House Rules</h3>
 
+                               
+                                    {HouseRulesResults?.map(item => (
+                                        <div className="flex flex-col justify-center">
+                                            <p className="p-3 pl-5 md:text-lg text-blacks-500 text-base">{item}</p>
+                                        </div>
+                                    ))}
+                                
+                            </div>
                         </div>
                         <br />
                         <hr
@@ -186,47 +155,51 @@ function RoomDetail() {
                                 <p className="md:text-lg text-gray-900 text-base">{roomdetailDesc.abouthost}</p>
 
                             </div>
-                            <div style={{ padding: "4%", paddingLeft: "12%", paddingTop: "17%" }}>
-                                <p className="md:text-lg text-gray-900 text-base">Response rate: 100%</p>
-                                <p className="md:text-lg text-gray-900 text-base">Response time: within an hour</p>
-                                <button class="mt-7 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                                    onClick={() => setshowpopup(!showpopup)}
-                                >
-                                    Contact Host
-                                </button>
+                            <div className="mt-7">
+                                <SearchBox basePrice={100} adultPrice={200} childPrice={300} id={SearchResults._id} capacity={SearchResults.capacity} />
+                            </div>
+                        </div>
+                        <hr
+                            style={{
+                                color: '#E0E0E0',
+                                backgroundColor: '#E0E0E0',
+                                height: 3
+                            }}
+                        />
+                        <div>
+                            <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Where you will be</h3>
+                            {/* <Map searchResults={SearchResults} hoverLocation={selectedLocation} /> */}
+
+                        </div>
+                        <br />
+                        <hr
+                            style={{
+                                color: '#E0E0E0',
+                                backgroundColor: '#E0E0E0',
+                                height: 3
+                            }}
+                        />
+
+                        <div>
+                            <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Reviews</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                {roomdetailReviews?.map(item => (
+                                    <Reviews
+                                        name={item.name}
+                                        date={item.date}
+                                        desc={item.desc}
+                                    />
+                                ))}
 
                             </div>
-                            {showpopup ?
-                                <div className='popup'>
-                                    <div className='popup_inner'>
-                                        <div style={{ float: "right", paddingtop: "0%" }}>
-                                            <button onClick={() => setshowpopup(!showpopup)} style={{ color: "black" }}><XIcon className="h-7 text-black-400" /></button>
-
-                                        </div>
-                                        <div style={{ clear: "both" }}></div>
-                                        <div className='det'>
-                                            <p className="flex items-center">
-                                                <MailIcon className="h-8 text-black-400" style={{ paddingRight: "3%", paddingTop: "2%" }} />
-                                                {roomdetailDesc.hostemail}
-                                            </p>
-                                            <br />
-                                            <p className="flex items-center">
-                                                <PhoneIcon className="h-7 text-black-400" style={{ paddingRight: "2.5%", paddingTop: "1%" }} />
-                                                {roomdetailDesc.hostphone}
-                                            </p>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                : null
-                            }
                         </div>
-
-
+                        <br />
+                        <br />
+                        
                     </div>
                 </div>
             }
+            <Footer />
         </div>
     )
 }

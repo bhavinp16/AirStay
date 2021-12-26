@@ -7,7 +7,7 @@ function Roombanner({ img }) {
             className="img-fluid shadow-inner"
             style={{
                 width: '100%',
-                height: '440px',
+                height: '457px',
                 borderTopLeftRadius:"40px",
                 borderBottomLeftRadius:"40px"
             }} />
