@@ -16,7 +16,7 @@ const router = express.Router();
 // @access  Private
 router.get('/city/:city', auth, async (req, res) => {
     try {
-        if(req.params.city === 'all') {
+        if (req.params.city === 'all') {
             const rooms = await Room.find({});
             return res.json(rooms);
         }
@@ -120,6 +120,74 @@ router.put('/wishlist', auth, async (req, res) => {
     }
 });
 
+
+// REVIEWS
+
+// @route   POST api/room/review
+// @desc    Add review to a room 
+// @access  Private
+router.post('/review', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        const { roomId, review } = req.body;
+        const room = await Room.findById(roomId);
+
+        if (!room) {
+            return res.status(404).json({ msg: 'Room not found' });
+        }
+
+        // add review to room
+        room.reviews.unshift({
+            user: {
+                id: user.id,
+                name: user.name,
+                joinDate: user.date,
+            },
+            review: review,
+            reviewDate: Date.now()
+        });
+
+        await room.save();
+        res.status(200).json({ msg: 'Review Added' });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error!!');
+    }
+});
+
+
+// @route   PUT api/room/review
+// @desc    Delete review from a room
+// @access  Private
+router.put('/review', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        const { roomId } = req.body;
+        const room = await Room.findById(roomId);
+
+        if (!room) {
+            return res.status(404).json({ msg: 'Room not found' });
+        }
+
+        // delete review from room where user.id matches review.user.id
+        room.reviews = room.reviews.filter(review => review.user.id !== user.id);
+
+        await room.save();
+        res.status(200).json({ msg: 'Review Deleted' });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error!!');
+    }
+});
+
+
+
+
+//  TO CREATE A ROOM
 
 // @route   POST api/room
 // @desc    Create A Room

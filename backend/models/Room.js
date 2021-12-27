@@ -64,7 +64,18 @@ const RoomSchema = mongoose.Schema({
         required: true,
     },
     reviews: [{
-        type: String,
+        type: {
+            user: {
+                id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'User',
+                },
+                name: String,
+                joinDate: Date,
+            },
+            review: String,
+            reviewDate: Date,
+        }
     }],
     rating: {
         type: Number,
