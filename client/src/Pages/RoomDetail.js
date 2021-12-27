@@ -189,7 +189,7 @@ function RoomDetail() {
                                     Entire villa hosted by {HostResults?.name}
                                 </div>
                                 <div>
-                                    <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize: "150%", fontWeight: "700", float: "right", paddingRight: "10%" }}>Rs 600/Day</h3>
+                                    <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize: "180%", fontWeight: "700", float: "right", paddingRight: "10%" }}>Rs 600/Day</h3>
 
                                 </div>
                             </div>
@@ -206,28 +206,58 @@ function RoomDetail() {
                                 height: 3
                             }}
                         />
-                        <div class="grid grid-cols-2 gap-4">
-                            <div className="mt-4" style={{ paddingLeft: "10%" }}>
-                                <h4 className="font-black text-gray-800 md:text-3xl mt-7" style={{ fontSize: "150%", fontWeight: "700" }}>What this place offers</h4>
-                                {AmenitiesResults?.map(item => (
-                                    <div className="flex flex-col justify-center">
-                                        <p className="p-3 pl-5 md:text-lg text-black-500 text-base">{item}</p>
+                        <div style={{ clear: "both" }}></div>
+                        <div className="flex flex-col justify-center" style={{ paddingLeft: "7%" }}>
+                            <div className="mt-7 py-4 px-8 bg-white shadow-lg rounded-lg my-20" style={{ backgroundColor: "whitesmoke", width: "90%" }}>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div style={{ marginTop: "0%", paddingLeft: "20%" }}>
+                                        <img src='/images/roomdetails/amenitieslogo.jpg' alt="#"
+                                            className="mt-4 img-fluid shadow-inner"
+                                            style={{
+                                                width: '85%',
+                                                height: '90%',
+                                                borderRadius: "40px",
+                                                // borderBottomLeftRadius: "40px"
+                                            }} />
                                     </div>
-                                ))}
-                            </div>
-                            <div className="mt-4" style={{ paddingLeft: "10%" }}>
-                                <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize: "150%", fontWeight: "700" }}>House Rules</h3>
-
-
-                                {HouseRulesResults?.map(item => (
-                                    <div className="flex flex-col justify-center">
-                                        <p className="p-3 pl-5 md:text-lg text-blacks-500 text-base">{item}</p>
+                                    <div style={{ marginLeft: "0%", paddingLeft: "14%" }}>
+                                        <h4 className="font-black text-gray-800 md:text-3xl mt-2" style={{ fontSize: "150%", fontWeight: "700" }}>What this place offers</h4>
+                                        {AmenitiesResults?.map(item => (
+                                            <div className="flex flex-col justify-center">
+                                                <p className="p-3 pl-5 md:text-lg text-black-500 text-base">{item}</p>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-
+                                </div>
                             </div>
                         </div>
-                        <br />
+
+                        <div className="flex flex-col justify-center" style={{ paddingLeft: "7%" }}>
+                            <div className="mt-0 py-4 px-8 bg-white shadow-lg rounded-lg my-20" style={{ backgroundColor: "whitesmoke", width: "90%", minHeight: "300px" }}>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div style={{ marginLeft: "0%", paddingLeft: "14%" }}>
+                                        <h4 className="font-black text-gray-800 md:text-3xl mt-2" style={{ fontSize: "150%", fontWeight: "700" }}>House Rules</h4>
+                                        {HouseRulesResults?.map(item => (
+                                            <div className="flex flex-col justify-center">
+                                                <p className="p-3 pl-5 md:text-lg text-blacks-500 text-base">{item}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div style={{ marginTop: "0%", paddingLeft: "20%" }}>
+                                        <img src='/images/roomdetails/houserules.png' alt="#"
+                                            className="mt-4 img-fluid shadow-inner"
+                                            style={{
+                                                width: '85%',
+                                                height: '90%',
+                                                borderRadius: "40px",
+                                                // borderBottomLeftRadius: "40px"
+                                            }} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <hr
                             style={{
                                 color: '#E0E0E0',
@@ -238,12 +268,26 @@ function RoomDetail() {
                         <br />
                         <div class="grid grid-cols-2 gap-4">
                             <div style={{ padding: "4%", paddingLeft: "2%", paddingTop: "10%" }}>
-                                <div className="block text-2xl font-semibold">
-                                    Hosted by {HostResults?.name}
+                                <div style={{ float: "left",marginRight:"2%",marginTop:"1%" }}>
+                                    <div style={{ height: "50px", width: "50px", borderRadius: "50%", backgroundColor: "black",color:"white", padding: "20px", paddingLeft: "17px",paddingTop:"5px", fontSize: "160%" }}>
+                                    {HostResults?.name[0].toUpperCase()}
+                                    </div>
+
                                 </div>
-                                <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {HostResults?.date}</p>
-                                {HostResults?.email} <br />
-                                {HostResults?.phone} <br />
+                                <div>
+                                    <div className="block text-2xl font-semibold">
+                                        Hosted by {HostResults?.name}
+                                    </div>
+                                    <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {HostResults?.date.slice(0,10)}</p>
+
+                                </div>
+                                <MailIcon className="h-5 text-black-400" style={{ float: "left", marginTop: "1%", marginRight: "0.5%" }} />
+                                <p className="md:text-lg text-blacks-500 text-base">{HostResults?.email}</p>
+                                <br />
+                                <PhoneIcon className="h-5 text-black-400" style={{ float: "left", marginTop: "1%", marginRight: "0.5%" }} />
+                                <p className="md:text-lg text-blacks-500 text-base">{HostResults?.phone}</p>
+                                <br />
+                                <br />
                                 <p className="md:text-lg text-gray-900 text-base">{SearchResults.description}</p>
 
                             </div>
