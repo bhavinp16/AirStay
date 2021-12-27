@@ -130,12 +130,16 @@ router.post('/review', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
 
-        const { roomId, review } = req.body;
+        const { roomId, review, rating } = req.body;
         const room = await Room.findById(roomId);
 
         if (!room) {
             return res.status(404).json({ msg: 'Room not found' });
         }
+
+        // update rooms rating by averaging with old rating and rounded to 1 decimal place
+        const newRating = (room.rating * room.reviews.length + rating) / (room.reviews.length + 1);
+        room.rating = newRating.toFixed(1);
 
         // add review to room
         room.reviews.unshift({
@@ -145,7 +149,8 @@ router.post('/review', auth, async (req, res) => {
                 joinDate: user.date,
             },
             review: review,
-            reviewDate: Date.now()
+            reviewDate: Date.now(),
+            rating: rating,
         });
 
         await room.save();

@@ -6,25 +6,43 @@ import '../styles/SearchBox.css'
 import '../styles/RoomDetail.css'
 import Roombanner from '../Components/Roomdetail/Roombanner'
 import { StarIcon, PhoneIcon, MailIcon, XIcon } from "@heroicons/react/solid";
-import { roomdetailAmenities, roomdetailImages, roomdetailReviews, roomdetailDesc, roomdetailFeatures } from '../data'
 import Reviews from '../Components/Roomdetail/Reviews'
 import Features from '../Components/Roomdetail/Features'
 import NProgress from 'nprogress';
 import axios from 'axios';
 import { useParams, useLocation } from "react-router-dom";
 import Footer from '../Components/Footer'
-import Map from '../Components/Map';
+import Rating from '@mui/material/Rating';
+import { useToasts } from 'react-toast-notifications'
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import { LocationMarkerIcon } from '@heroicons/react/outline'
 
 function RoomDetail() {
+    const { addToast } = useToasts()
 
     const [scrolled, setScrolled] = useState(false)
     const [showreviews, setshowreviews] = useState(false)
     const locationobj = useLocation();
-    const [selectedLocation, setselectedLocation] = useState();
     const [HostResults, setHostResults] = useState(null);
     const [SearchResults, setSearchResults] = useState([]);
     const [AmenitiesResults, setAmenitiesResults] = useState();
     const [HouseRulesResults, setHouseRulesResults] = useState();
+    const [rating, setRating] = useState(3);
+    const [review, setreview] = useState('');
+
+    // for map
+    const [viewport, setViewport] = useState({
+        width: 800,
+        height: 400,
+        latitude: 18.92,
+        longitude: 72.83,
+        zoom: 11
+    });
+
+    const handlereviewChange = (e) => {
+        setreview(e.target.value)
+    }
+
     let { id } = useParams();
 
     useEffect(() => {
@@ -41,8 +59,47 @@ function RoomDetail() {
     }, []);
 
 
+    const onReviewSubmit = async (e) => {
+        e.preventDefault();
+
+        if (review.length < 1 || !rating) {
+            addToast("Please fill out all fields", { appearance: 'error', autoDismiss: true })
+            return;
+        }
+
+        try {
+            NProgress.start();
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': localStorage.getItem('token')
+                }
+            }
+            const reviewobj = {
+                rating: rating,
+                review: review,
+                roomId: id
+            }
+
+            const res = await axios.post('/api/room/review', JSON.stringify(reviewobj), config);
+
+            if (res.status === 200) {
+                addToast('Review submitted successfully', { appearance: 'success', autoDismiss: true })
+                NProgress.done();
+            }
+            NProgress.done();
+        } catch (err) {
+            console.error(err.message);
+            addToast('Error submitting review', { appearance: 'error', autoDismiss: true })
+            NProgress.done();
+        }
+    }
+
+
     useEffect(() => {
         const getRoomsByCity = async () => {
+            NProgress.start();
+
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,31 +109,49 @@ function RoomDetail() {
             try {
                 const RroomDetails = await axios.get(`http://localhost:3000/api/room/roomDetail/${id}`, config);
                 setSearchResults(RroomDetails.data);
-                console.log(RroomDetails.data);
-
                 setAmenitiesResults(RroomDetails.data.amenties.split(','))
                 setHouseRulesResults(RroomDetails.data.houseRules.split(','))
+                NProgress.done()
+                getHostDetails(RroomDetails.data.hostId);
 
-                const HhostDetails = await axios.get(`http://localhost:3000/api/auth/host/${RroomDetails.data.hostId}`, config);
-                setHostResults(HhostDetails.data);
-                console.log(HhostDetails.data);
-                // setselectedLocation({
-                //     coordinates: {
-                //         Longitude: RroomDetails.data.coordinates.Longitude,
-                //         Latitude: RroomDetails.data.coordinates.Latitude
-                //     }
-                // })
+                setViewport({
+                    width: 800,
+                    height: 400,
+                    latitude: RroomDetails.data.coordinates.Latitude,
+                    longitude: RroomDetails.data.coordinates.Longitude,
+                    zoom: 13
+                })
 
             } catch (err) {
                 console.log(err);
-
+                NProgress.done();
             }
         }
 
         getRoomsByCity();
     }, [id]);
 
+    const getHostDetails = async (hostid) => {
+        NProgress.start();
 
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': localStorage.getItem('token'),
+            }
+        };
+
+        try {
+            const HhostDetails = await axios.get(`http://localhost:3000/api/auth/host/${hostid}`, config);
+            setHostResults(HhostDetails.data);
+            NProgress.done()
+        } catch (err) {
+            console.log(err);
+            NProgress.done();
+        }
+    }
+
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
 
     return (
 
@@ -164,10 +239,12 @@ function RoomDetail() {
                         <div class="grid grid-cols-2 gap-4">
                             <div style={{ padding: "4%", paddingLeft: "2%", paddingTop: "10%" }}>
                                 <div className="block text-2xl font-semibold">
-                                    Hosted by {roomdetailDesc.owner}
+                                    Hosted by {HostResults?.name}
                                 </div>
-                                <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {roomdetailDesc.joindate}</p>
-                                <p className="md:text-lg text-gray-900 text-base">{roomdetailDesc.abouthost}</p>
+                                <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {HostResults?.date}</p>
+                                {HostResults?.email} <br />
+                                {HostResults?.phone} <br />
+                                <p className="md:text-lg text-gray-900 text-base">{SearchResults.description}</p>
 
                             </div>
                             <div className="mt-7">
@@ -192,11 +269,35 @@ function RoomDetail() {
                             }}
                         />
                         <br />
+
                         <div>
                             <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Where you will be</h3>
-                            {/* <Map searchResults={SearchResults} hoverLocation={selectedLocation} /> */}
+                            <div className="flex item-center justify-center p-4">
+                                {
+                                    SearchResults?.coordinates?.Longitude
+                                        ?
+                                        (
+                                            <ReactMapGL
+                                                className='border rounded-xl'
+                                                mapStyle="mapbox://styles/mapbox/streets-v11"
+                                                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
+                                                {...viewport}
+                                                onViewportChange={(nextViewport) => setViewport(nextViewport)
+                                                }
+                                            >
+                                                <Marker latitude={SearchResults.coordinates.Latitude} longitude={SearchResults.coordinates.Longitude} >
+                                                    <LocationMarkerIcon className="h-6 text-red-500 animate-bounce z-20" />
+                                                </Marker>
+                                            </ReactMapGL>
+                                        )
+                                        :
+                                        <></>
+                                }
+
+                            </div>
 
                         </div>
+
                         <br />
                         <br />
                         <hr
@@ -216,11 +317,11 @@ function RoomDetail() {
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ float: "right", marginRight: "15%" }} onClick={() => setshowreviews(!showreviews)}>
                                         {showreviews ?
                                             <div>
-                                                Collapse Reviews
+                                                Collapse Review
                                             </div>
                                             :
                                             <div>
-                                                Add Reviews
+                                                Add Review
                                             </div>
                                         }
                                     </button>
@@ -229,18 +330,30 @@ function RoomDetail() {
                             </div>
                             {showreviews ?
                                 <div className='mt-7' style={{ fontSize: "150%" }}>
+
+                                    <Rating
+                                        name="simple-controlled"
+                                        value={rating}
+                                        onChange={(event, newValue) => {
+                                            setRating(newValue);
+                                        }}
+                                    />
+                                    {rating}
+
                                     <div className="bg-grey-lightest font-sans">
                                         <div className="row sm:flex">
                                             <div className="col sm:w-1/2" style={{ width: "90%" }}>
                                                 <div className="box border rounded flex flex-col shadow bg-white">
                                                     <div className="box__title px-3 py-2 border-b" style={{ backgroundColor: "whitesmoke" }}><h3 class="text-2xl text-grey-darker font-medium">Add Review</h3></div>
-                                                    <textarea placeholder="Enter your Review" rows="4" class="text-grey-darkest flex-1 p-2 m-1 bg-transparent" name="tt" style={{ outline: "none", fontSize: "70%" }}></textarea>
+                                                    <textarea placeholder="Enter your Review" rows="4" class="text-grey-darkest flex-1 p-2 m-1 bg-transparent" name="tt" style={{ outline: "none", fontSize: "70%" }}
+                                                        onChange={handlereviewChange} value={review}></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div className="mt-7">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ fontSize: "75%" }}>
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ fontSize: "75%" }} onClick={onReviewSubmit}>
                                             Submit
                                         </button>
                                     </div>
@@ -248,24 +361,26 @@ function RoomDetail() {
                                 : null
                             }
                             <div class="grid grid-cols-2 gap-4">
-                                {roomdetailReviews?.map(item => (
-                                    <Reviews
-                                        name={item.name}
-                                        date={item.date}
-                                        desc={item.desc}
-                                    />
-                                ))}
+                                {
+                                    SearchResults?.reviews?.map(item => (
+                                        <Reviews
+                                            name={item.user.name}
+                                            date={new Date(item.reviewDate).toLocaleDateString("en-US", options)}
+                                            desc={item.review}
+                                            rat={item.rating}
+                                        />
+                                    ))}
 
                             </div>
                         </div>
                         <br />
                         <br />
 
-                    </div>
-                </div>
+                    </div >
+                </div >
             }
             <Footer />
-        </div>
+        </div >
     )
 }
 

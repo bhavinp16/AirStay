@@ -75,6 +75,7 @@ const RoomSchema = mongoose.Schema({
             },
             review: String,
             reviewDate: Date,
+            rating: Number
         }
     }],
     rating: {

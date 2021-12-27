@@ -42,7 +42,7 @@ function Map({ searchResults, hoverLocation }) {
                 searchResults.length > 0
                     ?
                     (
-                        <ReactMapGL ReactMapGL
+                        <ReactMapGL
                             mapStyle="mapbox://styles/mapbox/streets-v11"
                             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
                             {...viewport}

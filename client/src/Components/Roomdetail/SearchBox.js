@@ -143,10 +143,10 @@ class SearchBox extends React.Component {
         };
 
         try {
-            var c =0;
-            if (formdata.billingDetails.price === 0 || 
-                (formdata.billingDetails.adult === 0 && formdata.billingDetails.children === 0) || 
-                formdata.billingDetails.date === "null null" || 
+            var c = 0;
+            if (formdata.billingDetails.price === 0 ||
+                (formdata.billingDetails.adult === 0 && formdata.billingDetails.children === 0) ||
+                formdata.billingDetails.date === "null null" ||
                 formdata.billingDetails.duration === 0) {
                 // SearchToast("Empty Field Present", 'error')
                 console.log("empty")
@@ -155,18 +155,18 @@ class SearchBox extends React.Component {
                 console.log(c)
                 // addToast("Empty Field Present", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
             }
-            if(formdata.billingDetails.adult > this.state.capacityadults){
+            if (formdata.billingDetails.adult > this.state.capacityadults) {
                 alert(`Adults Capacity execeeded, Max Adult Capacity: ${this.state.capacityadults}`)
                 c = c + 1
                 console.log(c)
             }
-            if(formdata.billingDetails.children > this.state.capacitychildren){
+            if (formdata.billingDetails.children > this.state.capacitychildren) {
                 alert(`Children Capacity execeeded, Max Children Capacity: ${this.state.capacitychildren}`)
                 c = c + 1
                 console.log(c)
             }
-            if(c===0){
-                console.log(c,formdata.billingDetails.children,formdata.billingDetails.adult, this.state.capacityadults,this.state.capacitychildren)
+            if (c === 0) {
+                console.log(c, formdata.billingDetails.children, formdata.billingDetails.adult, this.state.capacityadults, this.state.capacitychildren)
                 const res = await axios.post(`http://localhost:3000/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
                 if (res.status === 200) {
                     alert("Booking Successful");
@@ -370,7 +370,7 @@ class SearchBox extends React.Component {
                         >{dropdownComponent}</div>
                         <div style={{ paddingBottom: "6%", }}></div>
                         <input
-                            className="search-box-submit-btn"
+                            className="search-box-submit-btn bg-blue-500 hover:bg-blue-700"
                             type="submit"
                             value="Book Now" />
                     </form>
