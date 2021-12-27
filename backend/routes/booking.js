@@ -44,7 +44,7 @@ router.post('/:id', auth, async (req, res) => {
         await booking.save();
 
         // add the bookingid to user's bookings array
-        await User.findByIdAndUpdate(userId, { $push: { bookings: booking.id } });
+        await User.findByIdAndUpdate(userId, { $push: { bookingIds: booking.id } });
 
         // updated rooms availableDates
         await Room.findByIdAndUpdate(roomId, { $pullAll: { availableDates: billingDetails.dates } });
@@ -66,10 +66,16 @@ router.post('/:id', auth, async (req, res) => {
 // @desc    Get all bookings by a user
 // @access  Private
 router.get('/', auth, async (req, res) => {
-    const user = req.user;
-    const bookingsIds = user.bookingIds;
     try {
-        const bookings = await Booking.find({ id: { $in: bookingsIds } });
+        const user = await User.findById(req.user.id);
+        const bookingsIds = user.bookingIds;
+
+        if (bookingsIds.length === 0) {
+            return res.json([]);
+        }
+
+        const bookings = await Booking.find({ _id: { $in: bookingsIds } });
+
         res.json(bookings);
 
     } catch (err) {

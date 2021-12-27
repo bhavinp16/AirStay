@@ -16,6 +16,10 @@ const router = express.Router();
 // @access  Private
 router.get('/city/:city', auth, async (req, res) => {
     try {
+        if(req.params.city === 'all') {
+            const rooms = await Room.find({});
+            return res.json(rooms);
+        }
         const rooms = await Room.find({ city: req.params.city });
         res.json(rooms);
     } catch (err) {

@@ -70,7 +70,7 @@ function Search() {
                     overflow: "scroll",
                 }}>
                     <p className="text-xs">
-                        300+ Stays - {range} - for {numberOfGuests} guest{numberOfGuests > 1 ? 's' : ''}
+                        {SearchResults?.length}+ Stays - {range} - for {numberOfGuests} guest{numberOfGuests > 1 ? 's' : ''}
                     </p>
 
                     <h1 className="text-3xl font-semibold mt-2 mb-6">Stays in {location}</h1>

@@ -6,6 +6,7 @@ import '../styles/titlestyle.css';
 import axios from 'axios';
 import { useToasts } from 'react-toast-notifications';
 import NProgress from 'nprogress';
+import { Navigate } from 'react-router-dom';
 
 const mystyle = {
 	// background: " linear-gradient(315deg, #2d3436 0%, #000000 74%)",
@@ -140,11 +141,10 @@ function HostRoom() {
 				endDate: moment(new Date()).add(1, 'days').format("YYYY-MM-DD"),
 			});
 
-			window.scrollTo({
-				top: 0,
-				behavior: 'smooth'
-			});
 			NProgress.done()
+
+			// navigate to home page
+			Navigate(`/search/${formDetails.city}`);
 
 		} catch (err) {
 			console.log(err);

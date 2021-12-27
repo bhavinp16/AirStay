@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import HeaderDark from '../Components/HeaderDark'
 import BookingCard from '../Components/BookingCard'
 import NProgress from 'nprogress';
@@ -35,17 +35,30 @@ function MyBooking() {
             <div className="flex flex-row justify-center align-center" style={{ "height": "660px" }}>
                 <p className="flex flex-col justify-start mt-10 items-center text-3xl font-serif px-8 py-7"> My Bookings </p>
                 <div className="flex flex-col m-2  overflow-scroll scrollbar-hide">
-                    {SearchResults.map(({ _id, roomId, billingDetails }) => (
-                        <BookingCard
-                            bookingId={_id}
-                            roomId={roomId}
-                            billingDetails={billingDetails}
-                        />
+                    {
+                        SearchResults.length > 0
+                            ?
+                            (   
+                                <>
+                                {
+                                    SearchResults.map(({ _id, roomId, billingDetails }) => (
+                                        <BookingCard
+                                            bookingId={_id}
+                                            roomId={roomId}
+                                            billingDetails={billingDetails}
+                                        />
 
-                    ))}
-                </div>
+                                    ))
+                                }
+                                </>
+                )
+                :
+                <p className='text-2xl font-semibold mt-2 mb-6'>No Bookings Found</p>
+                }
+
             </div>
         </div>
+        </div >
     )
 }
 
