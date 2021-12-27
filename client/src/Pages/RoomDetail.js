@@ -16,8 +16,10 @@ import Rating from '@mui/material/Rating';
 import { useToasts } from 'react-toast-notifications'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { LocationMarkerIcon } from '@heroicons/react/outline'
+import Moment from 'moment';
 
 function RoomDetail() {
+    Moment.locale('en');
     const { addToast } = useToasts()
 
     const [scrolled, setScrolled] = useState(false)
@@ -241,7 +243,7 @@ function RoomDetail() {
                                 <div className="block text-2xl font-semibold">
                                     Hosted by {HostResults?.name}
                                 </div>
-                                <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {HostResults?.date}</p>
+                                <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined on {Moment(HostResults?.date).format('MMM d, YYYY')}</p>
                                 {HostResults?.email} <br />
                                 {HostResults?.phone} <br />
                                 <p className="md:text-lg text-gray-900 text-base">{SearchResults.description}</p>
