@@ -10,15 +10,17 @@ homes all over the world that are cheaper and homier than hotels.
 
 Fork the repository
 1. Install the backend dependencies using commands
-    - `cd backend`
-    - `yarn add`
+    ```
+    cd backend
+    yarn add
 2. Go back to the parent directory
 3. Install the frontend dependencies using commands
-    - `cd client`
-    - `yarn add`
+    ```
+    cd client
+    yarn add
 4. Start the application using `yarn start`
 
-Backend Dependencies:
+### Backend Dependencies:
 ```
 "dependencies": {
     "bcrypt": "^5.0.1",
@@ -32,7 +34,7 @@ Backend Dependencies:
     "nodemon": "^2.0.15"
 }   
 ```
-Frontend Dependencies:
+### Frontend Dependencies:
 ```
 "dependencies": {
     "@craco/craco": "^6.4.1",
@@ -63,6 +65,26 @@ Frontend Dependencies:
     "tailwind-scrollbar-hide": "^1.1.5"
  }
 ```
+### Screenshots:
+#### Sign Up
+![signup](https://user-images.githubusercontent.com/77017010/147478733-c8c99d37-28ac-45c6-bf54-cdf51cac2bf1.png)
+
+#### Home page
+![home page](https://user-images.githubusercontent.com/77017010/147478584-5a132636-3097-43a8-8342-d70df4e936ef.png)
+![home page scroll down](https://user-images.githubusercontent.com/77017010/147478628-70bcab4a-271f-42e3-a863-a291c00a7a4d.png)
+
+#### Search room
+![search](https://user-images.githubusercontent.com/77017010/147478779-ad96bc60-9fdc-448e-a300-30f15e529694.png)
+
+#### Wishlist
+![wishlist](https://user-images.githubusercontent.com/77017010/147478809-a573f2a9-0697-41e2-bd64-f32d4881618e.png)
+
+#### Host Room
+![hostroom](https://user-images.githubusercontent.com/77017010/147478942-e18d7318-df06-4e44-a9fc-48f919c850d6.png)
+
+
+
+
 ### Contibutors:
 - Bhavin Patel (1911100)
 - Piyush Sharma (1911104)
