@@ -82,7 +82,11 @@ Fork the repository
 #### Host Room
 ![hostroom](https://user-images.githubusercontent.com/77017010/147478942-e18d7318-df06-4e44-a9fc-48f919c850d6.png)
 
-
+#### Room Detail
+![roomdetail1](https://user-images.githubusercontent.com/68952732/147486483-991ba6c1-83b3-442d-9986-2fd9e299b5cf.jpg)
+![roomdetail2](https://user-images.githubusercontent.com/68952732/147486511-e72fdbe3-e00c-4069-83ee-e75791078f9e.jpg)
+![roomdetail3](https://user-images.githubusercontent.com/68952732/147486526-1e51138f-cdc5-444f-b58d-d44963b522fe.jpg)
+![roomdetail4](https://user-images.githubusercontent.com/68952732/147486539-383ccf2d-7326-4795-bb2c-fe531e65aabd.jpg)
 
 
 ### Contibutors:
