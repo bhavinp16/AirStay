@@ -76,4 +76,16 @@ router.post(
     }
 );
 
+// router.get('/host/:id', auth, async (req, res) => {
+//     try {
+//         console.log("req ")
+//         const user = await User.findById(req.params.id).select('-password');
+//         res.json(user);
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server Error!!');
+//     }
+// });
+
+
 module.exports = router;

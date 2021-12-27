@@ -30,8 +30,8 @@ class SearchBox extends React.Component {
             price: 0,
             dateprice: 0,
             roomid: this.props.roomid,
-            capacityadults: this.props.capacity.adults,
-            capacityadults: this.props.capacity.children,
+            capacityadults: this.props.capacityAdults,
+            capacitychildren: this.props.capacitychildren,
 
         };
 
@@ -143,15 +143,34 @@ class SearchBox extends React.Component {
         };
 
         try {
-            if (formdata.price === 0 || (formdata.adult === 0 && formdata.children === 0) || formdata.date === "null null" || formdata.duration === 0) {
+            var c =0;
+            if (formdata.billingDetails.price === 0 || 
+                (formdata.billingDetails.adult === 0 && formdata.billingDetails.children === 0) || 
+                formdata.billingDetails.date === "null null" || 
+                formdata.billingDetails.duration === 0) {
                 // SearchToast("Empty Field Present", 'error')
                 console.log("empty")
                 alert("Empty Field Found")
+                c = c + 1
+                console.log(c)
                 // addToast("Empty Field Present", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
             }
-            const res = await axios.post(`http://localhost:3000/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
-            if (res.status === 200) {
-                alert("Booking Successful");
+            if(formdata.billingDetails.adult > this.state.capacityadults){
+                alert(`Adults Capacity execeeded, Max Adult Capacity: ${this.state.capacityadults}`)
+                c = c + 1
+                console.log(c)
+            }
+            if(formdata.billingDetails.children > this.state.capacitychildren){
+                alert(`Children Capacity execeeded, Max Children Capacity: ${this.state.capacitychildren}`)
+                c = c + 1
+                console.log(c)
+            }
+            if(c===0){
+                console.log(c,formdata.billingDetails.children,formdata.billingDetails.adult, this.state.capacityadults,this.state.capacitychildren)
+                const res = await axios.post(`http://localhost:3000/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
+                if (res.status === 200) {
+                    alert("Booking Successful");
+                }
             }
             // localStorage.setItem('token', res.data.token);
             NProgress.done();

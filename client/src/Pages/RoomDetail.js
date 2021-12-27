@@ -18,9 +18,10 @@ import Map from '../Components/Map';
 function RoomDetail() {
 
     const [scrolled, setScrolled] = useState(false)
-    const [showpopup, setshowpopup] = useState(false)
+    const [showreviews, setshowreviews] = useState(false)
     const locationobj = useLocation();
     const [selectedLocation, setselectedLocation] = useState();
+    const [HostResults, setHostResults] = useState(null);
     const [SearchResults, setSearchResults] = useState([]);
     const [AmenitiesResults, setAmenitiesResults] = useState();
     const [HouseRulesResults, setHouseRulesResults] = useState();
@@ -55,6 +56,10 @@ function RoomDetail() {
 
                 setAmenitiesResults(RroomDetails.data.amenties.split(','))
                 setHouseRulesResults(RroomDetails.data.houseRules.split(','))
+
+                const HhostDetails = await axios.get(`http://localhost:3000/api/auth/host/${RroomDetails.data.hostId}`, config);
+                setHostResults(HhostDetails.data);
+                console.log(HhostDetails.data);
                 // setselectedLocation({
                 //     coordinates: {
                 //         Longitude: RroomDetails.data.coordinates.Longitude,
@@ -95,16 +100,27 @@ function RoomDetail() {
                             </div>
                             <br />
                             <div >
-                                <Roombanner img={SearchResults.images} />
+                                {
+                                    SearchResults?.images?.length > 0 ?
+                                        <Roombanner img={SearchResults.images} />
+                                        :
+                                        <></>
+                                }
                             </div>
                         </div>
                         <div>
-                            <div className="block mt-7 text-2xl text-gray-900 font-semibold">
-                                Entire villa hosted by {roomdetailDesc.owner}
-                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div className="block mt-7 text-2xl text-gray-900 font-semibold">
+                                    Entire villa hosted by {HostResults?.name}
+                                </div>
+                                <div>
+                                    <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize: "150%", fontWeight: "700", float: "right", paddingRight: "10%" }}>Rs 600/Day</h3>
 
+                                </div>
+                            </div>
+                            <div style={{ clear: "both" }}></div>
                             <div className="block mt-0 text-lg text-gray-600 ">
-                                {roomdetailDesc.guests} guests · {roomdetailDesc.rooms}
+                                {SearchResults.capacity?.adult} Adults · {SearchResults.capacity?.children} Children
                             </div>
                         </div>
                         <br />
@@ -115,26 +131,25 @@ function RoomDetail() {
                                 height: 3
                             }}
                         />
-                        <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">What this place offers</h3>
                         <div class="grid grid-cols-2 gap-4">
-                            <div className="mt-4" style={{ paddingLeft:"10%" }}>
-                                <h4 className="font-black text-gray-800 md:text-3xl mt-7" style={{ fontSize:"150%", fontWeight:"700" }}>Amenities</h4>
+                            <div className="mt-4" style={{ paddingLeft: "10%" }}>
+                                <h4 className="font-black text-gray-800 md:text-3xl mt-7" style={{ fontSize: "150%", fontWeight: "700" }}>What this place offers</h4>
                                 {AmenitiesResults?.map(item => (
                                     <div className="flex flex-col justify-center">
                                         <p className="p-3 pl-5 md:text-lg text-black-500 text-base">{item}</p>
                                     </div>
                                 ))}
                             </div>
-                            <div className="mt-4" style={{ paddingLeft:"10%"}}>
-                                <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize:"150%", fontWeight:"700" }}>House Rules</h3>
+                            <div className="mt-4" style={{ paddingLeft: "10%" }}>
+                                <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7" style={{ fontSize: "150%", fontWeight: "700" }}>House Rules</h3>
 
-                               
-                                    {HouseRulesResults?.map(item => (
-                                        <div className="flex flex-col justify-center">
-                                            <p className="p-3 pl-5 md:text-lg text-blacks-500 text-base">{item}</p>
-                                        </div>
-                                    ))}
-                                
+
+                                {HouseRulesResults?.map(item => (
+                                    <div className="flex flex-col justify-center">
+                                        <p className="p-3 pl-5 md:text-lg text-blacks-500 text-base">{item}</p>
+                                    </div>
+                                ))}
+
                             </div>
                         </div>
                         <br />
@@ -147,7 +162,7 @@ function RoomDetail() {
                         />
                         <br />
                         <div class="grid grid-cols-2 gap-4">
-                            <div style={{ padding: "4%", paddingLeft: "2%" }}>
+                            <div style={{ padding: "4%", paddingLeft: "2%", paddingTop: "10%" }}>
                                 <div className="block text-2xl font-semibold">
                                     Hosted by {roomdetailDesc.owner}
                                 </div>
@@ -156,7 +171,17 @@ function RoomDetail() {
 
                             </div>
                             <div className="mt-7">
-                                <SearchBox basePrice={100} adultPrice={200} childPrice={300} id={SearchResults._id} capacity={SearchResults.capacity} />
+                                {
+                                    SearchResults.price ?
+
+                                        <SearchBox adultPrice={SearchResults.price?.adult}
+                                            childPrice={SearchResults.price?.children}
+                                            id={SearchResults._id}
+                                            capacityAdults={SearchResults.capacity?.adult}
+                                            capacitychildren={SearchResults.capacity?.children} />
+                                        :
+                                        <div></div>
+                                }
                             </div>
                         </div>
                         <hr
@@ -166,11 +191,13 @@ function RoomDetail() {
                                 height: 3
                             }}
                         />
+                        <br />
                         <div>
                             <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Where you will be</h3>
                             {/* <Map searchResults={SearchResults} hoverLocation={selectedLocation} /> */}
 
                         </div>
+                        <br />
                         <br />
                         <hr
                             style={{
@@ -181,7 +208,45 @@ function RoomDetail() {
                         />
 
                         <div>
-                            <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Reviews</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <h3 className="font-black text-gray-800 md:text-3xl text-xl mt-7">Reviews</h3>
+                                </div>
+                                <div className="mt-7">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ float: "right", marginRight: "15%" }} onClick={() => setshowreviews(!showreviews)}>
+                                        {showreviews ?
+                                            <div>
+                                                Collapse Reviews
+                                            </div>
+                                            :
+                                            <div>
+                                                Add Reviews
+                                            </div>
+                                        }
+                                    </button>
+                                </div>
+
+                            </div>
+                            {showreviews ?
+                                <div className='mt-7' style={{ fontSize: "150%" }}>
+                                    <div className="bg-grey-lightest font-sans">
+                                        <div className="row sm:flex">
+                                            <div className="col sm:w-1/2" style={{ width: "90%" }}>
+                                                <div className="box border rounded flex flex-col shadow bg-white">
+                                                    <div className="box__title px-3 py-2 border-b" style={{ backgroundColor: "whitesmoke" }}><h3 class="text-2xl text-grey-darker font-medium">Add Review</h3></div>
+                                                    <textarea placeholder="Enter your Review" rows="4" class="text-grey-darkest flex-1 p-2 m-1 bg-transparent" name="tt" style={{ outline: "none", fontSize: "70%" }}></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mt-7">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ fontSize: "75%" }}>
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                                : null
+                            }
                             <div class="grid grid-cols-2 gap-4">
                                 {roomdetailReviews?.map(item => (
                                     <Reviews
@@ -195,7 +260,7 @@ function RoomDetail() {
                         </div>
                         <br />
                         <br />
-                        
+
                     </div>
                 </div>
             }
