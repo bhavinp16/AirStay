@@ -22,3 +22,16 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
+
+body::-webkit-scrollbar {
+	width: 8px;
+}
+body::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+body::-webkit-scrollbar-thumb {
+	background-color: rgb(70, 67, 67);
+	/* outline: 1px solid slategrey; */
+
+}

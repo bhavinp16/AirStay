@@ -44,7 +44,7 @@ function MyWishlist() {
                                     <InfoCard
                                         key={_id}
                                         roomId={_id}
-                                        img={"/images/results/14.jpg"}
+                                        img={images[0]}
                                         location={address}
                                         title={title}
                                         description={description}
