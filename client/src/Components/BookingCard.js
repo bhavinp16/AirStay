@@ -23,7 +23,7 @@ function BookingCard({ bookingId, roomId, billingDetails }) {
                                 if (win != null) {
                                     win.focus();
                                 }
-                            }} className="text-blue-700 drop-shadow-md leading-none">See Details</p>
+                            } } className="text-blue-700 drop-shadow-md leading-none" style={{cursor:'pointer'}}>See Details</p>
                         </div>
                     </div>
                 </div>

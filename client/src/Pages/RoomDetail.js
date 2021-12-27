@@ -16,8 +16,10 @@ import Rating from '@mui/material/Rating';
 import { useToasts } from 'react-toast-notifications'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { LocationMarkerIcon } from '@heroicons/react/outline'
+import Moment from 'moment';
 
 function RoomDetail() {
+    Moment.locale('en');
     const { addToast } = useToasts()
 
     const [scrolled, setScrolled] = useState(false)
@@ -268,9 +270,9 @@ function RoomDetail() {
                         <br />
                         <div class="grid grid-cols-2 gap-4">
                             <div style={{ padding: "4%", paddingLeft: "2%", paddingTop: "10%" }}>
-                                <div style={{ float: "left",marginRight:"2%",marginTop:"1%" }}>
-                                    <div style={{ height: "50px", width: "50px", borderRadius: "50%", backgroundColor: "black",color:"white", padding: "20px", paddingLeft: "17px",paddingTop:"5px", fontSize: "160%" }}>
-                                    {HostResults?.name[0].toUpperCase()}
+                                <div style={{ float: "left", marginRight: "2%", marginTop: "1%" }}>
+                                    <div style={{ height: "50px", width: "50px", borderRadius: "50%", backgroundColor: "black", color: "white", padding: "20px", paddingLeft: "17px", paddingTop: "5px", fontSize: "160%" }}>
+                                        {HostResults?.name[0].toUpperCase()}
                                     </div>
 
                                 </div>
@@ -278,7 +280,7 @@ function RoomDetail() {
                                     <div className="block text-2xl font-semibold">
                                         Hosted by {HostResults?.name}
                                     </div>
-                                    <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {HostResults?.date.slice(0,10)}</p>
+                                    <p className="md:text-lg text-gray-500 text-base" style={{ paddingBottom: "3%" }}>Joined in {Moment(HostResults?.date).format('MMM d, YYYY')}</p>
 
                                 </div>
                                 <MailIcon className="h-5 text-black-400" style={{ float: "left", marginTop: "1%", marginRight: "0.5%" }} />
@@ -286,7 +288,6 @@ function RoomDetail() {
                                 <br />
                                 <PhoneIcon className="h-5 text-black-400" style={{ float: "left", marginTop: "1%", marginRight: "0.5%" }} />
                                 <p className="md:text-lg text-blacks-500 text-base">{HostResults?.phone}</p>
-                                <br />
                                 <br />
                                 <p className="md:text-lg text-gray-900 text-base">{SearchResults.description}</p>
 
