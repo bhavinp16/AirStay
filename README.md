@@ -18,7 +18,21 @@ Fork the repository
     ```
     cd client
     yarn add
-4. Start the application using `yarn start`
+4. Start the application using `yarn start` in the client directory it will simulteneously start the frontend and the backend.
+
+
+### Environment variables you need to setup
+    - In client directory create .env file and add your mapboxgl public access token 
+            REACT_APP_MAPBOX_KEY = 
+    - In backend directory inside the config folder create a file called "default.json" and the fomat of content inside is as follows-
+            {
+                "mongoURI": "",
+                "jwtSecret": "",
+                "CLOUDINARY_CLOUD_NAME": "",
+                "CLOUDINARY_API_KEY": "",
+                "CLOUDINARY_API_SECRET": ""
+            }
+    - Generate your cloudinary keys from cloudinary website, and mongoURI by hosting a cluster on mongodb atlas.
 
 ### Backend Dependencies:
 ```
