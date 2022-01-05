@@ -31,8 +31,8 @@
 		"tailwind-scrollbar-hide": "^1.1.5"
 	},
 	"scripts": {
-		"start": "concurrently -n 'client,server' -c 'blue,green' \"craco start\" \"cd ../ && nodemon server\" ",
-		"dev": "craco start",
+		"start": "craco start",
+		"dev": "concurrently -n 'client,server' -c 'blue,green' \"craco start\" \"cd ../ && nodemon server\" ",
 		"build": "craco build",
 		"test": "craco test",
 		"eject": "react-scripts eject"
