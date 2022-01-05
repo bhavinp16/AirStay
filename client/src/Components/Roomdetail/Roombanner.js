@@ -16,7 +16,7 @@ function Roombanner({ img }) {
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div className="rounded-lg transform transition duration-500 hover:scale-110">
-                    <img src={img[0]} alt="#"
+                    <img src={img[1]} alt="#"
                         className="img-fluid shadow-inner"
                         style={{
                             width: '100%',
@@ -24,7 +24,7 @@ function Roombanner({ img }) {
                         }} />
                 </div>
                 <div className="rounded-lg transform transition duration-500 hover:scale-110">
-                    <img src={img[0]} alt="#"
+                    <img src={img[2]} alt="#"
                         className="img-fluid shadow-inner"
                         style={{
                             width: '100%',
@@ -33,7 +33,7 @@ function Roombanner({ img }) {
                         }} />
                 </div>
                 <div className="rounded-lg transform transition duration-500 hover:scale-110">
-                    <img src={img[0]} alt="#"
+                    <img src={img[3]} alt="#"
                         className="img-fluid shadow-inner"
                         style={{
                             width: '100%',
@@ -41,7 +41,7 @@ function Roombanner({ img }) {
                         }} />
                 </div>
                 <div className="rounded-lg transform transition duration-500 hover:scale-110">
-                    <img src={img[0]} alt="#"
+                    <img src={img[4]} alt="#"
                         className="img-fluid shadow-inner"
                         style={{
                             width: '100%',

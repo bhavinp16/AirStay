@@ -20,7 +20,7 @@ function HostRoom() {
 
 	const initialState = {
 		title: '',
-		roomType: '',
+		roomType: 'Single',
 		description: '',
 		capacity: {
 			adult: 1,
@@ -318,7 +318,7 @@ function HostRoom() {
 										<label className="block tracking-wide text-white text-s font-bold mb-2" htmlFor="grid-houserules">
 											House Rules
 										</label>
-										<textarea className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-houserules" type="text" placeholder="Provide basic house rules"
+										<textarea className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-houserules" type="text" placeholder="Provide basic house rules, Enter Comma separated values"
 											name='houseRules' onChange={handleChange} value={formDetails.houseRules}
 										/>
 									</div>
@@ -328,7 +328,7 @@ function HostRoom() {
 										<label className="block tracking-wide text-white text-s font-bold mb-2" htmlFor="grid-amenties">
 											Amenties
 										</label>
-										<textarea className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-amenties" type="text" placeholder="Provide list of Amenties you are offering"
+										<textarea className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-amenties" type="text" placeholder="Provide list of Amenties you are offering, Enter Comma separated values"
 											name='amenties' onChange={handleChange} value={formDetails.amenties}
 										/>
 									</div>

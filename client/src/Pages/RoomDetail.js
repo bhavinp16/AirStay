@@ -5,16 +5,15 @@ import SearchBox from '../Components/Roomdetail/SearchBox'
 import '../styles/SearchBox.css'
 import '../styles/RoomDetail.css'
 import Roombanner from '../Components/Roomdetail/Roombanner'
-import { StarIcon, PhoneIcon, MailIcon, XIcon } from "@heroicons/react/solid";
+import { StarIcon, PhoneIcon, MailIcon } from "@heroicons/react/solid";
 import Reviews from '../Components/Roomdetail/Reviews'
-import Features from '../Components/Roomdetail/Features'
 import NProgress from 'nprogress';
 import axios from 'axios';
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Footer from '../Components/Footer'
 import Rating from '@mui/material/Rating';
 import { useToasts } from 'react-toast-notifications'
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker } from 'react-map-gl';
 import { LocationMarkerIcon } from '@heroicons/react/outline'
 import Moment from 'moment';
 
@@ -24,7 +23,6 @@ function RoomDetail() {
 
     const [scrolled, setScrolled] = useState(false)
     const [showreviews, setshowreviews] = useState(false)
-    const locationobj = useLocation();
     const [HostResults, setHostResults] = useState(null);
     const [SearchResults, setSearchResults] = useState([]);
     const [AmenitiesResults, setAmenitiesResults] = useState();

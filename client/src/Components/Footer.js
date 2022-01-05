@@ -32,6 +32,8 @@ function Footer() {
                 <p>Cancellation options</p>
                 <p>Neighborhood Support</p>
                 <p>Trust & Safety</p>
+                <br />
+                <a href="https://form-easy.herokuapp.com/form/61ca96df7312a97e6e8b69d8">Submit your Greivances </a>
             </div>
         </div>
     )

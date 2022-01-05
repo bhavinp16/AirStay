@@ -13,8 +13,6 @@ function InfoCard({ roomId, img, location, title, description, star, price, tota
     const context = useContext(usercontext)
     const { user, setuser } = context;
 
-    console.log(user.wishlistRoomIds);
-
     const reqobj = {
         roomId: roomId,
     }

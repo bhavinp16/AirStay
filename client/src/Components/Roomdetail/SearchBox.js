@@ -3,7 +3,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import NProgress from 'nprogress';
-import SearchToast from './SearchToast';
+// import SearchToast from './SearchToast';
 import axios from 'axios';
 import moment from 'moment';
 

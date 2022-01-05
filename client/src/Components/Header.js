@@ -94,7 +94,7 @@ function Header({ placeholder }) {
       {/* Right */}
       <div className="flex items-center space-x-4 justify-end text-gray-700 " style={{ marginRight: "30px" }}>
         <Link to="/hostRoom" className="hidden md:inline cursor-pointer hover:text-gray-300">Become a host</Link>
-        <GlobeAltIcon className="h-6 hover:text-gray-300" />
+        <Link to="/home"><GlobeAltIcon className="h-6 hover:text-white" /></Link>
         <Dropdown />
       </div>
 

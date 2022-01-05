@@ -11,10 +11,8 @@ homes all over the world that are cheaper and homier than hotels.
 Fork the repository
 1. Install the backend dependencies using commands
     ```
-    cd backend
     yarn add
-2. Go back to the parent directory
-3. Install the frontend dependencies using commands
+2. Install the frontend dependencies using commands
     ```
     cd client
     yarn add
@@ -24,7 +22,7 @@ Fork the repository
 ### Environment variables you need to setup
     - In client directory create .env file and add your mapboxgl public access token 
             REACT_APP_MAPBOX_KEY = 
-    - In backend directory inside the config folder create a file called "default.json" and the fomat of content inside is as follows-
+    - In main directory inside the config folder create a file called "default.json" and the fomat of content inside is as follows-
             {
                 "mongoURI": "",
                 "jwtSecret": "",
@@ -103,7 +101,7 @@ Fork the repository
 ![roomdetail4](https://user-images.githubusercontent.com/68952732/147486539-383ccf2d-7326-4795-bb2c-fe531e65aabd.jpg)
 
 
-### Contibutors:
+### Contributors:
 - Bhavin Patel (1911100)
 - Piyush Sharma (1911104)
 - R. Vishal (1911107)
