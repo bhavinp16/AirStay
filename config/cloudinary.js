@@ -1,10 +1,9 @@
 const cloudinary = require('cloudinary');
-const config = require('config');
 
 cloudinary.config({
-    cloud_name: config.get('CLOUDINARY_CLOUD_NAME'),
-    api_key: config.get('CLOUDINARY_API_KEY'),
-    api_secret: config.get('CLOUDINARY_API_SECRET'),
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // exporting the uploads method

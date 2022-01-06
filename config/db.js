@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 
-// config a module we included by yarn which gives access to json inside default.json
-const config = require('config');
-const db = config.get('mongoURI');
-
 // As mongoose returns promises
 const connectDB = () => {
     mongoose
-        .connect(db, {
+        .connect(process.env.mongoURI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
