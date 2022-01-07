@@ -68,7 +68,7 @@ function Header({ placeholder }) {
       {/* Left */}
       <button onClick={() => navigate({ pathname: "/", replace: true })} className='relative flex items-center h-10  cursor-pointer my-auto'>
         <img
-          src={'/Logo1.png'}
+          src={'/logo1.png'}
           layout="fill"
           alt="#"
           style={{ height: "40px", width: "100px", marginLeft: "30px" }}
