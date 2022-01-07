@@ -18,7 +18,7 @@ function MyWishlist() {
                 }
             };
             try {
-                const ssearchResults = await axios.get(`http://localhost:3000/api/room/wishlist`, config);
+                const ssearchResults = await axios.get(`/api/room/wishlist`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
             } catch (err) {

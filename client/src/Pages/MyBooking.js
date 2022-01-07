@@ -18,7 +18,7 @@ function MyBooking() {
                 }
             };
             try {
-                const ssearchResults = await axios.get(`http://localhost:3000/api/booking`, config);
+                const ssearchResults = await axios.get(`/api/booking`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
             } catch (err) {

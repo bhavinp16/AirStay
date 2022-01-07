@@ -31,7 +31,7 @@ function InfoCard({ roomId, img, location, title, description, star, price, tota
                 }
 
                 // Remove room from users wishlist in mongodb
-                const res = await axios.put('http://localhost:3000/api/room/wishlist', JSON.stringify(reqobj), config)
+                const res = await axios.put('/api/room/wishlist', JSON.stringify(reqobj), config)
                 if (res.status === 200) {
                     // remove roomid from wishlistedId
                     setuser({
@@ -59,7 +59,7 @@ function InfoCard({ roomId, img, location, title, description, star, price, tota
                 }
 
                 // add room to users wishlist in mongodb
-                const res = await axios.post('http://localhost:3000/api/room/wishlist', JSON.stringify(reqobj), config)
+                const res = await axios.post('/api/room/wishlist', JSON.stringify(reqobj), config)
 
                 if (res.status === 200) {
                     setuser({

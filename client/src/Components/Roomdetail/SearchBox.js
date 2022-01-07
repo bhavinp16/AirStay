@@ -167,7 +167,7 @@ class SearchBox extends React.Component {
             }
             if (c === 0) {
                 console.log(c, formdata.billingDetails.children, formdata.billingDetails.adult, this.state.capacityadults, this.state.capacitychildren)
-                const res = await axios.post(`http://localhost:3000/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
+                const res = await axios.post(`/api/booking/${this.props.id}`, JSON.stringify(formdata), config);
                 if (res.status === 200) {
                     alert("Booking Successful");
                 }

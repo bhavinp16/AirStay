@@ -45,7 +45,7 @@ function Search() {
                 }
             };
             try {
-                const ssearchResults = await axios.get(`http://localhost:3000/api/room/city/${location.toLowerCase()}`, config);
+                const ssearchResults = await axios.get(`/api/room/city/${location.toLowerCase()}`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
             } catch (err) {

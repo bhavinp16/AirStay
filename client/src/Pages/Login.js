@@ -31,7 +31,7 @@ function Login() {
     const loadUser = async () => {
         setAuthToken(localStorage.token);
         try {
-            const res = await axios.get('http://localhost:3000/api/auth/');
+            const res = await axios.get('/api/auth/');
             addToast("Logged In Successfully", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
             localStorage.user = JSON.stringify(res.data);
             console.log("Logged In");
@@ -59,7 +59,7 @@ function Login() {
             }
         };
         try {
-            const res = await axios.post("http://localhost:3000/api/auth/", JSON.stringify(formdata), config);
+            const res = await axios.post("/api/auth/", JSON.stringify(formdata), config);
             localStorage.setItem('token', res.data.token);
             loadUser();
         } catch (err) {

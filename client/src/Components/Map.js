@@ -3,6 +3,11 @@ import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { getCenter } from 'geolib';
 import { LocationMarkerIcon } from '@heroicons/react/outline'
 
+import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
 function Map({ searchResults, hoverLocation }) {
     // for the pop-up marker, passing the object
     const [selectedLocation, setSelectedLocation] = useState({})

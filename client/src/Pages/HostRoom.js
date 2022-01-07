@@ -131,7 +131,7 @@ function HostRoom() {
 		};
 		try {
 			NProgress.start()
-			await axios.post('http://localhost:3000/api/room/', formData, config);
+			await axios.post('/api/room/', formData, config);
 
 			addToast("Room Added Successfully", { appearance: 'success', autoDismiss: true });
 

@@ -17,6 +17,12 @@ import ReactMapGL, { Marker } from 'react-map-gl';
 import { LocationMarkerIcon } from '@heroicons/react/outline'
 import Moment from 'moment';
 
+import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
+
 function RoomDetail() {
     Moment.locale('en');
     const { addToast } = useToasts()
@@ -107,7 +113,7 @@ function RoomDetail() {
                 }
             };
             try {
-                const RroomDetails = await axios.get(`http://localhost:3000/api/room/roomDetail/${id}`, config);
+                const RroomDetails = await axios.get(`/api/room/roomDetail/${id}`, config);
                 setSearchResults(RroomDetails.data);
                 setAmenitiesResults(RroomDetails.data.amenties.split(','))
                 setHouseRulesResults(RroomDetails.data.houseRules.split(','))
@@ -142,7 +148,7 @@ function RoomDetail() {
         };
 
         try {
-            const HhostDetails = await axios.get(`http://localhost:3000/api/auth/host/${hostid}`, config);
+            const HhostDetails = await axios.get(`/api/auth/host/${hostid}`, config);
             setHostResults(HhostDetails.data);
             NProgress.done()
         } catch (err) {

@@ -19,7 +19,7 @@ function CurratedList() {
                 }
             };
             try {
-                const ssearchResults = await axios.get(`http://localhost:3000/api/room/curratedlist`, config);
+                const ssearchResults = await axios.get(`/api/room/curratedlist`, config);
                 NProgress.done();
                 setSearchResults(ssearchResults.data);
             } catch (err) {

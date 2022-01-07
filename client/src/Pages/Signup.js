@@ -40,7 +40,7 @@ function Signup() {
 	const loadUser = async () => {
 		setAuthToken(localStorage.token);
 		try {
-			const res = await axios.get('http://localhost:3000/api/auth/');
+			const res = await axios.get('/api/auth/');
 			NProgress.done();
 			console.log("Signed In");
 			setuser(res.data);
@@ -68,11 +68,11 @@ function Signup() {
 		};
 
 		try {
-			const res = await axios.post("http://localhost:3000/api/users", JSON.stringify(formdata), config);
+			const res = await axios.post("/api/users", JSON.stringify(formdata), config);
 			if (res.status === 400) {
 				addToast("User Already Exists", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			} if (res.status === 500) {
-				addToast("Server Error", { appearance: 'error', autoDismiss: true,	autoDismissTimeout: 1500 });
+				addToast("Server Error", { appearance: 'error', autoDismiss: true, autoDismissTimeout: 1500 });
 			}
 			localStorage.setItem('token', res.data.token);
 			addToast("User Created", { appearance: 'success', autoDismiss: true, autoDismissTimeout: 1500 });
